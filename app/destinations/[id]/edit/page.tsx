@@ -42,12 +42,12 @@ export default async function EditPage({ params }: Props) {
 
         <div>
           <label className="block text-sm">Title</label>
-          <input name="title" defaultValue={dest.title} className="w-full border p-2 rounded" />
+          <input name="title" defaultValue={dest.title ?? ''} className="w-full border p-2 rounded" />
         </div>
 
         <div>
           <label className="block text-sm">Country</label>
-          <input name="country" defaultValue={dest.country} className="w-full border p-2 rounded" />
+          <input name="country" defaultValue={dest.country ?? ''} className="w-full border p-2 rounded" />
         </div>
 
         <div>
