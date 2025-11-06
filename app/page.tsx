@@ -60,42 +60,49 @@ export default async function HomePage() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {packages.map((pkg: Package) => (
-            <div
-              key={pkg.id}
-              className="rounded-2xl overflow-hidden shadow-sm border bg-white hover:shadow-md transition-all"
-            >
-              <div className="w-full h-48 bg-gray-100 overflow-hidden">
-                {pkg.image ? (
-                  <img
-                    src={pkg.image}
-                    alt={pkg.name}
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <div className="flex items-center justify-center h-full text-sm text-gray-400">
-                    No Image
-                  </div>
-                )}
-              </div>
-              <div className="p-5">
-                <h3 className="text-lg font-semibold text-gray-800">{pkg.name}</h3>
-                <p className="text-sm text-gray-600 mt-1">{pkg.location}</p>
-                <div className="mt-3 flex items-center justify-between">
-                  <div className="text-sky-700 font-semibold">₹{pkg.price.toFixed(2)}</div>
-                  <div className="text-xs text-gray-500">
-                    {pkg.days}D / {pkg.nights}N
-                  </div>
+          {packages.length > 0 ? (
+            packages.map((pkg: Package) => (
+              <div
+                key={pkg.id}
+                className="rounded-2xl overflow-hidden shadow-sm border bg-white hover:shadow-md transition-all"
+              >
+                <div className="w-full h-48 bg-gray-100 overflow-hidden">
+                  {pkg.image ? (
+                    <img
+                      src={pkg.image}
+                      alt={pkg.name}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="flex items-center justify-center h-full text-sm text-gray-400">
+                      No Image
+                    </div>
+                  )}
                 </div>
-                <Link
-                  href={`/packages/${pkg.id}`}
-                  className="mt-4 block text-center text-sm font-medium text-white bg-sky-600 hover:bg-sky-700 rounded-lg py-2"
-                >
-                  View Details
-                </Link>
+                <div className="p-5">
+                  <h3 className="text-lg font-semibold text-gray-800">{pkg.name}</h3>
+                  <p className="text-sm text-gray-600 mt-1">{pkg.location}</p>
+                  <div className="mt-3 flex items-center justify-between">
+                    <div className="text-sky-700 font-semibold">₹{pkg.price.toFixed(2)}</div>
+                    <div className="text-xs text-gray-500">
+                      {pkg.days}D / {pkg.nights}N
+                    </div>
+                  </div>
+                  <Link
+                    href={`/packages/${pkg.id}`}
+                    className="mt-4 block text-center text-sm font-medium text-white bg-sky-600 hover:bg-sky-700 rounded-lg py-2"
+                  >
+                    View Details
+                  </Link>
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          )
+
+            :
+
+
+            <p className="text-gray-500">No packages available at the moment.</p>}
         </div>
       </section>
 
@@ -109,33 +116,38 @@ export default async function HomePage() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {destinations.map((d: Destinations) => (
-            <div
-              key={d.id}
-              className="rounded-2xl overflow-hidden border bg-white hover:shadow-md transition-all"
-            >
-              <div className="w-full h-48 bg-gray-100 overflow-hidden">
-                {d.image ? (
-                  <img src={d.image} alt={d.name} className="w-full h-full object-cover" />
-                ) : (
-                  <div className="flex items-center justify-center h-full text-sm text-gray-400">
-                    No Image
-                  </div>
-                )}
+          {destinations.length > 0 ? (
+            destinations.map((d: Destinations) => (
+              <div
+                key={d.id}
+                className="rounded-2xl overflow-hidden border bg-white hover:shadow-md transition-all"
+              >
+                <div className="w-full h-48 bg-gray-100 overflow-hidden">
+                  {d.image ? (
+                    <img src={d.image} alt={d.name} className="w-full h-full object-cover" />
+                  ) : (
+                    <div className="flex items-center justify-center h-full text-sm text-gray-400">
+                      No Image
+                    </div>
+                  )}
+                </div>
+                <div className="p-5">
+                  <h3 className="text-lg font-semibold text-gray-800">{d.name}</h3>
+                  <p className="text-sm text-gray-600 mt-1">{d.country}</p>
+                  <p className="text-sm text-gray-500 mt-2 line-clamp-2">{d.description}</p>
+                  <Link
+                    href={`/destinations/${d.id}`}
+                    className="mt-4 block text-center text-sm font-medium text-sky-600 border border-sky-600 hover:bg-sky-50 rounded-lg py-2"
+                  >
+                    Explore
+                  </Link>
+                </div>
               </div>
-              <div className="p-5">
-                <h3 className="text-lg font-semibold text-gray-800">{d.name}</h3>
-                <p className="text-sm text-gray-600 mt-1">{d.country}</p>
-                <p className="text-sm text-gray-500 mt-2 line-clamp-2">{d.description}</p>
-                <Link
-                  href={`/destinations/${d.id}`}
-                  className="mt-4 block text-center text-sm font-medium text-sky-600 border border-sky-600 hover:bg-sky-50 rounded-lg py-2"
-                >
-                  Explore
-                </Link>
-              </div>
-            </div>
-          ))}
+            ))
+          )
+            :
+            <p className="text-gray-500">No destinations available at the moment.</p>
+          }
         </div>
       </section>
 
@@ -143,25 +155,30 @@ export default async function HomePage() {
       <section className="px-6 md:px-12 py-16 max-w-5xl mx-auto text-center">
         <h2 className="text-2xl font-semibold text-gray-900 mb-8">What Our Travellers Say</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-          {testimonials.map((t: Testimonials) => (
-            <div
-              key={t.id}
-              className="bg-white border rounded-xl shadow-sm p-5 flex flex-col items-center hover:shadow-md transition-all"
-            >
-              {t.image ? (
-                <img
-                  src={t.image}
-                  alt={t.customerName}
-                  className="w-20 h-20 rounded-full object-cover mb-3"
-                />
-              ) : (
-                <div className="w-20 h-20 rounded-full bg-gray-200 mb-3" />
-              )}
-              <h4 className="text-sm font-medium text-gray-800">{t.customerName}</h4>
-              <p className="text-xs text-gray-500 mt-1">Rating: {t.rating}/5</p>
-              <p className="text-sm text-gray-600 mt-3 line-clamp-3">{t.feedback}</p>
-            </div>
-          ))}
+          {testimonials.length > 0 ? (
+            testimonials.map((t: Testimonials) => (
+              <div
+                key={t.id}
+                className="bg-white border rounded-xl shadow-sm p-5 flex flex-col items-center hover:shadow-md transition-all"
+              >
+                {t.image ? (
+                  <img
+                    src={t.image}
+                    alt={t.customerName}
+                    className="w-20 h-20 rounded-full object-cover mb-3"
+                  />
+                ) : (
+                  <div className="w-20 h-20 rounded-full bg-gray-200 mb-3" />
+                )}
+                <h4 className="text-sm font-medium text-gray-800">{t.customerName}</h4>
+                <p className="text-xs text-gray-500 mt-1">Rating: {t.rating}/5</p>
+                <p className="text-sm text-gray-600 mt-3 line-clamp-3">{t.feedback}</p>
+              </div>
+            ))
+          )
+            :
+            <p className="text-gray-500 col-span-4">No testimonials available at the moment.</p>
+          }
         </div>
       </section>
 
@@ -206,7 +223,7 @@ export default async function HomePage() {
           </div>
         </div>
         <div className="mt-6 border-t border-gray-700 pt-4 text-center text-xs text-gray-500">
-          © {new Date().getFullYear()} Your Travel Agency. All rights reserved.
+          © {new Date().getFullYear()} Yellow Ribbon Travels. All rights reserved.
         </div>
       </footer>
     </main>

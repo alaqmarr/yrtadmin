@@ -6,6 +6,14 @@ export const dynamic = "force-dynamic";
 export default async function DestinationsList() {
     const destinations = await prisma.destinations.findMany({ orderBy: { createdAt: "desc" } });
 
+    if (destinations.length === 0) {
+        return (
+            <div className="p-8 text-center text-gray-500">
+                No destinations found.
+            </div>
+        );
+    }
+
     return (
         <div className="p-8">
             <h1 className="text-2xl font-semibold mb-6">Destinations</h1>

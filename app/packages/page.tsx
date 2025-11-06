@@ -37,6 +37,16 @@ export default async function PackagesPage() {
         orderBy: { createdAt: "desc" },
     })
 
+    if (packages.length === 0) {
+        return (
+            <div className="p-8 text-center text-gray-500">
+                No packages found.
+                <Link href="/packages/new" className="text-sky-600 underline ml-1">
+                    Create the first package
+                </Link>
+            </div>
+        );
+    }
     return (
         <div className="p-8 max-w-6xl mx-auto">
             <div className="flex items-center justify-between mb-8">
