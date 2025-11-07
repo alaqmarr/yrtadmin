@@ -1,0 +1,107 @@
+/* Base editor container styling */
+.ProseMirror {
+  outline: none;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: "Inter", sans-serif;
+  line-height: 1.7;
+  color: #1f2937; /* gray-800 */
+}
+
+/* Paragraph */
+.ProseMirror p {
+  margin: 0.5em 0;
+  font-size: 1rem;
+}
+
+/* Headings */
+.ProseMirror h1 {
+  font-size: 2rem;       /* Tailwind text-3xl equivalent */
+  font-weight: 700;
+  margin: 0.8em 0 0.4em;
+  line-height: 1.2;
+}
+
+.ProseMirror h2 {
+  font-size: 1.5rem;     /* text-2xl */
+  font-weight: 600;
+  margin: 0.8em 0 0.4em;
+}
+
+.ProseMirror h3 {
+  font-size: 1.25rem;    /* text-xl */
+  font-weight: 600;
+  margin: 0.7em 0 0.3em;
+}
+
+/* Lists */
+.ProseMirror ul {
+  list-style-type: disc;
+  padding-left: 1.5em;
+  margin: 0.5em 0;
+}
+
+.ProseMirror ol {
+  list-style-type: decimal;
+  padding-left: 1.5em;
+  margin: 0.5em 0;
+}
+
+/* Blockquote */
+.ProseMirror blockquote {
+  border-left: 3px solid #0ea5e9; /* sky-500 */
+  margin: 1em 0;
+  padding-left: 1em;
+  color: #374151;
+  font-style: italic;
+}
+
+/* Code block */
+.ProseMirror pre {
+  background: #f3f4f6; /* gray-100 */
+  padding: 0.75em;
+  border-radius: 0.5em;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.9rem;
+  overflow-x: auto;
+}
+
+.ProseMirror code {
+  background: #f9fafb;
+  padding: 0.2em 0.4em;
+  border-radius: 0.25em;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.9rem;
+}
+
+/* Images */
+.ProseMirror img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5em;
+  margin: 1em 0;
+}
+
+/* Links */
+.ProseMirror a {
+  color: #0369a1;
+  text-decoration: underline;
+}
+
+/* Tables */
+.ProseMirror table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1em 0;
+}
+
+.ProseMirror th,
+.ProseMirror td {
+  border: 1px solid #e5e7eb;
+  padding: 0.5em;
+}
+
+.ProseMirror th {
+  background: #f9fafb;
+  font-weight: 600;
+}
