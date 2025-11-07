@@ -125,6 +125,7 @@ exports.Prisma.PackageScalarFieldEnum = {
   name: 'name',
   days: 'days',
   nights: 'nights',
+  description: 'description',
   image: 'image',
   price: 'price',
   type: 'type',
@@ -158,6 +159,7 @@ exports.Prisma.PaymentScalarFieldEnum = {
 
 exports.Prisma.DayItineraryScalarFieldEnum = {
   id: 'id',
+  title: 'title',
   dayNumber: 'dayNumber',
   description: 'description',
   packageId: 'packageId'
@@ -219,6 +221,13 @@ exports.Prisma.DestinationsScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.PlacesScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  destinationId: 'destinationId'
+};
+
 exports.Prisma.DestinationFAQScalarFieldEnum = {
   id: 'id',
   question: 'question',
@@ -264,6 +273,7 @@ exports.Prisma.ModelName = {
   BlogImages: 'BlogImages',
   BlogCategory: 'BlogCategory',
   Destinations: 'Destinations',
+  Places: 'Places',
   DestinationFAQ: 'DestinationFAQ',
   Testimonials: 'Testimonials'
 };

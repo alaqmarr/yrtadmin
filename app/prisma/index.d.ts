@@ -69,6 +69,11 @@ export type BlogCategory = $Result.DefaultSelection<Prisma.$BlogCategoryPayload>
  */
 export type Destinations = $Result.DefaultSelection<Prisma.$DestinationsPayload>
 /**
+ * Model Places
+ * 
+ */
+export type Places = $Result.DefaultSelection<Prisma.$PlacesPayload>
+/**
  * Model DestinationFAQ
  * 
  */
@@ -306,6 +311,16 @@ export class PrismaClient<
     * ```
     */
   get destinations(): Prisma.DestinationsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.places`: Exposes CRUD operations for the **Places** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Places
+    * const places = await prisma.places.findMany()
+    * ```
+    */
+  get places(): Prisma.PlacesDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.destinationFAQ`: Exposes CRUD operations for the **DestinationFAQ** model.
@@ -778,6 +793,7 @@ export namespace Prisma {
     BlogImages: 'BlogImages',
     BlogCategory: 'BlogCategory',
     Destinations: 'Destinations',
+    Places: 'Places',
     DestinationFAQ: 'DestinationFAQ',
     Testimonials: 'Testimonials'
   };
@@ -798,7 +814,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "package" | "bookings" | "payment" | "dayItinerary" | "featuredItems" | "includedItems" | "excludedItems" | "blogs" | "blogImages" | "blogCategory" | "destinations" | "destinationFAQ" | "testimonials"
+      modelProps: "package" | "bookings" | "payment" | "dayItinerary" | "featuredItems" | "includedItems" | "excludedItems" | "blogs" | "blogImages" | "blogCategory" | "destinations" | "places" | "destinationFAQ" | "testimonials"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1616,6 +1632,80 @@ export namespace Prisma {
           }
         }
       }
+      Places: {
+        payload: Prisma.$PlacesPayload<ExtArgs>
+        fields: Prisma.PlacesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PlacesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlacesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PlacesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlacesPayload>
+          }
+          findFirst: {
+            args: Prisma.PlacesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlacesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PlacesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlacesPayload>
+          }
+          findMany: {
+            args: Prisma.PlacesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlacesPayload>[]
+          }
+          create: {
+            args: Prisma.PlacesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlacesPayload>
+          }
+          createMany: {
+            args: Prisma.PlacesCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PlacesCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlacesPayload>[]
+          }
+          delete: {
+            args: Prisma.PlacesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlacesPayload>
+          }
+          update: {
+            args: Prisma.PlacesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlacesPayload>
+          }
+          deleteMany: {
+            args: Prisma.PlacesDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PlacesUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PlacesUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlacesPayload>[]
+          }
+          upsert: {
+            args: Prisma.PlacesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlacesPayload>
+          }
+          aggregate: {
+            args: Prisma.PlacesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePlaces>
+          }
+          groupBy: {
+            args: Prisma.PlacesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PlacesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PlacesCountArgs<ExtArgs>
+            result: $Utils.Optional<PlacesCountAggregateOutputType> | number
+          }
+        }
+      }
       DestinationFAQ: {
         payload: Prisma.$DestinationFAQPayload<ExtArgs>
         fields: Prisma.DestinationFAQFieldRefs
@@ -1871,6 +1961,7 @@ export namespace Prisma {
     blogImages?: BlogImagesOmit
     blogCategory?: BlogCategoryOmit
     destinations?: DestinationsOmit
+    places?: PlacesOmit
     destinationFAQ?: DestinationFAQOmit
     testimonials?: TestimonialsOmit
   }
@@ -2144,10 +2235,12 @@ export namespace Prisma {
    */
 
   export type DestinationsCountOutputType = {
+    places: number
     faqs: number
   }
 
   export type DestinationsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    places?: boolean | DestinationsCountOutputTypeCountPlacesArgs
     faqs?: boolean | DestinationsCountOutputTypeCountFaqsArgs
   }
 
@@ -2160,6 +2253,13 @@ export namespace Prisma {
      * Select specific fields to fetch from the DestinationsCountOutputType
      */
     select?: DestinationsCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * DestinationsCountOutputType without action
+   */
+  export type DestinationsCountOutputTypeCountPlacesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PlacesWhereInput
   }
 
   /**
@@ -2203,6 +2303,7 @@ export namespace Prisma {
     name: string | null
     days: number | null
     nights: number | null
+    description: string | null
     image: string | null
     price: Decimal | null
     type: string | null
@@ -2216,6 +2317,7 @@ export namespace Prisma {
     name: string | null
     days: number | null
     nights: number | null
+    description: string | null
     image: string | null
     price: Decimal | null
     type: string | null
@@ -2229,6 +2331,7 @@ export namespace Prisma {
     name: number
     days: number
     nights: number
+    description: number
     image: number
     price: number
     type: number
@@ -2256,6 +2359,7 @@ export namespace Prisma {
     name?: true
     days?: true
     nights?: true
+    description?: true
     image?: true
     price?: true
     type?: true
@@ -2269,6 +2373,7 @@ export namespace Prisma {
     name?: true
     days?: true
     nights?: true
+    description?: true
     image?: true
     price?: true
     type?: true
@@ -2282,6 +2387,7 @@ export namespace Prisma {
     name?: true
     days?: true
     nights?: true
+    description?: true
     image?: true
     price?: true
     type?: true
@@ -2382,6 +2488,7 @@ export namespace Prisma {
     name: string
     days: number
     nights: number
+    description: string
     image: string | null
     price: Decimal
     type: string | null
@@ -2414,6 +2521,7 @@ export namespace Prisma {
     name?: boolean
     days?: boolean
     nights?: boolean
+    description?: boolean
     image?: boolean
     price?: boolean
     type?: boolean
@@ -2432,6 +2540,7 @@ export namespace Prisma {
     name?: boolean
     days?: boolean
     nights?: boolean
+    description?: boolean
     image?: boolean
     price?: boolean
     type?: boolean
@@ -2445,6 +2554,7 @@ export namespace Prisma {
     name?: boolean
     days?: boolean
     nights?: boolean
+    description?: boolean
     image?: boolean
     price?: boolean
     type?: boolean
@@ -2458,6 +2568,7 @@ export namespace Prisma {
     name?: boolean
     days?: boolean
     nights?: boolean
+    description?: boolean
     image?: boolean
     price?: boolean
     type?: boolean
@@ -2466,7 +2577,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type PackageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "days" | "nights" | "image" | "price" | "type" | "location" | "createdAt" | "updatedAt", ExtArgs["result"]["package"]>
+  export type PackageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "days" | "nights" | "description" | "image" | "price" | "type" | "location" | "createdAt" | "updatedAt", ExtArgs["result"]["package"]>
   export type PackageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     inclusions?: boolean | Package$inclusionsArgs<ExtArgs>
     exclusions?: boolean | Package$exclusionsArgs<ExtArgs>
@@ -2490,6 +2601,7 @@ export namespace Prisma {
       name: string
       days: number
       nights: number
+      description: string
       image: string | null
       price: Prisma.Decimal
       type: string | null
@@ -2927,6 +3039,7 @@ export namespace Prisma {
     readonly name: FieldRef<"Package", 'String'>
     readonly days: FieldRef<"Package", 'Int'>
     readonly nights: FieldRef<"Package", 'Int'>
+    readonly description: FieldRef<"Package", 'String'>
     readonly image: FieldRef<"Package", 'String'>
     readonly price: FieldRef<"Package", 'Decimal'>
     readonly type: FieldRef<"Package", 'String'>
@@ -5762,6 +5875,7 @@ export namespace Prisma {
 
   export type DayItineraryMinAggregateOutputType = {
     id: string | null
+    title: string | null
     dayNumber: number | null
     description: string | null
     packageId: string | null
@@ -5769,6 +5883,7 @@ export namespace Prisma {
 
   export type DayItineraryMaxAggregateOutputType = {
     id: string | null
+    title: string | null
     dayNumber: number | null
     description: string | null
     packageId: string | null
@@ -5776,6 +5891,7 @@ export namespace Prisma {
 
   export type DayItineraryCountAggregateOutputType = {
     id: number
+    title: number
     dayNumber: number
     description: number
     packageId: number
@@ -5793,6 +5909,7 @@ export namespace Prisma {
 
   export type DayItineraryMinAggregateInputType = {
     id?: true
+    title?: true
     dayNumber?: true
     description?: true
     packageId?: true
@@ -5800,6 +5917,7 @@ export namespace Prisma {
 
   export type DayItineraryMaxAggregateInputType = {
     id?: true
+    title?: true
     dayNumber?: true
     description?: true
     packageId?: true
@@ -5807,6 +5925,7 @@ export namespace Prisma {
 
   export type DayItineraryCountAggregateInputType = {
     id?: true
+    title?: true
     dayNumber?: true
     description?: true
     packageId?: true
@@ -5901,6 +6020,7 @@ export namespace Prisma {
 
   export type DayItineraryGroupByOutputType = {
     id: string
+    title: string
     dayNumber: number
     description: string
     packageId: string
@@ -5927,6 +6047,7 @@ export namespace Prisma {
 
   export type DayItinerarySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    title?: boolean
     dayNumber?: boolean
     description?: boolean
     packageId?: boolean
@@ -5937,6 +6058,7 @@ export namespace Prisma {
 
   export type DayItinerarySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    title?: boolean
     dayNumber?: boolean
     description?: boolean
     packageId?: boolean
@@ -5945,6 +6067,7 @@ export namespace Prisma {
 
   export type DayItinerarySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    title?: boolean
     dayNumber?: boolean
     description?: boolean
     packageId?: boolean
@@ -5953,12 +6076,13 @@ export namespace Prisma {
 
   export type DayItinerarySelectScalar = {
     id?: boolean
+    title?: boolean
     dayNumber?: boolean
     description?: boolean
     packageId?: boolean
   }
 
-  export type DayItineraryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "dayNumber" | "description" | "packageId", ExtArgs["result"]["dayItinerary"]>
+  export type DayItineraryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "dayNumber" | "description" | "packageId", ExtArgs["result"]["dayItinerary"]>
   export type DayItineraryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     features?: boolean | DayItinerary$featuresArgs<ExtArgs>
     package?: boolean | PackageDefaultArgs<ExtArgs>
@@ -5979,6 +6103,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      title: string
       dayNumber: number
       description: string
       packageId: string
@@ -6408,6 +6533,7 @@ export namespace Prisma {
    */
   interface DayItineraryFieldRefs {
     readonly id: FieldRef<"DayItinerary", 'String'>
+    readonly title: FieldRef<"DayItinerary", 'String'>
     readonly dayNumber: FieldRef<"DayItinerary", 'Int'>
     readonly description: FieldRef<"DayItinerary", 'String'>
     readonly packageId: FieldRef<"DayItinerary", 'String'>
@@ -13378,6 +13504,7 @@ export namespace Prisma {
     currency?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    places?: boolean | Destinations$placesArgs<ExtArgs>
     faqs?: boolean | Destinations$faqsArgs<ExtArgs>
     _count?: boolean | DestinationsCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["destinations"]>
@@ -13429,6 +13556,7 @@ export namespace Prisma {
 
   export type DestinationsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "tag" | "title" | "description" | "image" | "country" | "visa" | "languagesSpoken" | "currency" | "createdAt" | "updatedAt", ExtArgs["result"]["destinations"]>
   export type DestinationsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    places?: boolean | Destinations$placesArgs<ExtArgs>
     faqs?: boolean | Destinations$faqsArgs<ExtArgs>
     _count?: boolean | DestinationsCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -13438,6 +13566,7 @@ export namespace Prisma {
   export type $DestinationsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Destinations"
     objects: {
+      places: Prisma.$PlacesPayload<ExtArgs>[]
       faqs: Prisma.$DestinationFAQPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -13847,6 +13976,7 @@ export namespace Prisma {
    */
   export interface Prisma__DestinationsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    places<T extends Destinations$placesArgs<ExtArgs> = {}>(args?: Subset<T, Destinations$placesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlacesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     faqs<T extends Destinations$faqsArgs<ExtArgs> = {}>(args?: Subset<T, Destinations$faqsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DestinationFAQPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -14277,6 +14407,30 @@ export namespace Prisma {
   }
 
   /**
+   * Destinations.places
+   */
+  export type Destinations$placesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Places
+     */
+    select?: PlacesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Places
+     */
+    omit?: PlacesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlacesInclude<ExtArgs> | null
+    where?: PlacesWhereInput
+    orderBy?: PlacesOrderByWithRelationInput | PlacesOrderByWithRelationInput[]
+    cursor?: PlacesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PlacesScalarFieldEnum | PlacesScalarFieldEnum[]
+  }
+
+  /**
    * Destinations.faqs
    */
   export type Destinations$faqsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -14316,6 +14470,1051 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: DestinationsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Places
+   */
+
+  export type AggregatePlaces = {
+    _count: PlacesCountAggregateOutputType | null
+    _min: PlacesMinAggregateOutputType | null
+    _max: PlacesMaxAggregateOutputType | null
+  }
+
+  export type PlacesMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    destinationId: string | null
+  }
+
+  export type PlacesMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    destinationId: string | null
+  }
+
+  export type PlacesCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    destinationId: number
+    _all: number
+  }
+
+
+  export type PlacesMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    destinationId?: true
+  }
+
+  export type PlacesMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    destinationId?: true
+  }
+
+  export type PlacesCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    destinationId?: true
+    _all?: true
+  }
+
+  export type PlacesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Places to aggregate.
+     */
+    where?: PlacesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Places to fetch.
+     */
+    orderBy?: PlacesOrderByWithRelationInput | PlacesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PlacesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Places from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Places.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Places
+    **/
+    _count?: true | PlacesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PlacesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PlacesMaxAggregateInputType
+  }
+
+  export type GetPlacesAggregateType<T extends PlacesAggregateArgs> = {
+        [P in keyof T & keyof AggregatePlaces]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePlaces[P]>
+      : GetScalarType<T[P], AggregatePlaces[P]>
+  }
+
+
+
+
+  export type PlacesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PlacesWhereInput
+    orderBy?: PlacesOrderByWithAggregationInput | PlacesOrderByWithAggregationInput[]
+    by: PlacesScalarFieldEnum[] | PlacesScalarFieldEnum
+    having?: PlacesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PlacesCountAggregateInputType | true
+    _min?: PlacesMinAggregateInputType
+    _max?: PlacesMaxAggregateInputType
+  }
+
+  export type PlacesGroupByOutputType = {
+    id: string
+    name: string
+    description: string
+    destinationId: string
+    _count: PlacesCountAggregateOutputType | null
+    _min: PlacesMinAggregateOutputType | null
+    _max: PlacesMaxAggregateOutputType | null
+  }
+
+  type GetPlacesGroupByPayload<T extends PlacesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PlacesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PlacesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PlacesGroupByOutputType[P]>
+            : GetScalarType<T[P], PlacesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PlacesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    destinationId?: boolean
+    destination?: boolean | DestinationsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["places"]>
+
+  export type PlacesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    destinationId?: boolean
+    destination?: boolean | DestinationsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["places"]>
+
+  export type PlacesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    destinationId?: boolean
+    destination?: boolean | DestinationsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["places"]>
+
+  export type PlacesSelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    destinationId?: boolean
+  }
+
+  export type PlacesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "destinationId", ExtArgs["result"]["places"]>
+  export type PlacesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    destination?: boolean | DestinationsDefaultArgs<ExtArgs>
+  }
+  export type PlacesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    destination?: boolean | DestinationsDefaultArgs<ExtArgs>
+  }
+  export type PlacesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    destination?: boolean | DestinationsDefaultArgs<ExtArgs>
+  }
+
+  export type $PlacesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Places"
+    objects: {
+      destination: Prisma.$DestinationsPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      description: string
+      destinationId: string
+    }, ExtArgs["result"]["places"]>
+    composites: {}
+  }
+
+  type PlacesGetPayload<S extends boolean | null | undefined | PlacesDefaultArgs> = $Result.GetResult<Prisma.$PlacesPayload, S>
+
+  type PlacesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PlacesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PlacesCountAggregateInputType | true
+    }
+
+  export interface PlacesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Places'], meta: { name: 'Places' } }
+    /**
+     * Find zero or one Places that matches the filter.
+     * @param {PlacesFindUniqueArgs} args - Arguments to find a Places
+     * @example
+     * // Get one Places
+     * const places = await prisma.places.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PlacesFindUniqueArgs>(args: SelectSubset<T, PlacesFindUniqueArgs<ExtArgs>>): Prisma__PlacesClient<$Result.GetResult<Prisma.$PlacesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Places that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PlacesFindUniqueOrThrowArgs} args - Arguments to find a Places
+     * @example
+     * // Get one Places
+     * const places = await prisma.places.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PlacesFindUniqueOrThrowArgs>(args: SelectSubset<T, PlacesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PlacesClient<$Result.GetResult<Prisma.$PlacesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Places that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlacesFindFirstArgs} args - Arguments to find a Places
+     * @example
+     * // Get one Places
+     * const places = await prisma.places.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PlacesFindFirstArgs>(args?: SelectSubset<T, PlacesFindFirstArgs<ExtArgs>>): Prisma__PlacesClient<$Result.GetResult<Prisma.$PlacesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Places that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlacesFindFirstOrThrowArgs} args - Arguments to find a Places
+     * @example
+     * // Get one Places
+     * const places = await prisma.places.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PlacesFindFirstOrThrowArgs>(args?: SelectSubset<T, PlacesFindFirstOrThrowArgs<ExtArgs>>): Prisma__PlacesClient<$Result.GetResult<Prisma.$PlacesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Places that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlacesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Places
+     * const places = await prisma.places.findMany()
+     * 
+     * // Get first 10 Places
+     * const places = await prisma.places.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const placesWithIdOnly = await prisma.places.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PlacesFindManyArgs>(args?: SelectSubset<T, PlacesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlacesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Places.
+     * @param {PlacesCreateArgs} args - Arguments to create a Places.
+     * @example
+     * // Create one Places
+     * const Places = await prisma.places.create({
+     *   data: {
+     *     // ... data to create a Places
+     *   }
+     * })
+     * 
+     */
+    create<T extends PlacesCreateArgs>(args: SelectSubset<T, PlacesCreateArgs<ExtArgs>>): Prisma__PlacesClient<$Result.GetResult<Prisma.$PlacesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Places.
+     * @param {PlacesCreateManyArgs} args - Arguments to create many Places.
+     * @example
+     * // Create many Places
+     * const places = await prisma.places.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PlacesCreateManyArgs>(args?: SelectSubset<T, PlacesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Places and returns the data saved in the database.
+     * @param {PlacesCreateManyAndReturnArgs} args - Arguments to create many Places.
+     * @example
+     * // Create many Places
+     * const places = await prisma.places.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Places and only return the `id`
+     * const placesWithIdOnly = await prisma.places.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PlacesCreateManyAndReturnArgs>(args?: SelectSubset<T, PlacesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlacesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Places.
+     * @param {PlacesDeleteArgs} args - Arguments to delete one Places.
+     * @example
+     * // Delete one Places
+     * const Places = await prisma.places.delete({
+     *   where: {
+     *     // ... filter to delete one Places
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PlacesDeleteArgs>(args: SelectSubset<T, PlacesDeleteArgs<ExtArgs>>): Prisma__PlacesClient<$Result.GetResult<Prisma.$PlacesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Places.
+     * @param {PlacesUpdateArgs} args - Arguments to update one Places.
+     * @example
+     * // Update one Places
+     * const places = await prisma.places.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PlacesUpdateArgs>(args: SelectSubset<T, PlacesUpdateArgs<ExtArgs>>): Prisma__PlacesClient<$Result.GetResult<Prisma.$PlacesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Places.
+     * @param {PlacesDeleteManyArgs} args - Arguments to filter Places to delete.
+     * @example
+     * // Delete a few Places
+     * const { count } = await prisma.places.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PlacesDeleteManyArgs>(args?: SelectSubset<T, PlacesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Places.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlacesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Places
+     * const places = await prisma.places.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PlacesUpdateManyArgs>(args: SelectSubset<T, PlacesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Places and returns the data updated in the database.
+     * @param {PlacesUpdateManyAndReturnArgs} args - Arguments to update many Places.
+     * @example
+     * // Update many Places
+     * const places = await prisma.places.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Places and only return the `id`
+     * const placesWithIdOnly = await prisma.places.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PlacesUpdateManyAndReturnArgs>(args: SelectSubset<T, PlacesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlacesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Places.
+     * @param {PlacesUpsertArgs} args - Arguments to update or create a Places.
+     * @example
+     * // Update or create a Places
+     * const places = await prisma.places.upsert({
+     *   create: {
+     *     // ... data to create a Places
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Places we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PlacesUpsertArgs>(args: SelectSubset<T, PlacesUpsertArgs<ExtArgs>>): Prisma__PlacesClient<$Result.GetResult<Prisma.$PlacesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Places.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlacesCountArgs} args - Arguments to filter Places to count.
+     * @example
+     * // Count the number of Places
+     * const count = await prisma.places.count({
+     *   where: {
+     *     // ... the filter for the Places we want to count
+     *   }
+     * })
+    **/
+    count<T extends PlacesCountArgs>(
+      args?: Subset<T, PlacesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PlacesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Places.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlacesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PlacesAggregateArgs>(args: Subset<T, PlacesAggregateArgs>): Prisma.PrismaPromise<GetPlacesAggregateType<T>>
+
+    /**
+     * Group by Places.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlacesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PlacesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PlacesGroupByArgs['orderBy'] }
+        : { orderBy?: PlacesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PlacesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPlacesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Places model
+   */
+  readonly fields: PlacesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Places.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PlacesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    destination<T extends DestinationsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DestinationsDefaultArgs<ExtArgs>>): Prisma__DestinationsClient<$Result.GetResult<Prisma.$DestinationsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Places model
+   */
+  interface PlacesFieldRefs {
+    readonly id: FieldRef<"Places", 'String'>
+    readonly name: FieldRef<"Places", 'String'>
+    readonly description: FieldRef<"Places", 'String'>
+    readonly destinationId: FieldRef<"Places", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Places findUnique
+   */
+  export type PlacesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Places
+     */
+    select?: PlacesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Places
+     */
+    omit?: PlacesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlacesInclude<ExtArgs> | null
+    /**
+     * Filter, which Places to fetch.
+     */
+    where: PlacesWhereUniqueInput
+  }
+
+  /**
+   * Places findUniqueOrThrow
+   */
+  export type PlacesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Places
+     */
+    select?: PlacesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Places
+     */
+    omit?: PlacesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlacesInclude<ExtArgs> | null
+    /**
+     * Filter, which Places to fetch.
+     */
+    where: PlacesWhereUniqueInput
+  }
+
+  /**
+   * Places findFirst
+   */
+  export type PlacesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Places
+     */
+    select?: PlacesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Places
+     */
+    omit?: PlacesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlacesInclude<ExtArgs> | null
+    /**
+     * Filter, which Places to fetch.
+     */
+    where?: PlacesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Places to fetch.
+     */
+    orderBy?: PlacesOrderByWithRelationInput | PlacesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Places.
+     */
+    cursor?: PlacesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Places from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Places.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Places.
+     */
+    distinct?: PlacesScalarFieldEnum | PlacesScalarFieldEnum[]
+  }
+
+  /**
+   * Places findFirstOrThrow
+   */
+  export type PlacesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Places
+     */
+    select?: PlacesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Places
+     */
+    omit?: PlacesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlacesInclude<ExtArgs> | null
+    /**
+     * Filter, which Places to fetch.
+     */
+    where?: PlacesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Places to fetch.
+     */
+    orderBy?: PlacesOrderByWithRelationInput | PlacesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Places.
+     */
+    cursor?: PlacesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Places from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Places.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Places.
+     */
+    distinct?: PlacesScalarFieldEnum | PlacesScalarFieldEnum[]
+  }
+
+  /**
+   * Places findMany
+   */
+  export type PlacesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Places
+     */
+    select?: PlacesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Places
+     */
+    omit?: PlacesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlacesInclude<ExtArgs> | null
+    /**
+     * Filter, which Places to fetch.
+     */
+    where?: PlacesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Places to fetch.
+     */
+    orderBy?: PlacesOrderByWithRelationInput | PlacesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Places.
+     */
+    cursor?: PlacesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Places from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Places.
+     */
+    skip?: number
+    distinct?: PlacesScalarFieldEnum | PlacesScalarFieldEnum[]
+  }
+
+  /**
+   * Places create
+   */
+  export type PlacesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Places
+     */
+    select?: PlacesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Places
+     */
+    omit?: PlacesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlacesInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Places.
+     */
+    data: XOR<PlacesCreateInput, PlacesUncheckedCreateInput>
+  }
+
+  /**
+   * Places createMany
+   */
+  export type PlacesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Places.
+     */
+    data: PlacesCreateManyInput | PlacesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Places createManyAndReturn
+   */
+  export type PlacesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Places
+     */
+    select?: PlacesSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Places
+     */
+    omit?: PlacesOmit<ExtArgs> | null
+    /**
+     * The data used to create many Places.
+     */
+    data: PlacesCreateManyInput | PlacesCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlacesIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Places update
+   */
+  export type PlacesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Places
+     */
+    select?: PlacesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Places
+     */
+    omit?: PlacesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlacesInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Places.
+     */
+    data: XOR<PlacesUpdateInput, PlacesUncheckedUpdateInput>
+    /**
+     * Choose, which Places to update.
+     */
+    where: PlacesWhereUniqueInput
+  }
+
+  /**
+   * Places updateMany
+   */
+  export type PlacesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Places.
+     */
+    data: XOR<PlacesUpdateManyMutationInput, PlacesUncheckedUpdateManyInput>
+    /**
+     * Filter which Places to update
+     */
+    where?: PlacesWhereInput
+    /**
+     * Limit how many Places to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Places updateManyAndReturn
+   */
+  export type PlacesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Places
+     */
+    select?: PlacesSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Places
+     */
+    omit?: PlacesOmit<ExtArgs> | null
+    /**
+     * The data used to update Places.
+     */
+    data: XOR<PlacesUpdateManyMutationInput, PlacesUncheckedUpdateManyInput>
+    /**
+     * Filter which Places to update
+     */
+    where?: PlacesWhereInput
+    /**
+     * Limit how many Places to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlacesIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Places upsert
+   */
+  export type PlacesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Places
+     */
+    select?: PlacesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Places
+     */
+    omit?: PlacesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlacesInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Places to update in case it exists.
+     */
+    where: PlacesWhereUniqueInput
+    /**
+     * In case the Places found by the `where` argument doesn't exist, create a new Places with this data.
+     */
+    create: XOR<PlacesCreateInput, PlacesUncheckedCreateInput>
+    /**
+     * In case the Places was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PlacesUpdateInput, PlacesUncheckedUpdateInput>
+  }
+
+  /**
+   * Places delete
+   */
+  export type PlacesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Places
+     */
+    select?: PlacesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Places
+     */
+    omit?: PlacesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlacesInclude<ExtArgs> | null
+    /**
+     * Filter which Places to delete.
+     */
+    where: PlacesWhereUniqueInput
+  }
+
+  /**
+   * Places deleteMany
+   */
+  export type PlacesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Places to delete
+     */
+    where?: PlacesWhereInput
+    /**
+     * Limit how many Places to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Places without action
+   */
+  export type PlacesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Places
+     */
+    select?: PlacesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Places
+     */
+    omit?: PlacesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlacesInclude<ExtArgs> | null
   }
 
 
@@ -16438,6 +17637,7 @@ export namespace Prisma {
     name: 'name',
     days: 'days',
     nights: 'nights',
+    description: 'description',
     image: 'image',
     price: 'price',
     type: 'type',
@@ -16480,6 +17680,7 @@ export namespace Prisma {
 
   export const DayItineraryScalarFieldEnum: {
     id: 'id',
+    title: 'title',
     dayNumber: 'dayNumber',
     description: 'description',
     packageId: 'packageId'
@@ -16563,6 +17764,16 @@ export namespace Prisma {
   };
 
   export type DestinationsScalarFieldEnum = (typeof DestinationsScalarFieldEnum)[keyof typeof DestinationsScalarFieldEnum]
+
+
+  export const PlacesScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    destinationId: 'destinationId'
+  };
+
+  export type PlacesScalarFieldEnum = (typeof PlacesScalarFieldEnum)[keyof typeof PlacesScalarFieldEnum]
 
 
   export const DestinationFAQScalarFieldEnum: {
@@ -16705,6 +17916,7 @@ export namespace Prisma {
     name?: StringFilter<"Package"> | string
     days?: IntFilter<"Package"> | number
     nights?: IntFilter<"Package"> | number
+    description?: StringFilter<"Package"> | string
     image?: StringNullableFilter<"Package"> | string | null
     price?: DecimalFilter<"Package"> | Decimal | DecimalJsLike | number | string
     type?: StringNullableFilter<"Package"> | string | null
@@ -16722,6 +17934,7 @@ export namespace Prisma {
     name?: SortOrder
     days?: SortOrder
     nights?: SortOrder
+    description?: SortOrder
     image?: SortOrderInput | SortOrder
     price?: SortOrder
     type?: SortOrderInput | SortOrder
@@ -16742,6 +17955,7 @@ export namespace Prisma {
     name?: StringFilter<"Package"> | string
     days?: IntFilter<"Package"> | number
     nights?: IntFilter<"Package"> | number
+    description?: StringFilter<"Package"> | string
     image?: StringNullableFilter<"Package"> | string | null
     price?: DecimalFilter<"Package"> | Decimal | DecimalJsLike | number | string
     type?: StringNullableFilter<"Package"> | string | null
@@ -16759,6 +17973,7 @@ export namespace Prisma {
     name?: SortOrder
     days?: SortOrder
     nights?: SortOrder
+    description?: SortOrder
     image?: SortOrderInput | SortOrder
     price?: SortOrder
     type?: SortOrderInput | SortOrder
@@ -16780,6 +17995,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Package"> | string
     days?: IntWithAggregatesFilter<"Package"> | number
     nights?: IntWithAggregatesFilter<"Package"> | number
+    description?: StringWithAggregatesFilter<"Package"> | string
     image?: StringNullableWithAggregatesFilter<"Package"> | string | null
     price?: DecimalWithAggregatesFilter<"Package"> | Decimal | DecimalJsLike | number | string
     type?: StringNullableWithAggregatesFilter<"Package"> | string | null
@@ -16945,6 +18161,7 @@ export namespace Prisma {
     OR?: DayItineraryWhereInput[]
     NOT?: DayItineraryWhereInput | DayItineraryWhereInput[]
     id?: StringFilter<"DayItinerary"> | string
+    title?: StringFilter<"DayItinerary"> | string
     dayNumber?: IntFilter<"DayItinerary"> | number
     description?: StringFilter<"DayItinerary"> | string
     packageId?: StringFilter<"DayItinerary"> | string
@@ -16954,6 +18171,7 @@ export namespace Prisma {
 
   export type DayItineraryOrderByWithRelationInput = {
     id?: SortOrder
+    title?: SortOrder
     dayNumber?: SortOrder
     description?: SortOrder
     packageId?: SortOrder
@@ -16967,6 +18185,7 @@ export namespace Prisma {
     AND?: DayItineraryWhereInput | DayItineraryWhereInput[]
     OR?: DayItineraryWhereInput[]
     NOT?: DayItineraryWhereInput | DayItineraryWhereInput[]
+    title?: StringFilter<"DayItinerary"> | string
     dayNumber?: IntFilter<"DayItinerary"> | number
     description?: StringFilter<"DayItinerary"> | string
     packageId?: StringFilter<"DayItinerary"> | string
@@ -16976,6 +18195,7 @@ export namespace Prisma {
 
   export type DayItineraryOrderByWithAggregationInput = {
     id?: SortOrder
+    title?: SortOrder
     dayNumber?: SortOrder
     description?: SortOrder
     packageId?: SortOrder
@@ -16991,6 +18211,7 @@ export namespace Prisma {
     OR?: DayItineraryScalarWhereWithAggregatesInput[]
     NOT?: DayItineraryScalarWhereWithAggregatesInput | DayItineraryScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"DayItinerary"> | string
+    title?: StringWithAggregatesFilter<"DayItinerary"> | string
     dayNumber?: IntWithAggregatesFilter<"DayItinerary"> | number
     description?: StringWithAggregatesFilter<"DayItinerary"> | string
     packageId?: StringWithAggregatesFilter<"DayItinerary"> | string
@@ -17310,6 +18531,7 @@ export namespace Prisma {
     currency?: StringNullableFilter<"Destinations"> | string | null
     createdAt?: DateTimeFilter<"Destinations"> | Date | string
     updatedAt?: DateTimeFilter<"Destinations"> | Date | string
+    places?: PlacesListRelationFilter
     faqs?: DestinationFAQListRelationFilter
   }
 
@@ -17326,6 +18548,7 @@ export namespace Prisma {
     currency?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    places?: PlacesOrderByRelationAggregateInput
     faqs?: DestinationFAQOrderByRelationAggregateInput
   }
 
@@ -17345,6 +18568,7 @@ export namespace Prisma {
     currency?: StringNullableFilter<"Destinations"> | string | null
     createdAt?: DateTimeFilter<"Destinations"> | Date | string
     updatedAt?: DateTimeFilter<"Destinations"> | Date | string
+    places?: PlacesListRelationFilter
     faqs?: DestinationFAQListRelationFilter
   }, "id">
 
@@ -17382,6 +18606,56 @@ export namespace Prisma {
     currency?: StringNullableWithAggregatesFilter<"Destinations"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Destinations"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Destinations"> | Date | string
+  }
+
+  export type PlacesWhereInput = {
+    AND?: PlacesWhereInput | PlacesWhereInput[]
+    OR?: PlacesWhereInput[]
+    NOT?: PlacesWhereInput | PlacesWhereInput[]
+    id?: StringFilter<"Places"> | string
+    name?: StringFilter<"Places"> | string
+    description?: StringFilter<"Places"> | string
+    destinationId?: StringFilter<"Places"> | string
+    destination?: XOR<DestinationsScalarRelationFilter, DestinationsWhereInput>
+  }
+
+  export type PlacesOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    destinationId?: SortOrder
+    destination?: DestinationsOrderByWithRelationInput
+  }
+
+  export type PlacesWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: PlacesWhereInput | PlacesWhereInput[]
+    OR?: PlacesWhereInput[]
+    NOT?: PlacesWhereInput | PlacesWhereInput[]
+    name?: StringFilter<"Places"> | string
+    description?: StringFilter<"Places"> | string
+    destinationId?: StringFilter<"Places"> | string
+    destination?: XOR<DestinationsScalarRelationFilter, DestinationsWhereInput>
+  }, "id">
+
+  export type PlacesOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    destinationId?: SortOrder
+    _count?: PlacesCountOrderByAggregateInput
+    _max?: PlacesMaxOrderByAggregateInput
+    _min?: PlacesMinOrderByAggregateInput
+  }
+
+  export type PlacesScalarWhereWithAggregatesInput = {
+    AND?: PlacesScalarWhereWithAggregatesInput | PlacesScalarWhereWithAggregatesInput[]
+    OR?: PlacesScalarWhereWithAggregatesInput[]
+    NOT?: PlacesScalarWhereWithAggregatesInput | PlacesScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Places"> | string
+    name?: StringWithAggregatesFilter<"Places"> | string
+    description?: StringWithAggregatesFilter<"Places"> | string
+    destinationId?: StringWithAggregatesFilter<"Places"> | string
   }
 
   export type DestinationFAQWhereInput = {
@@ -17503,6 +18777,7 @@ export namespace Prisma {
     name: string
     days: number
     nights: number
+    description?: string
     image?: string | null
     price: Decimal | DecimalJsLike | number | string
     type?: string | null
@@ -17520,6 +18795,7 @@ export namespace Prisma {
     name: string
     days: number
     nights: number
+    description?: string
     image?: string | null
     price: Decimal | DecimalJsLike | number | string
     type?: string | null
@@ -17537,6 +18813,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     days?: IntFieldUpdateOperationsInput | number
     nights?: IntFieldUpdateOperationsInput | number
+    description?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17554,6 +18831,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     days?: IntFieldUpdateOperationsInput | number
     nights?: IntFieldUpdateOperationsInput | number
+    description?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17571,6 +18849,7 @@ export namespace Prisma {
     name: string
     days: number
     nights: number
+    description?: string
     image?: string | null
     price: Decimal | DecimalJsLike | number | string
     type?: string | null
@@ -17584,6 +18863,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     days?: IntFieldUpdateOperationsInput | number
     nights?: IntFieldUpdateOperationsInput | number
+    description?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17597,6 +18877,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     days?: IntFieldUpdateOperationsInput | number
     nights?: IntFieldUpdateOperationsInput | number
+    description?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17770,22 +19051,25 @@ export namespace Prisma {
 
   export type DayItineraryCreateInput = {
     id?: string
+    title?: string
     dayNumber: number
-    description: string
+    description?: string
     features?: FeaturedItemsCreateNestedManyWithoutDayItineraryInput
     package: PackageCreateNestedOneWithoutItinerariesInput
   }
 
   export type DayItineraryUncheckedCreateInput = {
     id?: string
+    title?: string
     dayNumber: number
-    description: string
+    description?: string
     packageId: string
     features?: FeaturedItemsUncheckedCreateNestedManyWithoutDayItineraryInput
   }
 
   export type DayItineraryUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     dayNumber?: IntFieldUpdateOperationsInput | number
     description?: StringFieldUpdateOperationsInput | string
     features?: FeaturedItemsUpdateManyWithoutDayItineraryNestedInput
@@ -17794,6 +19078,7 @@ export namespace Prisma {
 
   export type DayItineraryUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     dayNumber?: IntFieldUpdateOperationsInput | number
     description?: StringFieldUpdateOperationsInput | string
     packageId?: StringFieldUpdateOperationsInput | string
@@ -17802,19 +19087,22 @@ export namespace Prisma {
 
   export type DayItineraryCreateManyInput = {
     id?: string
+    title?: string
     dayNumber: number
-    description: string
+    description?: string
     packageId: string
   }
 
   export type DayItineraryUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     dayNumber?: IntFieldUpdateOperationsInput | number
     description?: StringFieldUpdateOperationsInput | string
   }
 
   export type DayItineraryUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     dayNumber?: IntFieldUpdateOperationsInput | number
     description?: StringFieldUpdateOperationsInput | string
     packageId?: StringFieldUpdateOperationsInput | string
@@ -18120,7 +19408,7 @@ export namespace Prisma {
     name: string
     tag?: string | null
     title?: string | null
-    description: string
+    description?: string
     image?: string | null
     country: string
     visa?: string | null
@@ -18128,6 +19416,7 @@ export namespace Prisma {
     currency?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    places?: PlacesCreateNestedManyWithoutDestinationInput
     faqs?: DestinationFAQCreateNestedManyWithoutDestinationInput
   }
 
@@ -18136,7 +19425,7 @@ export namespace Prisma {
     name: string
     tag?: string | null
     title?: string | null
-    description: string
+    description?: string
     image?: string | null
     country: string
     visa?: string | null
@@ -18144,6 +19433,7 @@ export namespace Prisma {
     currency?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    places?: PlacesUncheckedCreateNestedManyWithoutDestinationInput
     faqs?: DestinationFAQUncheckedCreateNestedManyWithoutDestinationInput
   }
 
@@ -18160,6 +19450,7 @@ export namespace Prisma {
     currency?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    places?: PlacesUpdateManyWithoutDestinationNestedInput
     faqs?: DestinationFAQUpdateManyWithoutDestinationNestedInput
   }
 
@@ -18176,6 +19467,7 @@ export namespace Prisma {
     currency?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    places?: PlacesUncheckedUpdateManyWithoutDestinationNestedInput
     faqs?: DestinationFAQUncheckedUpdateManyWithoutDestinationNestedInput
   }
 
@@ -18184,7 +19476,7 @@ export namespace Prisma {
     name: string
     tag?: string | null
     title?: string | null
-    description: string
+    description?: string
     image?: string | null
     country: string
     visa?: string | null
@@ -18222,6 +19514,54 @@ export namespace Prisma {
     currency?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlacesCreateInput = {
+    id?: string
+    name: string
+    description?: string
+    destination: DestinationsCreateNestedOneWithoutPlacesInput
+  }
+
+  export type PlacesUncheckedCreateInput = {
+    id?: string
+    name: string
+    description?: string
+    destinationId: string
+  }
+
+  export type PlacesUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    destination?: DestinationsUpdateOneRequiredWithoutPlacesNestedInput
+  }
+
+  export type PlacesUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    destinationId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PlacesCreateManyInput = {
+    id?: string
+    name: string
+    description?: string
+    destinationId: string
+  }
+
+  export type PlacesUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PlacesUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    destinationId?: StringFieldUpdateOperationsInput | string
   }
 
   export type DestinationFAQCreateInput = {
@@ -18455,6 +19795,7 @@ export namespace Prisma {
     name?: SortOrder
     days?: SortOrder
     nights?: SortOrder
+    description?: SortOrder
     image?: SortOrder
     price?: SortOrder
     type?: SortOrder
@@ -18474,6 +19815,7 @@ export namespace Prisma {
     name?: SortOrder
     days?: SortOrder
     nights?: SortOrder
+    description?: SortOrder
     image?: SortOrder
     price?: SortOrder
     type?: SortOrder
@@ -18487,6 +19829,7 @@ export namespace Prisma {
     name?: SortOrder
     days?: SortOrder
     nights?: SortOrder
+    description?: SortOrder
     image?: SortOrder
     price?: SortOrder
     type?: SortOrder
@@ -18718,6 +20061,7 @@ export namespace Prisma {
 
   export type DayItineraryCountOrderByAggregateInput = {
     id?: SortOrder
+    title?: SortOrder
     dayNumber?: SortOrder
     description?: SortOrder
     packageId?: SortOrder
@@ -18729,6 +20073,7 @@ export namespace Prisma {
 
   export type DayItineraryMaxOrderByAggregateInput = {
     id?: SortOrder
+    title?: SortOrder
     dayNumber?: SortOrder
     description?: SortOrder
     packageId?: SortOrder
@@ -18736,6 +20081,7 @@ export namespace Prisma {
 
   export type DayItineraryMinOrderByAggregateInput = {
     id?: SortOrder
+    title?: SortOrder
     dayNumber?: SortOrder
     description?: SortOrder
     packageId?: SortOrder
@@ -18908,10 +20254,20 @@ export namespace Prisma {
     name?: SortOrder
   }
 
+  export type PlacesListRelationFilter = {
+    every?: PlacesWhereInput
+    some?: PlacesWhereInput
+    none?: PlacesWhereInput
+  }
+
   export type DestinationFAQListRelationFilter = {
     every?: DestinationFAQWhereInput
     some?: DestinationFAQWhereInput
     none?: DestinationFAQWhereInput
+  }
+
+  export type PlacesOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type DestinationFAQOrderByRelationAggregateInput = {
@@ -18966,6 +20322,27 @@ export namespace Prisma {
   export type DestinationsScalarRelationFilter = {
     is?: DestinationsWhereInput
     isNot?: DestinationsWhereInput
+  }
+
+  export type PlacesCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    destinationId?: SortOrder
+  }
+
+  export type PlacesMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    destinationId?: SortOrder
+  }
+
+  export type PlacesMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    destinationId?: SortOrder
   }
 
   export type DestinationFAQCountOrderByAggregateInput = {
@@ -19527,6 +20904,13 @@ export namespace Prisma {
     deleteMany?: BlogsScalarWhereInput | BlogsScalarWhereInput[]
   }
 
+  export type PlacesCreateNestedManyWithoutDestinationInput = {
+    create?: XOR<PlacesCreateWithoutDestinationInput, PlacesUncheckedCreateWithoutDestinationInput> | PlacesCreateWithoutDestinationInput[] | PlacesUncheckedCreateWithoutDestinationInput[]
+    connectOrCreate?: PlacesCreateOrConnectWithoutDestinationInput | PlacesCreateOrConnectWithoutDestinationInput[]
+    createMany?: PlacesCreateManyDestinationInputEnvelope
+    connect?: PlacesWhereUniqueInput | PlacesWhereUniqueInput[]
+  }
+
   export type DestinationFAQCreateNestedManyWithoutDestinationInput = {
     create?: XOR<DestinationFAQCreateWithoutDestinationInput, DestinationFAQUncheckedCreateWithoutDestinationInput> | DestinationFAQCreateWithoutDestinationInput[] | DestinationFAQUncheckedCreateWithoutDestinationInput[]
     connectOrCreate?: DestinationFAQCreateOrConnectWithoutDestinationInput | DestinationFAQCreateOrConnectWithoutDestinationInput[]
@@ -19534,11 +20918,32 @@ export namespace Prisma {
     connect?: DestinationFAQWhereUniqueInput | DestinationFAQWhereUniqueInput[]
   }
 
+  export type PlacesUncheckedCreateNestedManyWithoutDestinationInput = {
+    create?: XOR<PlacesCreateWithoutDestinationInput, PlacesUncheckedCreateWithoutDestinationInput> | PlacesCreateWithoutDestinationInput[] | PlacesUncheckedCreateWithoutDestinationInput[]
+    connectOrCreate?: PlacesCreateOrConnectWithoutDestinationInput | PlacesCreateOrConnectWithoutDestinationInput[]
+    createMany?: PlacesCreateManyDestinationInputEnvelope
+    connect?: PlacesWhereUniqueInput | PlacesWhereUniqueInput[]
+  }
+
   export type DestinationFAQUncheckedCreateNestedManyWithoutDestinationInput = {
     create?: XOR<DestinationFAQCreateWithoutDestinationInput, DestinationFAQUncheckedCreateWithoutDestinationInput> | DestinationFAQCreateWithoutDestinationInput[] | DestinationFAQUncheckedCreateWithoutDestinationInput[]
     connectOrCreate?: DestinationFAQCreateOrConnectWithoutDestinationInput | DestinationFAQCreateOrConnectWithoutDestinationInput[]
     createMany?: DestinationFAQCreateManyDestinationInputEnvelope
     connect?: DestinationFAQWhereUniqueInput | DestinationFAQWhereUniqueInput[]
+  }
+
+  export type PlacesUpdateManyWithoutDestinationNestedInput = {
+    create?: XOR<PlacesCreateWithoutDestinationInput, PlacesUncheckedCreateWithoutDestinationInput> | PlacesCreateWithoutDestinationInput[] | PlacesUncheckedCreateWithoutDestinationInput[]
+    connectOrCreate?: PlacesCreateOrConnectWithoutDestinationInput | PlacesCreateOrConnectWithoutDestinationInput[]
+    upsert?: PlacesUpsertWithWhereUniqueWithoutDestinationInput | PlacesUpsertWithWhereUniqueWithoutDestinationInput[]
+    createMany?: PlacesCreateManyDestinationInputEnvelope
+    set?: PlacesWhereUniqueInput | PlacesWhereUniqueInput[]
+    disconnect?: PlacesWhereUniqueInput | PlacesWhereUniqueInput[]
+    delete?: PlacesWhereUniqueInput | PlacesWhereUniqueInput[]
+    connect?: PlacesWhereUniqueInput | PlacesWhereUniqueInput[]
+    update?: PlacesUpdateWithWhereUniqueWithoutDestinationInput | PlacesUpdateWithWhereUniqueWithoutDestinationInput[]
+    updateMany?: PlacesUpdateManyWithWhereWithoutDestinationInput | PlacesUpdateManyWithWhereWithoutDestinationInput[]
+    deleteMany?: PlacesScalarWhereInput | PlacesScalarWhereInput[]
   }
 
   export type DestinationFAQUpdateManyWithoutDestinationNestedInput = {
@@ -19555,6 +20960,20 @@ export namespace Prisma {
     deleteMany?: DestinationFAQScalarWhereInput | DestinationFAQScalarWhereInput[]
   }
 
+  export type PlacesUncheckedUpdateManyWithoutDestinationNestedInput = {
+    create?: XOR<PlacesCreateWithoutDestinationInput, PlacesUncheckedCreateWithoutDestinationInput> | PlacesCreateWithoutDestinationInput[] | PlacesUncheckedCreateWithoutDestinationInput[]
+    connectOrCreate?: PlacesCreateOrConnectWithoutDestinationInput | PlacesCreateOrConnectWithoutDestinationInput[]
+    upsert?: PlacesUpsertWithWhereUniqueWithoutDestinationInput | PlacesUpsertWithWhereUniqueWithoutDestinationInput[]
+    createMany?: PlacesCreateManyDestinationInputEnvelope
+    set?: PlacesWhereUniqueInput | PlacesWhereUniqueInput[]
+    disconnect?: PlacesWhereUniqueInput | PlacesWhereUniqueInput[]
+    delete?: PlacesWhereUniqueInput | PlacesWhereUniqueInput[]
+    connect?: PlacesWhereUniqueInput | PlacesWhereUniqueInput[]
+    update?: PlacesUpdateWithWhereUniqueWithoutDestinationInput | PlacesUpdateWithWhereUniqueWithoutDestinationInput[]
+    updateMany?: PlacesUpdateManyWithWhereWithoutDestinationInput | PlacesUpdateManyWithWhereWithoutDestinationInput[]
+    deleteMany?: PlacesScalarWhereInput | PlacesScalarWhereInput[]
+  }
+
   export type DestinationFAQUncheckedUpdateManyWithoutDestinationNestedInput = {
     create?: XOR<DestinationFAQCreateWithoutDestinationInput, DestinationFAQUncheckedCreateWithoutDestinationInput> | DestinationFAQCreateWithoutDestinationInput[] | DestinationFAQUncheckedCreateWithoutDestinationInput[]
     connectOrCreate?: DestinationFAQCreateOrConnectWithoutDestinationInput | DestinationFAQCreateOrConnectWithoutDestinationInput[]
@@ -19567,6 +20986,20 @@ export namespace Prisma {
     update?: DestinationFAQUpdateWithWhereUniqueWithoutDestinationInput | DestinationFAQUpdateWithWhereUniqueWithoutDestinationInput[]
     updateMany?: DestinationFAQUpdateManyWithWhereWithoutDestinationInput | DestinationFAQUpdateManyWithWhereWithoutDestinationInput[]
     deleteMany?: DestinationFAQScalarWhereInput | DestinationFAQScalarWhereInput[]
+  }
+
+  export type DestinationsCreateNestedOneWithoutPlacesInput = {
+    create?: XOR<DestinationsCreateWithoutPlacesInput, DestinationsUncheckedCreateWithoutPlacesInput>
+    connectOrCreate?: DestinationsCreateOrConnectWithoutPlacesInput
+    connect?: DestinationsWhereUniqueInput
+  }
+
+  export type DestinationsUpdateOneRequiredWithoutPlacesNestedInput = {
+    create?: XOR<DestinationsCreateWithoutPlacesInput, DestinationsUncheckedCreateWithoutPlacesInput>
+    connectOrCreate?: DestinationsCreateOrConnectWithoutPlacesInput
+    upsert?: DestinationsUpsertWithoutPlacesInput
+    connect?: DestinationsWhereUniqueInput
+    update?: XOR<XOR<DestinationsUpdateToOneWithWhereWithoutPlacesInput, DestinationsUpdateWithoutPlacesInput>, DestinationsUncheckedUpdateWithoutPlacesInput>
   }
 
   export type DestinationsCreateNestedOneWithoutFaqsInput = {
@@ -19801,15 +21234,17 @@ export namespace Prisma {
 
   export type DayItineraryCreateWithoutPackageInput = {
     id?: string
+    title?: string
     dayNumber: number
-    description: string
+    description?: string
     features?: FeaturedItemsCreateNestedManyWithoutDayItineraryInput
   }
 
   export type DayItineraryUncheckedCreateWithoutPackageInput = {
     id?: string
+    title?: string
     dayNumber: number
-    description: string
+    description?: string
     features?: FeaturedItemsUncheckedCreateNestedManyWithoutDayItineraryInput
   }
 
@@ -19928,6 +21363,7 @@ export namespace Prisma {
     OR?: DayItineraryScalarWhereInput[]
     NOT?: DayItineraryScalarWhereInput | DayItineraryScalarWhereInput[]
     id?: StringFilter<"DayItinerary"> | string
+    title?: StringFilter<"DayItinerary"> | string
     dayNumber?: IntFilter<"DayItinerary"> | number
     description?: StringFilter<"DayItinerary"> | string
     packageId?: StringFilter<"DayItinerary"> | string
@@ -19999,6 +21435,7 @@ export namespace Prisma {
     name: string
     days: number
     nights: number
+    description?: string
     image?: string | null
     price: Decimal | DecimalJsLike | number | string
     type?: string | null
@@ -20015,6 +21452,7 @@ export namespace Prisma {
     name: string
     days: number
     nights: number
+    description?: string
     image?: string | null
     price: Decimal | DecimalJsLike | number | string
     type?: string | null
@@ -20077,6 +21515,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     days?: IntFieldUpdateOperationsInput | number
     nights?: IntFieldUpdateOperationsInput | number
+    description?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20093,6 +21532,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     days?: IntFieldUpdateOperationsInput | number
     nights?: IntFieldUpdateOperationsInput | number
+    description?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20193,6 +21633,7 @@ export namespace Prisma {
     name: string
     days: number
     nights: number
+    description?: string
     image?: string | null
     price: Decimal | DecimalJsLike | number | string
     type?: string | null
@@ -20209,6 +21650,7 @@ export namespace Prisma {
     name: string
     days: number
     nights: number
+    description?: string
     image?: string | null
     price: Decimal | DecimalJsLike | number | string
     type?: string | null
@@ -20266,6 +21708,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     days?: IntFieldUpdateOperationsInput | number
     nights?: IntFieldUpdateOperationsInput | number
+    description?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20282,6 +21725,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     days?: IntFieldUpdateOperationsInput | number
     nights?: IntFieldUpdateOperationsInput | number
+    description?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20295,15 +21739,17 @@ export namespace Prisma {
 
   export type DayItineraryCreateWithoutFeaturesInput = {
     id?: string
+    title?: string
     dayNumber: number
-    description: string
+    description?: string
     package: PackageCreateNestedOneWithoutItinerariesInput
   }
 
   export type DayItineraryUncheckedCreateWithoutFeaturesInput = {
     id?: string
+    title?: string
     dayNumber: number
-    description: string
+    description?: string
     packageId: string
   }
 
@@ -20325,6 +21771,7 @@ export namespace Prisma {
 
   export type DayItineraryUpdateWithoutFeaturesInput = {
     id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     dayNumber?: IntFieldUpdateOperationsInput | number
     description?: StringFieldUpdateOperationsInput | string
     package?: PackageUpdateOneRequiredWithoutItinerariesNestedInput
@@ -20332,6 +21779,7 @@ export namespace Prisma {
 
   export type DayItineraryUncheckedUpdateWithoutFeaturesInput = {
     id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     dayNumber?: IntFieldUpdateOperationsInput | number
     description?: StringFieldUpdateOperationsInput | string
     packageId?: StringFieldUpdateOperationsInput | string
@@ -20342,6 +21790,7 @@ export namespace Prisma {
     name: string
     days: number
     nights: number
+    description?: string
     image?: string | null
     price: Decimal | DecimalJsLike | number | string
     type?: string | null
@@ -20358,6 +21807,7 @@ export namespace Prisma {
     name: string
     days: number
     nights: number
+    description?: string
     image?: string | null
     price: Decimal | DecimalJsLike | number | string
     type?: string | null
@@ -20390,6 +21840,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     days?: IntFieldUpdateOperationsInput | number
     nights?: IntFieldUpdateOperationsInput | number
+    description?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20406,6 +21857,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     days?: IntFieldUpdateOperationsInput | number
     nights?: IntFieldUpdateOperationsInput | number
+    description?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20422,6 +21874,7 @@ export namespace Prisma {
     name: string
     days: number
     nights: number
+    description?: string
     image?: string | null
     price: Decimal | DecimalJsLike | number | string
     type?: string | null
@@ -20438,6 +21891,7 @@ export namespace Prisma {
     name: string
     days: number
     nights: number
+    description?: string
     image?: string | null
     price: Decimal | DecimalJsLike | number | string
     type?: string | null
@@ -20470,6 +21924,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     days?: IntFieldUpdateOperationsInput | number
     nights?: IntFieldUpdateOperationsInput | number
+    description?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20486,6 +21941,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     days?: IntFieldUpdateOperationsInput | number
     nights?: IntFieldUpdateOperationsInput | number
+    description?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20711,6 +22167,28 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Blogs"> | Date | string
   }
 
+  export type PlacesCreateWithoutDestinationInput = {
+    id?: string
+    name: string
+    description?: string
+  }
+
+  export type PlacesUncheckedCreateWithoutDestinationInput = {
+    id?: string
+    name: string
+    description?: string
+  }
+
+  export type PlacesCreateOrConnectWithoutDestinationInput = {
+    where: PlacesWhereUniqueInput
+    create: XOR<PlacesCreateWithoutDestinationInput, PlacesUncheckedCreateWithoutDestinationInput>
+  }
+
+  export type PlacesCreateManyDestinationInputEnvelope = {
+    data: PlacesCreateManyDestinationInput | PlacesCreateManyDestinationInput[]
+    skipDuplicates?: boolean
+  }
+
   export type DestinationFAQCreateWithoutDestinationInput = {
     id?: string
     question: string
@@ -20731,6 +22209,32 @@ export namespace Prisma {
   export type DestinationFAQCreateManyDestinationInputEnvelope = {
     data: DestinationFAQCreateManyDestinationInput | DestinationFAQCreateManyDestinationInput[]
     skipDuplicates?: boolean
+  }
+
+  export type PlacesUpsertWithWhereUniqueWithoutDestinationInput = {
+    where: PlacesWhereUniqueInput
+    update: XOR<PlacesUpdateWithoutDestinationInput, PlacesUncheckedUpdateWithoutDestinationInput>
+    create: XOR<PlacesCreateWithoutDestinationInput, PlacesUncheckedCreateWithoutDestinationInput>
+  }
+
+  export type PlacesUpdateWithWhereUniqueWithoutDestinationInput = {
+    where: PlacesWhereUniqueInput
+    data: XOR<PlacesUpdateWithoutDestinationInput, PlacesUncheckedUpdateWithoutDestinationInput>
+  }
+
+  export type PlacesUpdateManyWithWhereWithoutDestinationInput = {
+    where: PlacesScalarWhereInput
+    data: XOR<PlacesUpdateManyMutationInput, PlacesUncheckedUpdateManyWithoutDestinationInput>
+  }
+
+  export type PlacesScalarWhereInput = {
+    AND?: PlacesScalarWhereInput | PlacesScalarWhereInput[]
+    OR?: PlacesScalarWhereInput[]
+    NOT?: PlacesScalarWhereInput | PlacesScalarWhereInput[]
+    id?: StringFilter<"Places"> | string
+    name?: StringFilter<"Places"> | string
+    description?: StringFilter<"Places"> | string
+    destinationId?: StringFilter<"Places"> | string
   }
 
   export type DestinationFAQUpsertWithWhereUniqueWithoutDestinationInput = {
@@ -20759,12 +22263,12 @@ export namespace Prisma {
     destinationId?: StringFilter<"DestinationFAQ"> | string
   }
 
-  export type DestinationsCreateWithoutFaqsInput = {
+  export type DestinationsCreateWithoutPlacesInput = {
     id?: string
     name: string
     tag?: string | null
     title?: string | null
-    description: string
+    description?: string
     image?: string | null
     country: string
     visa?: string | null
@@ -20772,6 +22276,87 @@ export namespace Prisma {
     currency?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    faqs?: DestinationFAQCreateNestedManyWithoutDestinationInput
+  }
+
+  export type DestinationsUncheckedCreateWithoutPlacesInput = {
+    id?: string
+    name: string
+    tag?: string | null
+    title?: string | null
+    description?: string
+    image?: string | null
+    country: string
+    visa?: string | null
+    languagesSpoken?: string | null
+    currency?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    faqs?: DestinationFAQUncheckedCreateNestedManyWithoutDestinationInput
+  }
+
+  export type DestinationsCreateOrConnectWithoutPlacesInput = {
+    where: DestinationsWhereUniqueInput
+    create: XOR<DestinationsCreateWithoutPlacesInput, DestinationsUncheckedCreateWithoutPlacesInput>
+  }
+
+  export type DestinationsUpsertWithoutPlacesInput = {
+    update: XOR<DestinationsUpdateWithoutPlacesInput, DestinationsUncheckedUpdateWithoutPlacesInput>
+    create: XOR<DestinationsCreateWithoutPlacesInput, DestinationsUncheckedCreateWithoutPlacesInput>
+    where?: DestinationsWhereInput
+  }
+
+  export type DestinationsUpdateToOneWithWhereWithoutPlacesInput = {
+    where?: DestinationsWhereInput
+    data: XOR<DestinationsUpdateWithoutPlacesInput, DestinationsUncheckedUpdateWithoutPlacesInput>
+  }
+
+  export type DestinationsUpdateWithoutPlacesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: StringFieldUpdateOperationsInput | string
+    visa?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
+    currency?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    faqs?: DestinationFAQUpdateManyWithoutDestinationNestedInput
+  }
+
+  export type DestinationsUncheckedUpdateWithoutPlacesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: StringFieldUpdateOperationsInput | string
+    visa?: NullableStringFieldUpdateOperationsInput | string | null
+    languagesSpoken?: NullableStringFieldUpdateOperationsInput | string | null
+    currency?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    faqs?: DestinationFAQUncheckedUpdateManyWithoutDestinationNestedInput
+  }
+
+  export type DestinationsCreateWithoutFaqsInput = {
+    id?: string
+    name: string
+    tag?: string | null
+    title?: string | null
+    description?: string
+    image?: string | null
+    country: string
+    visa?: string | null
+    languagesSpoken?: string | null
+    currency?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    places?: PlacesCreateNestedManyWithoutDestinationInput
   }
 
   export type DestinationsUncheckedCreateWithoutFaqsInput = {
@@ -20779,7 +22364,7 @@ export namespace Prisma {
     name: string
     tag?: string | null
     title?: string | null
-    description: string
+    description?: string
     image?: string | null
     country: string
     visa?: string | null
@@ -20787,6 +22372,7 @@ export namespace Prisma {
     currency?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    places?: PlacesUncheckedCreateNestedManyWithoutDestinationInput
   }
 
   export type DestinationsCreateOrConnectWithoutFaqsInput = {
@@ -20818,6 +22404,7 @@ export namespace Prisma {
     currency?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    places?: PlacesUpdateManyWithoutDestinationNestedInput
   }
 
   export type DestinationsUncheckedUpdateWithoutFaqsInput = {
@@ -20833,6 +22420,7 @@ export namespace Prisma {
     currency?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    places?: PlacesUncheckedUpdateManyWithoutDestinationNestedInput
   }
 
   export type IncludedItemsCreateManyPackageInput = {
@@ -20847,8 +22435,9 @@ export namespace Prisma {
 
   export type DayItineraryCreateManyPackageInput = {
     id?: string
+    title?: string
     dayNumber: number
-    description: string
+    description?: string
   }
 
   export type BookingsCreateManyPackageInput = {
@@ -20894,6 +22483,7 @@ export namespace Prisma {
 
   export type DayItineraryUpdateWithoutPackageInput = {
     id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     dayNumber?: IntFieldUpdateOperationsInput | number
     description?: StringFieldUpdateOperationsInput | string
     features?: FeaturedItemsUpdateManyWithoutDayItineraryNestedInput
@@ -20901,6 +22491,7 @@ export namespace Prisma {
 
   export type DayItineraryUncheckedUpdateWithoutPackageInput = {
     id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     dayNumber?: IntFieldUpdateOperationsInput | number
     description?: StringFieldUpdateOperationsInput | string
     features?: FeaturedItemsUncheckedUpdateManyWithoutDayItineraryNestedInput
@@ -20908,6 +22499,7 @@ export namespace Prisma {
 
   export type DayItineraryUncheckedUpdateManyWithoutPackageInput = {
     id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     dayNumber?: IntFieldUpdateOperationsInput | number
     description?: StringFieldUpdateOperationsInput | string
   }
@@ -21080,10 +22672,34 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type PlacesCreateManyDestinationInput = {
+    id?: string
+    name: string
+    description?: string
+  }
+
   export type DestinationFAQCreateManyDestinationInput = {
     id?: string
     question: string
     answer: string
+  }
+
+  export type PlacesUpdateWithoutDestinationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PlacesUncheckedUpdateWithoutDestinationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PlacesUncheckedUpdateManyWithoutDestinationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
   }
 
   export type DestinationFAQUpdateWithoutDestinationInput = {

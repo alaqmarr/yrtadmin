@@ -16,6 +16,7 @@ model Package {
   name        String
   days        Int
   nights      Int
+  description String          @default("No description available.")
   image       String? // optional image
   price       Decimal         @db.Decimal(12, 2)
   type        String?
@@ -65,8 +66,9 @@ model Payment {
 
 model DayItinerary {
   id          String          @id @default(cuid())
+  title       String          @default("No title available.")
   dayNumber   Int
-  description String
+  description String          @default("No description available.")
   features    FeaturedItems[]
   package     Package         @relation(fields: [packageId], references: [id], onDelete: Cascade)
   packageId   String
@@ -137,8 +139,9 @@ model Destinations {
   id              String           @id @default(cuid())
   name            String
   tag             String?
-  title           String?
-  description     String
+  title           String?          @default("No title available.")
+  description     String           @default("No description available.")
+  places          Places[]
   image           String?
   country         String
   visa            String?
@@ -150,6 +153,16 @@ model Destinations {
 
   @@index([country])
   @@index([createdAt])
+}
+
+model Places {
+  id            String       @id @default(cuid())
+  name          String
+  description   String       @default("No description available.")
+  destination   Destinations @relation(fields: [destinationId], references: [id], onDelete: Cascade)
+  destinationId String
+
+  @@index([destinationId])
 }
 
 model DestinationFAQ {
