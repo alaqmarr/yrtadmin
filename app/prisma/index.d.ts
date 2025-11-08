@@ -14486,6 +14486,7 @@ export namespace Prisma {
   export type PlacesMinAggregateOutputType = {
     id: string | null
     name: string | null
+    image: string | null
     description: string | null
     destinationId: string | null
   }
@@ -14493,6 +14494,7 @@ export namespace Prisma {
   export type PlacesMaxAggregateOutputType = {
     id: string | null
     name: string | null
+    image: string | null
     description: string | null
     destinationId: string | null
   }
@@ -14500,6 +14502,7 @@ export namespace Prisma {
   export type PlacesCountAggregateOutputType = {
     id: number
     name: number
+    image: number
     description: number
     destinationId: number
     _all: number
@@ -14509,6 +14512,7 @@ export namespace Prisma {
   export type PlacesMinAggregateInputType = {
     id?: true
     name?: true
+    image?: true
     description?: true
     destinationId?: true
   }
@@ -14516,6 +14520,7 @@ export namespace Prisma {
   export type PlacesMaxAggregateInputType = {
     id?: true
     name?: true
+    image?: true
     description?: true
     destinationId?: true
   }
@@ -14523,6 +14528,7 @@ export namespace Prisma {
   export type PlacesCountAggregateInputType = {
     id?: true
     name?: true
+    image?: true
     description?: true
     destinationId?: true
     _all?: true
@@ -14603,6 +14609,7 @@ export namespace Prisma {
   export type PlacesGroupByOutputType = {
     id: string
     name: string
+    image: string | null
     description: string
     destinationId: string
     _count: PlacesCountAggregateOutputType | null
@@ -14627,6 +14634,7 @@ export namespace Prisma {
   export type PlacesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    image?: boolean
     description?: boolean
     destinationId?: boolean
     destination?: boolean | DestinationsDefaultArgs<ExtArgs>
@@ -14635,6 +14643,7 @@ export namespace Prisma {
   export type PlacesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    image?: boolean
     description?: boolean
     destinationId?: boolean
     destination?: boolean | DestinationsDefaultArgs<ExtArgs>
@@ -14643,6 +14652,7 @@ export namespace Prisma {
   export type PlacesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    image?: boolean
     description?: boolean
     destinationId?: boolean
     destination?: boolean | DestinationsDefaultArgs<ExtArgs>
@@ -14651,11 +14661,12 @@ export namespace Prisma {
   export type PlacesSelectScalar = {
     id?: boolean
     name?: boolean
+    image?: boolean
     description?: boolean
     destinationId?: boolean
   }
 
-  export type PlacesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "destinationId", ExtArgs["result"]["places"]>
+  export type PlacesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "image" | "description" | "destinationId", ExtArgs["result"]["places"]>
   export type PlacesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     destination?: boolean | DestinationsDefaultArgs<ExtArgs>
   }
@@ -14674,6 +14685,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
+      image: string | null
       description: string
       destinationId: string
     }, ExtArgs["result"]["places"]>
@@ -15102,6 +15114,7 @@ export namespace Prisma {
   interface PlacesFieldRefs {
     readonly id: FieldRef<"Places", 'String'>
     readonly name: FieldRef<"Places", 'String'>
+    readonly image: FieldRef<"Places", 'String'>
     readonly description: FieldRef<"Places", 'String'>
     readonly destinationId: FieldRef<"Places", 'String'>
   }
@@ -17769,6 +17782,7 @@ export namespace Prisma {
   export const PlacesScalarFieldEnum: {
     id: 'id',
     name: 'name',
+    image: 'image',
     description: 'description',
     destinationId: 'destinationId'
   };
@@ -18614,6 +18628,7 @@ export namespace Prisma {
     NOT?: PlacesWhereInput | PlacesWhereInput[]
     id?: StringFilter<"Places"> | string
     name?: StringFilter<"Places"> | string
+    image?: StringNullableFilter<"Places"> | string | null
     description?: StringFilter<"Places"> | string
     destinationId?: StringFilter<"Places"> | string
     destination?: XOR<DestinationsScalarRelationFilter, DestinationsWhereInput>
@@ -18622,6 +18637,7 @@ export namespace Prisma {
   export type PlacesOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
+    image?: SortOrderInput | SortOrder
     description?: SortOrder
     destinationId?: SortOrder
     destination?: DestinationsOrderByWithRelationInput
@@ -18633,6 +18649,7 @@ export namespace Prisma {
     OR?: PlacesWhereInput[]
     NOT?: PlacesWhereInput | PlacesWhereInput[]
     name?: StringFilter<"Places"> | string
+    image?: StringNullableFilter<"Places"> | string | null
     description?: StringFilter<"Places"> | string
     destinationId?: StringFilter<"Places"> | string
     destination?: XOR<DestinationsScalarRelationFilter, DestinationsWhereInput>
@@ -18641,6 +18658,7 @@ export namespace Prisma {
   export type PlacesOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
+    image?: SortOrderInput | SortOrder
     description?: SortOrder
     destinationId?: SortOrder
     _count?: PlacesCountOrderByAggregateInput
@@ -18654,6 +18672,7 @@ export namespace Prisma {
     NOT?: PlacesScalarWhereWithAggregatesInput | PlacesScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Places"> | string
     name?: StringWithAggregatesFilter<"Places"> | string
+    image?: StringNullableWithAggregatesFilter<"Places"> | string | null
     description?: StringWithAggregatesFilter<"Places"> | string
     destinationId?: StringWithAggregatesFilter<"Places"> | string
   }
@@ -19519,6 +19538,7 @@ export namespace Prisma {
   export type PlacesCreateInput = {
     id?: string
     name: string
+    image?: string | null
     description?: string
     destination: DestinationsCreateNestedOneWithoutPlacesInput
   }
@@ -19526,6 +19546,7 @@ export namespace Prisma {
   export type PlacesUncheckedCreateInput = {
     id?: string
     name: string
+    image?: string | null
     description?: string
     destinationId: string
   }
@@ -19533,6 +19554,7 @@ export namespace Prisma {
   export type PlacesUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     destination?: DestinationsUpdateOneRequiredWithoutPlacesNestedInput
   }
@@ -19540,6 +19562,7 @@ export namespace Prisma {
   export type PlacesUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     destinationId?: StringFieldUpdateOperationsInput | string
   }
@@ -19547,6 +19570,7 @@ export namespace Prisma {
   export type PlacesCreateManyInput = {
     id?: string
     name: string
+    image?: string | null
     description?: string
     destinationId: string
   }
@@ -19554,12 +19578,14 @@ export namespace Prisma {
   export type PlacesUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
   }
 
   export type PlacesUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     destinationId?: StringFieldUpdateOperationsInput | string
   }
@@ -20327,6 +20353,7 @@ export namespace Prisma {
   export type PlacesCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    image?: SortOrder
     description?: SortOrder
     destinationId?: SortOrder
   }
@@ -20334,6 +20361,7 @@ export namespace Prisma {
   export type PlacesMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    image?: SortOrder
     description?: SortOrder
     destinationId?: SortOrder
   }
@@ -20341,6 +20369,7 @@ export namespace Prisma {
   export type PlacesMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    image?: SortOrder
     description?: SortOrder
     destinationId?: SortOrder
   }
@@ -22170,12 +22199,14 @@ export namespace Prisma {
   export type PlacesCreateWithoutDestinationInput = {
     id?: string
     name: string
+    image?: string | null
     description?: string
   }
 
   export type PlacesUncheckedCreateWithoutDestinationInput = {
     id?: string
     name: string
+    image?: string | null
     description?: string
   }
 
@@ -22233,6 +22264,7 @@ export namespace Prisma {
     NOT?: PlacesScalarWhereInput | PlacesScalarWhereInput[]
     id?: StringFilter<"Places"> | string
     name?: StringFilter<"Places"> | string
+    image?: StringNullableFilter<"Places"> | string | null
     description?: StringFilter<"Places"> | string
     destinationId?: StringFilter<"Places"> | string
   }
@@ -22675,6 +22707,7 @@ export namespace Prisma {
   export type PlacesCreateManyDestinationInput = {
     id?: string
     name: string
+    image?: string | null
     description?: string
   }
 
@@ -22687,18 +22720,21 @@ export namespace Prisma {
   export type PlacesUpdateWithoutDestinationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
   }
 
   export type PlacesUncheckedUpdateWithoutDestinationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
   }
 
   export type PlacesUncheckedUpdateManyWithoutDestinationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
   }
 

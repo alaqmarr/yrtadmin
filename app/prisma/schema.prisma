@@ -158,6 +158,7 @@ model Destinations {
 model Places {
   id            String       @id @default(cuid())
   name          String
+  image         String?
   description   String       @default("No description available.")
   destination   Destinations @relation(fields: [destinationId], references: [id], onDelete: Cascade)
   destinationId String

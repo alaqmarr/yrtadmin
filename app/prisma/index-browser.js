@@ -224,6 +224,7 @@ exports.Prisma.DestinationsScalarFieldEnum = {
 exports.Prisma.PlacesScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  image: 'image',
   description: 'description',
   destinationId: 'destinationId'
 };
