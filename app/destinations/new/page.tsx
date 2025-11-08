@@ -12,6 +12,9 @@ export default function NewDestinationPage() {
     const [faqs, setFaqs] = useState<{ question: string; answer: string }[]>([
         { question: "", answer: "" },
     ]);
+    const [places, setPlaces] = useState<{ name: string; description: string }[]>([
+        { name: "", description: "" },
+    ]);
     const [loading, setLoading] = useState(false);
 
     const handleAddFaq = () => {
@@ -30,14 +33,30 @@ export default function NewDestinationPage() {
             setFaqs(updated);
         }
     };
+    const handleAddPlace = () => {
+        setPlaces([...places, { name: "", description: "" }]);
+    };
+
+    const handlePlaceChange = (index: number, field: "name" | "description", value: string) => {
+        const updated = [...places];
+        updated[index][field] = value;
+        setPlaces(updated);
+    };
+
+    const handleRemovePlace = (index: number) => {
+        if (places.length > 1) {
+            const updated = places.filter((_, i) => i !== index);
+            setPlaces(updated);
+        }
+    };
 
     const validateForm = (formData: FormData): string | null => {
         const name = formData.get("name") as string;
-        
+
         if (!name?.trim()) {
             return "Name is required";
         }
-        
+
         if (name.trim().length < 2) {
             return "Name must be at least 2 characters";
         }
@@ -46,17 +65,21 @@ export default function NewDestinationPage() {
         if (validFaqs.length > 0 && validFaqs.some(f => f.question.trim().length < 5 || f.answer.trim().length < 5)) {
             return "FAQ questions and answers must be at least 5 characters";
         }
+        const validPlaces = places.filter(f => f.name.trim() && f.description.trim());
+        if (validPlaces.length > 0 && validPlaces.some(f => f.name.trim().length < 5 || f.description.trim().length < 5)) {
+            return "Place names and descriptions must be at least 5 characters";
+        }
 
         return null;
     };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        
+
         if (loading) return;
 
         const formData = new FormData(e.currentTarget);
-        
+
         const validationError = validateForm(formData);
         if (validationError) {
             toast.error(validationError);
@@ -77,6 +100,7 @@ export default function NewDestinationPage() {
             const currency = (formData.get("currency") as string)?.trim() || null;
 
             const validFaqs = faqs.filter(f => f.question.trim() && f.answer.trim());
+            const validPlaces = places.filter(p => p.name.trim() && p.description.trim());
 
             await createDestinationAction({
                 name,
@@ -89,6 +113,7 @@ export default function NewDestinationPage() {
                 languagesSpoken: languagesSpoken || undefined,
                 currency: currency || undefined,
                 faqs: validFaqs,
+                places: validPlaces,
             });
 
             toast.success("Destination created successfully", { id: toastId });
@@ -116,9 +141,9 @@ export default function NewDestinationPage() {
                     <label className="block text-sm mb-1 font-medium">
                         Name <span className="text-red-500">*</span>
                     </label>
-                    <input 
-                        name="name" 
-                        required 
+                    <input
+                        name="name"
+                        required
                         minLength={2}
                         maxLength={100}
                         className="w-full border p-2 rounded focus:outline-none focus:ring-2 focus:ring-slate-400"
@@ -128,8 +153,8 @@ export default function NewDestinationPage() {
 
                 <div>
                     <label className="block text-sm mb-1 font-medium">Tag</label>
-                    <input 
-                        name="tag" 
+                    <input
+                        name="tag"
                         maxLength={50}
                         className="w-full border p-2 rounded focus:outline-none focus:ring-2 focus:ring-slate-400"
                         placeholder="e.g., Beach, Mountain, City"
@@ -138,8 +163,8 @@ export default function NewDestinationPage() {
 
                 <div>
                     <label className="block text-sm mb-1 font-medium">Title</label>
-                    <input 
-                        name="title" 
+                    <input
+                        name="title"
                         maxLength={150}
                         className="w-full border p-2 rounded focus:outline-none focus:ring-2 focus:ring-slate-400"
                         placeholder="Enter a catchy title"
@@ -148,8 +173,8 @@ export default function NewDestinationPage() {
 
                 <div>
                     <label className="block text-sm mb-1 font-medium">Country</label>
-                    <input 
-                        name="country" 
+                    <input
+                        name="country"
                         maxLength={100}
                         className="w-full border p-2 rounded focus:outline-none focus:ring-2 focus:ring-slate-400"
                         placeholder="Enter country name"
@@ -158,8 +183,8 @@ export default function NewDestinationPage() {
 
                 <div>
                     <label className="block text-sm mb-1 font-medium">Visa Requirements</label>
-                    <input 
-                        name="visa" 
+                    <input
+                        name="visa"
                         maxLength={200}
                         className="w-full border p-2 rounded focus:outline-none focus:ring-2 focus:ring-slate-400"
                         placeholder="e.g., Visa on arrival, eVisa required"
@@ -168,8 +193,8 @@ export default function NewDestinationPage() {
 
                 <div>
                     <label className="block text-sm mb-1 font-medium">Languages Spoken</label>
-                    <input 
-                        name="languagesSpoken" 
+                    <input
+                        name="languagesSpoken"
                         maxLength={200}
                         className="w-full border p-2 rounded focus:outline-none focus:ring-2 focus:ring-slate-400"
                         placeholder="e.g., English, Spanish, French"
@@ -178,8 +203,8 @@ export default function NewDestinationPage() {
 
                 <div>
                     <label className="block text-sm mb-1 font-medium">Currency</label>
-                    <input 
-                        name="currency" 
+                    <input
+                        name="currency"
                         maxLength={50}
                         className="w-full border p-2 rounded focus:outline-none focus:ring-2 focus:ring-slate-400"
                         placeholder="e.g., USD, EUR, GBP"
@@ -188,10 +213,10 @@ export default function NewDestinationPage() {
 
                 <div>
                     <label className="block text-sm mb-1 font-medium">Description</label>
-                    <textarea 
-                        name="description" 
+                    <textarea
+                        name="description"
                         maxLength={1000}
-                        className="w-full border p-2 rounded focus:outline-none focus:ring-2 focus:ring-slate-400" 
+                        className="w-full border p-2 rounded focus:outline-none focus:ring-2 focus:ring-slate-400"
                         rows={4}
                         placeholder="Describe the destination..."
                     />
@@ -271,6 +296,54 @@ export default function NewDestinationPage() {
                         className="mt-3 text-sm text-blue-600 underline hover:text-blue-800"
                     >
                         + Add another question
+                    </button>
+                </div>
+                <div>
+                    <label className="block text-sm font-medium mb-2">Nearby Places</label>
+                    <div className="space-y-4">
+                        {places.map((place, index) => (
+                            <div
+                                key={index}
+                                className="border rounded-md p-3 space-y-2 bg-gray-50 relative"
+                            >
+                                <div className="flex justify-between items-center">
+                                    <h4 className="font-medium text-sm">Place {index + 1}</h4>
+                                    {places.length > 1 && (
+                                        <button
+                                            type="button"
+                                            onClick={() => handleRemovePlace(index)}
+                                            className="text-xs text-red-600 hover:text-red-800 font-medium"
+                                        >
+                                            Remove
+                                        </button>
+                                    )}
+                                </div>
+                                <input
+                                    type="text"
+                                    value={place.name}
+                                    onChange={(e) => handlePlaceChange(index, "name", e.target.value)}
+                                    placeholder="Enter place name"
+                                    maxLength={200}
+                                    className="w-full border p-2 rounded text-sm focus:outline-none focus:ring-2 focus:ring-slate-400"
+                                />
+                                <textarea
+                                    value={place.description}
+                                    onChange={(e) => handlePlaceChange(index, "description", e.target.value)}
+                                    placeholder="Enter answer"
+                                    maxLength={500}
+                                    className="w-full border p-2 rounded text-sm focus:outline-none focus:ring-2 focus:ring-slate-400"
+                                    rows={2}
+                                />
+                            </div>
+                        ))}
+                    </div>
+
+                    <button
+                        type="button"
+                        onClick={handleAddPlace}
+                        className="mt-3 text-sm text-blue-600 underline hover:text-blue-800"
+                    >
+                        + Add another place
                     </button>
                 </div>
 

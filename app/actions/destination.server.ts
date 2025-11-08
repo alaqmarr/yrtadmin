@@ -15,6 +15,7 @@ export async function createDestinationAction(payload: {
   languagesSpoken?: string;
   currency?: string;
   faqs?: FAQInput[];
+  places?: { name: string; description: string }[];
 }) {
   try {
     const created = await prisma.destinations.create({
@@ -34,8 +35,14 @@ export async function createDestinationAction(payload: {
             answer: f.answer,
           })),
         },
+        places:{
+          create: (payload.places || []).map((p) => ({
+            name: p.name,
+            description: p.description,
+          })),
+        }
       },
-      include: { faqs: true },
+      include: { faqs: true, places: true },
     });
     return { status: "success", destination: created };
   } catch (error) {
@@ -57,6 +64,7 @@ export async function updateDestinationAction(
     languagesSpoken?: string;
     currency?: string;
     faqs?: FAQInput[];
+    places?: { name: string; description: string }[];
   }
 ) {
   try {
@@ -79,8 +87,15 @@ export async function updateDestinationAction(
             answer: f.answer,
           })),
         },
+        places: {
+          deleteMany: {},
+          create: (payload.places || []).map((p) => ({
+            name: p.name,
+            description: p.description,
+          })),
+        },
       },
-      include: { faqs: true },
+      include: { faqs: true, places: true  },
     });
 
     return { status: "success", destination: updated };

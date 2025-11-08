@@ -8,6 +8,7 @@ type Exclusion = { item: string };
 type Feature = { item: string };
 type Itinerary = {
   dayNumber: number;
+  title: string;
   description: string;
   features: Feature[];
 };
@@ -46,6 +47,7 @@ export async function createPackageAction(payload: {
               payload.itineraries?.map((day) => ({
                 dayNumber: day.dayNumber,
                 description: day.description,
+                title: day.title,
                 features: {
                   create: day.features.map((f) => ({ item: f.item })),
                 },
@@ -124,6 +126,7 @@ export async function updatePackageAction(
               payload.itineraries?.map((day) => ({
                 dayNumber: day.dayNumber,
                 description: day.description,
+                title: day.title,
                 features: {
                   create: day.features.map((f) => ({ item: f.item })),
                 },

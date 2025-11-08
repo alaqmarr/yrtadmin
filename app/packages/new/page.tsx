@@ -11,6 +11,7 @@ type Feature = { id: string; item: string };
 type DayItinerary = {
   id: string;
   dayNumber: number | "";
+  title: string;
   description: string;
   features: Feature[];
 };
@@ -33,7 +34,7 @@ export default function NewPackagePage() {
   const [inclusions, setInclusions] = useState<Inclusion[]>([{ id: uid(), item: "" }]);
   const [exclusions, setExclusions] = useState<Exclusion[]>([{ id: uid(), item: "" }]);
   const [itineraries, setItineraries] = useState<DayItinerary[]>([
-    { id: uid(), dayNumber: 1, description: "", features: [{ id: uid(), item: "" }] },
+    { id: uid(), dayNumber: 1, title: "", description: "", features: [{ id: uid(), item: "" }] },
   ]);
 
   const [loading, setLoading] = useState(false);
@@ -52,7 +53,7 @@ export default function NewPackagePage() {
   const addItinerary = () =>
     setItineraries([
       ...itineraries,
-      { id: uid(), dayNumber: itineraries.length + 1, description: "", features: [{ id: uid(), item: "" }] },
+      { id: uid(), dayNumber: itineraries.length + 1,title: "", description: "", features: [{ id: uid(), item: "" }] },
     ]);
   const removeItinerary = (id: string) => setItineraries(itineraries.filter((it) => it.id !== id));
   const updateItinerary = (id: string, key: keyof DayItinerary, value: any) =>
@@ -105,6 +106,7 @@ export default function NewPackagePage() {
         itineraries: itineraries.map((it) => ({
           dayNumber: Number(it.dayNumber),
           description: it.description,
+          title: it.title,
           features: it.features.filter((f) => f.item.trim()),
         })),
       });
@@ -129,7 +131,7 @@ export default function NewPackagePage() {
     setImageUrl("");
     setInclusions([{ id: uid(), item: "" }]);
     setExclusions([{ id: uid(), item: "" }]);
-    setItineraries([{ id: uid(), dayNumber: 1, description: "", features: [{ id: uid(), item: "" }] }]);
+    setItineraries([{ id: uid(), dayNumber: 1, title: "", description: "", features: [{ id: uid(), item: "" }] }]);
   };
 
   return (
@@ -294,6 +296,12 @@ export default function NewPackagePage() {
                     </button>
                   )}
                 </div>
+                <input
+                  value={it.title}
+                  onChange={(e) => updateItinerary(it.id, "title", e.target.value)}
+                  placeholder="Day title"
+                  className="border p-2 rounded flex-1 text-sm"
+                />
 
                 <textarea
                   value={it.description}
