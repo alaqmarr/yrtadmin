@@ -131,7 +131,7 @@ model BlogImages {
 
 model BlogCategory {
   id    String  @id @default(cuid())
-  name  String
+  name  String @unique
   blogs Blogs[] // implicit many-to-many
 }
 

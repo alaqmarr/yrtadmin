@@ -18506,12 +18506,12 @@ export namespace Prisma {
 
   export type BlogCategoryWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    name?: string
     AND?: BlogCategoryWhereInput | BlogCategoryWhereInput[]
     OR?: BlogCategoryWhereInput[]
     NOT?: BlogCategoryWhereInput | BlogCategoryWhereInput[]
-    name?: StringFilter<"BlogCategory"> | string
     blogs?: BlogsListRelationFilter
-  }, "id">
+  }, "id" | "name">
 
   export type BlogCategoryOrderByWithAggregationInput = {
     id?: SortOrder

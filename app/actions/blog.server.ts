@@ -7,16 +7,11 @@ export async function createBlogAction(payload: {
   title: string;
   html: string;
   author: string;
-  thumbnail?: string;
+  thumbnail: string;
   categories?: string[];
   images?: string[];
 }) {
   const id = parseText(payload.title);
-  // Defensive normalization
-  const safeCategories = (payload.categories ?? [])
-    .map((c) => c.trim())
-    .filter(Boolean)
-    .map((name) => ({ name }));
 
   const safeImages = (payload.images ?? [])
     .filter(
@@ -24,19 +19,25 @@ export async function createBlogAction(payload: {
     )
     .map((url) => ({ url }));
 
-  return await prisma.blogs.create({
+  const safeCategories = (payload.categories ?? [])
+    .map((c) => c.trim())
+    .filter(Boolean)
+    .map((name) => ({
+      where: { name },
+      create: { name },
+    }));
+
+  return prisma.blogs.create({
     data: {
       id,
       title: payload.title,
       html: payload.html,
       author: payload.author,
-      thumbnail: payload.thumbnail ?? null,
-      categories: safeCategories.length
-        ? {
-            create: safeCategories,
-          }
-        : undefined,
+      thumbnail: payload.thumbnail,
       images: safeImages.length ? { create: safeImages } : undefined,
+      categories: safeCategories.length
+        ? { connectOrCreate: safeCategories }
+        : undefined,
     },
   });
 }
@@ -52,29 +53,41 @@ export async function updateBlogAction(
     images?: string[];
   }
 ) {
-  return await prisma.$transaction(async (tx: any) => {
+  return prisma.$transaction(async (tx) => {
+    // Remove existing images
     await tx.blogImages.deleteMany({ where: { blogId: id } });
+
+    // Detach all existing categories (pivot table cleanup)
+    await tx.blogs.update({
+      where: { id },
+      data: { categories: { set: [] } },
+    });
+
+    const safeImages = (payload.images ?? [])
+      .filter(
+        (url): url is string => typeof url === "string" && url.trim() !== ""
+      )
+      .map((url) => ({ url }));
+
+    const safeCategories = (payload.categories ?? [])
+      .map((c) => c.trim())
+      .filter(Boolean)
+      .map((name) => ({
+        where: { name },
+        create: { name },
+      }));
 
     const updated = await tx.blogs.update({
       where: { id },
       data: {
         title: payload.title,
         html: payload.html,
-        thumbnail: payload.thumbnail,
+        thumbnail: payload.thumbnail, // ✅ scalar update works fine now
         author: payload.author,
-        categories: {
-          categories: {
-            set: [],
-            create:
-              payload.categories?.map((c) => ({
-                name: c,
-              })) ?? [],
-          },
-          create:
-            payload.images?.map((url) => ({
-              url,
-            })) ?? [],
-        },
+        images: safeImages.length ? { create: safeImages } : undefined,
+        categories: safeCategories.length
+          ? { connectOrCreate: safeCategories }
+          : undefined,
       },
     });
 
@@ -83,7 +96,5 @@ export async function updateBlogAction(
 }
 
 export async function deleteBlogAction(id: string) {
-  return await prisma.blogs.delete({
-    where: { id },
-  });
+  return prisma.blogs.delete({ where: { id } });
 }
