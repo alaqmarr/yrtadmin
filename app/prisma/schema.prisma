@@ -188,7 +188,7 @@ model Testimonials {
   updatedAt    DateTime @updatedAt
 }
 
-model RzorpayPayment {
+model PaymentModel {
   id                String   @id @default(cuid())
   amount            Float
   paid              Boolean  @default(false)

@@ -84,10 +84,10 @@ export type DestinationFAQ = $Result.DefaultSelection<Prisma.$DestinationFAQPayl
  */
 export type Testimonials = $Result.DefaultSelection<Prisma.$TestimonialsPayload>
 /**
- * Model RzorpayPayment
+ * Model PaymentModel
  * 
  */
-export type RzorpayPayment = $Result.DefaultSelection<Prisma.$RzorpayPaymentPayload>
+export type PaymentModel = $Result.DefaultSelection<Prisma.$PaymentModelPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -348,14 +348,14 @@ export class PrismaClient<
   get testimonials(): Prisma.TestimonialsDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.rzorpayPayment`: Exposes CRUD operations for the **RzorpayPayment** model.
+   * `prisma.paymentModel`: Exposes CRUD operations for the **PaymentModel** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more RzorpayPayments
-    * const rzorpayPayments = await prisma.rzorpayPayment.findMany()
+    * // Fetch zero or more PaymentModels
+    * const paymentModels = await prisma.paymentModel.findMany()
     * ```
     */
-  get rzorpayPayment(): Prisma.RzorpayPaymentDelegate<ExtArgs, ClientOptions>;
+  get paymentModel(): Prisma.PaymentModelDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -811,7 +811,7 @@ export namespace Prisma {
     Places: 'Places',
     DestinationFAQ: 'DestinationFAQ',
     Testimonials: 'Testimonials',
-    RzorpayPayment: 'RzorpayPayment'
+    PaymentModel: 'PaymentModel'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -830,7 +830,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "package" | "bookings" | "payment" | "dayItinerary" | "featuredItems" | "includedItems" | "excludedItems" | "blogs" | "blogImages" | "blogCategory" | "destinations" | "places" | "destinationFAQ" | "testimonials" | "rzorpayPayment"
+      modelProps: "package" | "bookings" | "payment" | "dayItinerary" | "featuredItems" | "includedItems" | "excludedItems" | "blogs" | "blogImages" | "blogCategory" | "destinations" | "places" | "destinationFAQ" | "testimonials" | "paymentModel"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1870,77 +1870,77 @@ export namespace Prisma {
           }
         }
       }
-      RzorpayPayment: {
-        payload: Prisma.$RzorpayPaymentPayload<ExtArgs>
-        fields: Prisma.RzorpayPaymentFieldRefs
+      PaymentModel: {
+        payload: Prisma.$PaymentModelPayload<ExtArgs>
+        fields: Prisma.PaymentModelFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.RzorpayPaymentFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RzorpayPaymentPayload> | null
+            args: Prisma.PaymentModelFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentModelPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.RzorpayPaymentFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RzorpayPaymentPayload>
+            args: Prisma.PaymentModelFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentModelPayload>
           }
           findFirst: {
-            args: Prisma.RzorpayPaymentFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RzorpayPaymentPayload> | null
+            args: Prisma.PaymentModelFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentModelPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.RzorpayPaymentFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RzorpayPaymentPayload>
+            args: Prisma.PaymentModelFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentModelPayload>
           }
           findMany: {
-            args: Prisma.RzorpayPaymentFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RzorpayPaymentPayload>[]
+            args: Prisma.PaymentModelFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentModelPayload>[]
           }
           create: {
-            args: Prisma.RzorpayPaymentCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RzorpayPaymentPayload>
+            args: Prisma.PaymentModelCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentModelPayload>
           }
           createMany: {
-            args: Prisma.RzorpayPaymentCreateManyArgs<ExtArgs>
+            args: Prisma.PaymentModelCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.RzorpayPaymentCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RzorpayPaymentPayload>[]
+            args: Prisma.PaymentModelCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentModelPayload>[]
           }
           delete: {
-            args: Prisma.RzorpayPaymentDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RzorpayPaymentPayload>
+            args: Prisma.PaymentModelDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentModelPayload>
           }
           update: {
-            args: Prisma.RzorpayPaymentUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RzorpayPaymentPayload>
+            args: Prisma.PaymentModelUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentModelPayload>
           }
           deleteMany: {
-            args: Prisma.RzorpayPaymentDeleteManyArgs<ExtArgs>
+            args: Prisma.PaymentModelDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.RzorpayPaymentUpdateManyArgs<ExtArgs>
+            args: Prisma.PaymentModelUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.RzorpayPaymentUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RzorpayPaymentPayload>[]
+            args: Prisma.PaymentModelUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentModelPayload>[]
           }
           upsert: {
-            args: Prisma.RzorpayPaymentUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RzorpayPaymentPayload>
+            args: Prisma.PaymentModelUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentModelPayload>
           }
           aggregate: {
-            args: Prisma.RzorpayPaymentAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateRzorpayPayment>
+            args: Prisma.PaymentModelAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePaymentModel>
           }
           groupBy: {
-            args: Prisma.RzorpayPaymentGroupByArgs<ExtArgs>
-            result: $Utils.Optional<RzorpayPaymentGroupByOutputType>[]
+            args: Prisma.PaymentModelGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PaymentModelGroupByOutputType>[]
           }
           count: {
-            args: Prisma.RzorpayPaymentCountArgs<ExtArgs>
-            result: $Utils.Optional<RzorpayPaymentCountAggregateOutputType> | number
+            args: Prisma.PaymentModelCountArgs<ExtArgs>
+            result: $Utils.Optional<PaymentModelCountAggregateOutputType> | number
           }
         }
       }
@@ -2054,7 +2054,7 @@ export namespace Prisma {
     places?: PlacesOmit
     destinationFAQ?: DestinationFAQOmit
     testimonials?: TestimonialsOmit
-    rzorpayPayment?: RzorpayPaymentOmit
+    paymentModel?: PaymentModelOmit
   }
 
   /* Types for Logging */
@@ -17723,26 +17723,26 @@ export namespace Prisma {
 
 
   /**
-   * Model RzorpayPayment
+   * Model PaymentModel
    */
 
-  export type AggregateRzorpayPayment = {
-    _count: RzorpayPaymentCountAggregateOutputType | null
-    _avg: RzorpayPaymentAvgAggregateOutputType | null
-    _sum: RzorpayPaymentSumAggregateOutputType | null
-    _min: RzorpayPaymentMinAggregateOutputType | null
-    _max: RzorpayPaymentMaxAggregateOutputType | null
+  export type AggregatePaymentModel = {
+    _count: PaymentModelCountAggregateOutputType | null
+    _avg: PaymentModelAvgAggregateOutputType | null
+    _sum: PaymentModelSumAggregateOutputType | null
+    _min: PaymentModelMinAggregateOutputType | null
+    _max: PaymentModelMaxAggregateOutputType | null
   }
 
-  export type RzorpayPaymentAvgAggregateOutputType = {
+  export type PaymentModelAvgAggregateOutputType = {
     amount: number | null
   }
 
-  export type RzorpayPaymentSumAggregateOutputType = {
+  export type PaymentModelSumAggregateOutputType = {
     amount: number | null
   }
 
-  export type RzorpayPaymentMinAggregateOutputType = {
+  export type PaymentModelMinAggregateOutputType = {
     id: string | null
     amount: number | null
     paid: boolean | null
@@ -17756,7 +17756,7 @@ export namespace Prisma {
     createdAt: Date | null
   }
 
-  export type RzorpayPaymentMaxAggregateOutputType = {
+  export type PaymentModelMaxAggregateOutputType = {
     id: string | null
     amount: number | null
     paid: boolean | null
@@ -17770,7 +17770,7 @@ export namespace Prisma {
     createdAt: Date | null
   }
 
-  export type RzorpayPaymentCountAggregateOutputType = {
+  export type PaymentModelCountAggregateOutputType = {
     id: number
     amount: number
     paid: number
@@ -17786,15 +17786,15 @@ export namespace Prisma {
   }
 
 
-  export type RzorpayPaymentAvgAggregateInputType = {
+  export type PaymentModelAvgAggregateInputType = {
     amount?: true
   }
 
-  export type RzorpayPaymentSumAggregateInputType = {
+  export type PaymentModelSumAggregateInputType = {
     amount?: true
   }
 
-  export type RzorpayPaymentMinAggregateInputType = {
+  export type PaymentModelMinAggregateInputType = {
     id?: true
     amount?: true
     paid?: true
@@ -17808,7 +17808,7 @@ export namespace Prisma {
     createdAt?: true
   }
 
-  export type RzorpayPaymentMaxAggregateInputType = {
+  export type PaymentModelMaxAggregateInputType = {
     id?: true
     amount?: true
     paid?: true
@@ -17822,7 +17822,7 @@ export namespace Prisma {
     createdAt?: true
   }
 
-  export type RzorpayPaymentCountAggregateInputType = {
+  export type PaymentModelCountAggregateInputType = {
     id?: true
     amount?: true
     paid?: true
@@ -17837,93 +17837,93 @@ export namespace Prisma {
     _all?: true
   }
 
-  export type RzorpayPaymentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PaymentModelAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which RzorpayPayment to aggregate.
+     * Filter which PaymentModel to aggregate.
      */
-    where?: RzorpayPaymentWhereInput
+    where?: PaymentModelWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of RzorpayPayments to fetch.
+     * Determine the order of PaymentModels to fetch.
      */
-    orderBy?: RzorpayPaymentOrderByWithRelationInput | RzorpayPaymentOrderByWithRelationInput[]
+    orderBy?: PaymentModelOrderByWithRelationInput | PaymentModelOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: RzorpayPaymentWhereUniqueInput
+    cursor?: PaymentModelWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` RzorpayPayments from the position of the cursor.
+     * Take `±n` PaymentModels from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` RzorpayPayments.
+     * Skip the first `n` PaymentModels.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned RzorpayPayments
+     * Count returned PaymentModels
     **/
-    _count?: true | RzorpayPaymentCountAggregateInputType
+    _count?: true | PaymentModelCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: RzorpayPaymentAvgAggregateInputType
+    _avg?: PaymentModelAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: RzorpayPaymentSumAggregateInputType
+    _sum?: PaymentModelSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: RzorpayPaymentMinAggregateInputType
+    _min?: PaymentModelMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: RzorpayPaymentMaxAggregateInputType
+    _max?: PaymentModelMaxAggregateInputType
   }
 
-  export type GetRzorpayPaymentAggregateType<T extends RzorpayPaymentAggregateArgs> = {
-        [P in keyof T & keyof AggregateRzorpayPayment]: P extends '_count' | 'count'
+  export type GetPaymentModelAggregateType<T extends PaymentModelAggregateArgs> = {
+        [P in keyof T & keyof AggregatePaymentModel]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateRzorpayPayment[P]>
-      : GetScalarType<T[P], AggregateRzorpayPayment[P]>
+        : GetScalarType<T[P], AggregatePaymentModel[P]>
+      : GetScalarType<T[P], AggregatePaymentModel[P]>
   }
 
 
 
 
-  export type RzorpayPaymentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: RzorpayPaymentWhereInput
-    orderBy?: RzorpayPaymentOrderByWithAggregationInput | RzorpayPaymentOrderByWithAggregationInput[]
-    by: RzorpayPaymentScalarFieldEnum[] | RzorpayPaymentScalarFieldEnum
-    having?: RzorpayPaymentScalarWhereWithAggregatesInput
+  export type PaymentModelGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PaymentModelWhereInput
+    orderBy?: PaymentModelOrderByWithAggregationInput | PaymentModelOrderByWithAggregationInput[]
+    by: PaymentModelScalarFieldEnum[] | PaymentModelScalarFieldEnum
+    having?: PaymentModelScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: RzorpayPaymentCountAggregateInputType | true
-    _avg?: RzorpayPaymentAvgAggregateInputType
-    _sum?: RzorpayPaymentSumAggregateInputType
-    _min?: RzorpayPaymentMinAggregateInputType
-    _max?: RzorpayPaymentMaxAggregateInputType
+    _count?: PaymentModelCountAggregateInputType | true
+    _avg?: PaymentModelAvgAggregateInputType
+    _sum?: PaymentModelSumAggregateInputType
+    _min?: PaymentModelMinAggregateInputType
+    _max?: PaymentModelMaxAggregateInputType
   }
 
-  export type RzorpayPaymentGroupByOutputType = {
+  export type PaymentModelGroupByOutputType = {
     id: string
     amount: number
     paid: boolean
@@ -17935,28 +17935,28 @@ export namespace Prisma {
     razorpayPaymentId: string | null
     paymentDate: Date
     createdAt: Date
-    _count: RzorpayPaymentCountAggregateOutputType | null
-    _avg: RzorpayPaymentAvgAggregateOutputType | null
-    _sum: RzorpayPaymentSumAggregateOutputType | null
-    _min: RzorpayPaymentMinAggregateOutputType | null
-    _max: RzorpayPaymentMaxAggregateOutputType | null
+    _count: PaymentModelCountAggregateOutputType | null
+    _avg: PaymentModelAvgAggregateOutputType | null
+    _sum: PaymentModelSumAggregateOutputType | null
+    _min: PaymentModelMinAggregateOutputType | null
+    _max: PaymentModelMaxAggregateOutputType | null
   }
 
-  type GetRzorpayPaymentGroupByPayload<T extends RzorpayPaymentGroupByArgs> = Prisma.PrismaPromise<
+  type GetPaymentModelGroupByPayload<T extends PaymentModelGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<RzorpayPaymentGroupByOutputType, T['by']> &
+      PickEnumerable<PaymentModelGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof RzorpayPaymentGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof PaymentModelGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], RzorpayPaymentGroupByOutputType[P]>
-            : GetScalarType<T[P], RzorpayPaymentGroupByOutputType[P]>
+              : GetScalarType<T[P], PaymentModelGroupByOutputType[P]>
+            : GetScalarType<T[P], PaymentModelGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type RzorpayPaymentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type PaymentModelSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     amount?: boolean
     paid?: boolean
@@ -17968,9 +17968,9 @@ export namespace Prisma {
     razorpayPaymentId?: boolean
     paymentDate?: boolean
     createdAt?: boolean
-  }, ExtArgs["result"]["rzorpayPayment"]>
+  }, ExtArgs["result"]["paymentModel"]>
 
-  export type RzorpayPaymentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type PaymentModelSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     amount?: boolean
     paid?: boolean
@@ -17982,9 +17982,9 @@ export namespace Prisma {
     razorpayPaymentId?: boolean
     paymentDate?: boolean
     createdAt?: boolean
-  }, ExtArgs["result"]["rzorpayPayment"]>
+  }, ExtArgs["result"]["paymentModel"]>
 
-  export type RzorpayPaymentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type PaymentModelSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     amount?: boolean
     paid?: boolean
@@ -17996,9 +17996,9 @@ export namespace Prisma {
     razorpayPaymentId?: boolean
     paymentDate?: boolean
     createdAt?: boolean
-  }, ExtArgs["result"]["rzorpayPayment"]>
+  }, ExtArgs["result"]["paymentModel"]>
 
-  export type RzorpayPaymentSelectScalar = {
+  export type PaymentModelSelectScalar = {
     id?: boolean
     amount?: boolean
     paid?: boolean
@@ -18012,10 +18012,10 @@ export namespace Prisma {
     createdAt?: boolean
   }
 
-  export type RzorpayPaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "amount" | "paid" | "customerEmail" | "customerName" | "customerId" | "customerPhone" | "paymentMethod" | "razorpayPaymentId" | "paymentDate" | "createdAt", ExtArgs["result"]["rzorpayPayment"]>
+  export type PaymentModelOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "amount" | "paid" | "customerEmail" | "customerName" | "customerId" | "customerPhone" | "paymentMethod" | "razorpayPaymentId" | "paymentDate" | "createdAt", ExtArgs["result"]["paymentModel"]>
 
-  export type $RzorpayPaymentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "RzorpayPayment"
+  export type $PaymentModelPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PaymentModel"
     objects: {}
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -18029,136 +18029,136 @@ export namespace Prisma {
       razorpayPaymentId: string | null
       paymentDate: Date
       createdAt: Date
-    }, ExtArgs["result"]["rzorpayPayment"]>
+    }, ExtArgs["result"]["paymentModel"]>
     composites: {}
   }
 
-  type RzorpayPaymentGetPayload<S extends boolean | null | undefined | RzorpayPaymentDefaultArgs> = $Result.GetResult<Prisma.$RzorpayPaymentPayload, S>
+  type PaymentModelGetPayload<S extends boolean | null | undefined | PaymentModelDefaultArgs> = $Result.GetResult<Prisma.$PaymentModelPayload, S>
 
-  type RzorpayPaymentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<RzorpayPaymentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: RzorpayPaymentCountAggregateInputType | true
+  type PaymentModelCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PaymentModelFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PaymentModelCountAggregateInputType | true
     }
 
-  export interface RzorpayPaymentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['RzorpayPayment'], meta: { name: 'RzorpayPayment' } }
+  export interface PaymentModelDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PaymentModel'], meta: { name: 'PaymentModel' } }
     /**
-     * Find zero or one RzorpayPayment that matches the filter.
-     * @param {RzorpayPaymentFindUniqueArgs} args - Arguments to find a RzorpayPayment
+     * Find zero or one PaymentModel that matches the filter.
+     * @param {PaymentModelFindUniqueArgs} args - Arguments to find a PaymentModel
      * @example
-     * // Get one RzorpayPayment
-     * const rzorpayPayment = await prisma.rzorpayPayment.findUnique({
+     * // Get one PaymentModel
+     * const paymentModel = await prisma.paymentModel.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends RzorpayPaymentFindUniqueArgs>(args: SelectSubset<T, RzorpayPaymentFindUniqueArgs<ExtArgs>>): Prisma__RzorpayPaymentClient<$Result.GetResult<Prisma.$RzorpayPaymentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends PaymentModelFindUniqueArgs>(args: SelectSubset<T, PaymentModelFindUniqueArgs<ExtArgs>>): Prisma__PaymentModelClient<$Result.GetResult<Prisma.$PaymentModelPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one RzorpayPayment that matches the filter or throw an error with `error.code='P2025'`
+     * Find one PaymentModel that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {RzorpayPaymentFindUniqueOrThrowArgs} args - Arguments to find a RzorpayPayment
+     * @param {PaymentModelFindUniqueOrThrowArgs} args - Arguments to find a PaymentModel
      * @example
-     * // Get one RzorpayPayment
-     * const rzorpayPayment = await prisma.rzorpayPayment.findUniqueOrThrow({
+     * // Get one PaymentModel
+     * const paymentModel = await prisma.paymentModel.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends RzorpayPaymentFindUniqueOrThrowArgs>(args: SelectSubset<T, RzorpayPaymentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RzorpayPaymentClient<$Result.GetResult<Prisma.$RzorpayPaymentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends PaymentModelFindUniqueOrThrowArgs>(args: SelectSubset<T, PaymentModelFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PaymentModelClient<$Result.GetResult<Prisma.$PaymentModelPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first RzorpayPayment that matches the filter.
+     * Find the first PaymentModel that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {RzorpayPaymentFindFirstArgs} args - Arguments to find a RzorpayPayment
+     * @param {PaymentModelFindFirstArgs} args - Arguments to find a PaymentModel
      * @example
-     * // Get one RzorpayPayment
-     * const rzorpayPayment = await prisma.rzorpayPayment.findFirst({
+     * // Get one PaymentModel
+     * const paymentModel = await prisma.paymentModel.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends RzorpayPaymentFindFirstArgs>(args?: SelectSubset<T, RzorpayPaymentFindFirstArgs<ExtArgs>>): Prisma__RzorpayPaymentClient<$Result.GetResult<Prisma.$RzorpayPaymentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends PaymentModelFindFirstArgs>(args?: SelectSubset<T, PaymentModelFindFirstArgs<ExtArgs>>): Prisma__PaymentModelClient<$Result.GetResult<Prisma.$PaymentModelPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first RzorpayPayment that matches the filter or
+     * Find the first PaymentModel that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {RzorpayPaymentFindFirstOrThrowArgs} args - Arguments to find a RzorpayPayment
+     * @param {PaymentModelFindFirstOrThrowArgs} args - Arguments to find a PaymentModel
      * @example
-     * // Get one RzorpayPayment
-     * const rzorpayPayment = await prisma.rzorpayPayment.findFirstOrThrow({
+     * // Get one PaymentModel
+     * const paymentModel = await prisma.paymentModel.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends RzorpayPaymentFindFirstOrThrowArgs>(args?: SelectSubset<T, RzorpayPaymentFindFirstOrThrowArgs<ExtArgs>>): Prisma__RzorpayPaymentClient<$Result.GetResult<Prisma.$RzorpayPaymentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends PaymentModelFindFirstOrThrowArgs>(args?: SelectSubset<T, PaymentModelFindFirstOrThrowArgs<ExtArgs>>): Prisma__PaymentModelClient<$Result.GetResult<Prisma.$PaymentModelPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more RzorpayPayments that matches the filter.
+     * Find zero or more PaymentModels that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {RzorpayPaymentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {PaymentModelFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all RzorpayPayments
-     * const rzorpayPayments = await prisma.rzorpayPayment.findMany()
+     * // Get all PaymentModels
+     * const paymentModels = await prisma.paymentModel.findMany()
      * 
-     * // Get first 10 RzorpayPayments
-     * const rzorpayPayments = await prisma.rzorpayPayment.findMany({ take: 10 })
+     * // Get first 10 PaymentModels
+     * const paymentModels = await prisma.paymentModel.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const rzorpayPaymentWithIdOnly = await prisma.rzorpayPayment.findMany({ select: { id: true } })
+     * const paymentModelWithIdOnly = await prisma.paymentModel.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends RzorpayPaymentFindManyArgs>(args?: SelectSubset<T, RzorpayPaymentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RzorpayPaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends PaymentModelFindManyArgs>(args?: SelectSubset<T, PaymentModelFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentModelPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a RzorpayPayment.
-     * @param {RzorpayPaymentCreateArgs} args - Arguments to create a RzorpayPayment.
+     * Create a PaymentModel.
+     * @param {PaymentModelCreateArgs} args - Arguments to create a PaymentModel.
      * @example
-     * // Create one RzorpayPayment
-     * const RzorpayPayment = await prisma.rzorpayPayment.create({
+     * // Create one PaymentModel
+     * const PaymentModel = await prisma.paymentModel.create({
      *   data: {
-     *     // ... data to create a RzorpayPayment
+     *     // ... data to create a PaymentModel
      *   }
      * })
      * 
      */
-    create<T extends RzorpayPaymentCreateArgs>(args: SelectSubset<T, RzorpayPaymentCreateArgs<ExtArgs>>): Prisma__RzorpayPaymentClient<$Result.GetResult<Prisma.$RzorpayPaymentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends PaymentModelCreateArgs>(args: SelectSubset<T, PaymentModelCreateArgs<ExtArgs>>): Prisma__PaymentModelClient<$Result.GetResult<Prisma.$PaymentModelPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many RzorpayPayments.
-     * @param {RzorpayPaymentCreateManyArgs} args - Arguments to create many RzorpayPayments.
+     * Create many PaymentModels.
+     * @param {PaymentModelCreateManyArgs} args - Arguments to create many PaymentModels.
      * @example
-     * // Create many RzorpayPayments
-     * const rzorpayPayment = await prisma.rzorpayPayment.createMany({
+     * // Create many PaymentModels
+     * const paymentModel = await prisma.paymentModel.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends RzorpayPaymentCreateManyArgs>(args?: SelectSubset<T, RzorpayPaymentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends PaymentModelCreateManyArgs>(args?: SelectSubset<T, PaymentModelCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many RzorpayPayments and returns the data saved in the database.
-     * @param {RzorpayPaymentCreateManyAndReturnArgs} args - Arguments to create many RzorpayPayments.
+     * Create many PaymentModels and returns the data saved in the database.
+     * @param {PaymentModelCreateManyAndReturnArgs} args - Arguments to create many PaymentModels.
      * @example
-     * // Create many RzorpayPayments
-     * const rzorpayPayment = await prisma.rzorpayPayment.createManyAndReturn({
+     * // Create many PaymentModels
+     * const paymentModel = await prisma.paymentModel.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many RzorpayPayments and only return the `id`
-     * const rzorpayPaymentWithIdOnly = await prisma.rzorpayPayment.createManyAndReturn({
+     * // Create many PaymentModels and only return the `id`
+     * const paymentModelWithIdOnly = await prisma.paymentModel.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -18168,28 +18168,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends RzorpayPaymentCreateManyAndReturnArgs>(args?: SelectSubset<T, RzorpayPaymentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RzorpayPaymentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends PaymentModelCreateManyAndReturnArgs>(args?: SelectSubset<T, PaymentModelCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentModelPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a RzorpayPayment.
-     * @param {RzorpayPaymentDeleteArgs} args - Arguments to delete one RzorpayPayment.
+     * Delete a PaymentModel.
+     * @param {PaymentModelDeleteArgs} args - Arguments to delete one PaymentModel.
      * @example
-     * // Delete one RzorpayPayment
-     * const RzorpayPayment = await prisma.rzorpayPayment.delete({
+     * // Delete one PaymentModel
+     * const PaymentModel = await prisma.paymentModel.delete({
      *   where: {
-     *     // ... filter to delete one RzorpayPayment
+     *     // ... filter to delete one PaymentModel
      *   }
      * })
      * 
      */
-    delete<T extends RzorpayPaymentDeleteArgs>(args: SelectSubset<T, RzorpayPaymentDeleteArgs<ExtArgs>>): Prisma__RzorpayPaymentClient<$Result.GetResult<Prisma.$RzorpayPaymentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends PaymentModelDeleteArgs>(args: SelectSubset<T, PaymentModelDeleteArgs<ExtArgs>>): Prisma__PaymentModelClient<$Result.GetResult<Prisma.$PaymentModelPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one RzorpayPayment.
-     * @param {RzorpayPaymentUpdateArgs} args - Arguments to update one RzorpayPayment.
+     * Update one PaymentModel.
+     * @param {PaymentModelUpdateArgs} args - Arguments to update one PaymentModel.
      * @example
-     * // Update one RzorpayPayment
-     * const rzorpayPayment = await prisma.rzorpayPayment.update({
+     * // Update one PaymentModel
+     * const paymentModel = await prisma.paymentModel.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -18199,30 +18199,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends RzorpayPaymentUpdateArgs>(args: SelectSubset<T, RzorpayPaymentUpdateArgs<ExtArgs>>): Prisma__RzorpayPaymentClient<$Result.GetResult<Prisma.$RzorpayPaymentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends PaymentModelUpdateArgs>(args: SelectSubset<T, PaymentModelUpdateArgs<ExtArgs>>): Prisma__PaymentModelClient<$Result.GetResult<Prisma.$PaymentModelPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more RzorpayPayments.
-     * @param {RzorpayPaymentDeleteManyArgs} args - Arguments to filter RzorpayPayments to delete.
+     * Delete zero or more PaymentModels.
+     * @param {PaymentModelDeleteManyArgs} args - Arguments to filter PaymentModels to delete.
      * @example
-     * // Delete a few RzorpayPayments
-     * const { count } = await prisma.rzorpayPayment.deleteMany({
+     * // Delete a few PaymentModels
+     * const { count } = await prisma.paymentModel.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends RzorpayPaymentDeleteManyArgs>(args?: SelectSubset<T, RzorpayPaymentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends PaymentModelDeleteManyArgs>(args?: SelectSubset<T, PaymentModelDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more RzorpayPayments.
+     * Update zero or more PaymentModels.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {RzorpayPaymentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {PaymentModelUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many RzorpayPayments
-     * const rzorpayPayment = await prisma.rzorpayPayment.updateMany({
+     * // Update many PaymentModels
+     * const paymentModel = await prisma.paymentModel.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -18232,14 +18232,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends RzorpayPaymentUpdateManyArgs>(args: SelectSubset<T, RzorpayPaymentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends PaymentModelUpdateManyArgs>(args: SelectSubset<T, PaymentModelUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more RzorpayPayments and returns the data updated in the database.
-     * @param {RzorpayPaymentUpdateManyAndReturnArgs} args - Arguments to update many RzorpayPayments.
+     * Update zero or more PaymentModels and returns the data updated in the database.
+     * @param {PaymentModelUpdateManyAndReturnArgs} args - Arguments to update many PaymentModels.
      * @example
-     * // Update many RzorpayPayments
-     * const rzorpayPayment = await prisma.rzorpayPayment.updateManyAndReturn({
+     * // Update many PaymentModels
+     * const paymentModel = await prisma.paymentModel.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -18248,8 +18248,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more RzorpayPayments and only return the `id`
-     * const rzorpayPaymentWithIdOnly = await prisma.rzorpayPayment.updateManyAndReturn({
+     * // Update zero or more PaymentModels and only return the `id`
+     * const paymentModelWithIdOnly = await prisma.paymentModel.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -18262,56 +18262,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends RzorpayPaymentUpdateManyAndReturnArgs>(args: SelectSubset<T, RzorpayPaymentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RzorpayPaymentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends PaymentModelUpdateManyAndReturnArgs>(args: SelectSubset<T, PaymentModelUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentModelPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one RzorpayPayment.
-     * @param {RzorpayPaymentUpsertArgs} args - Arguments to update or create a RzorpayPayment.
+     * Create or update one PaymentModel.
+     * @param {PaymentModelUpsertArgs} args - Arguments to update or create a PaymentModel.
      * @example
-     * // Update or create a RzorpayPayment
-     * const rzorpayPayment = await prisma.rzorpayPayment.upsert({
+     * // Update or create a PaymentModel
+     * const paymentModel = await prisma.paymentModel.upsert({
      *   create: {
-     *     // ... data to create a RzorpayPayment
+     *     // ... data to create a PaymentModel
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the RzorpayPayment we want to update
+     *     // ... the filter for the PaymentModel we want to update
      *   }
      * })
      */
-    upsert<T extends RzorpayPaymentUpsertArgs>(args: SelectSubset<T, RzorpayPaymentUpsertArgs<ExtArgs>>): Prisma__RzorpayPaymentClient<$Result.GetResult<Prisma.$RzorpayPaymentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends PaymentModelUpsertArgs>(args: SelectSubset<T, PaymentModelUpsertArgs<ExtArgs>>): Prisma__PaymentModelClient<$Result.GetResult<Prisma.$PaymentModelPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of RzorpayPayments.
+     * Count the number of PaymentModels.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {RzorpayPaymentCountArgs} args - Arguments to filter RzorpayPayments to count.
+     * @param {PaymentModelCountArgs} args - Arguments to filter PaymentModels to count.
      * @example
-     * // Count the number of RzorpayPayments
-     * const count = await prisma.rzorpayPayment.count({
+     * // Count the number of PaymentModels
+     * const count = await prisma.paymentModel.count({
      *   where: {
-     *     // ... the filter for the RzorpayPayments we want to count
+     *     // ... the filter for the PaymentModels we want to count
      *   }
      * })
     **/
-    count<T extends RzorpayPaymentCountArgs>(
-      args?: Subset<T, RzorpayPaymentCountArgs>,
+    count<T extends PaymentModelCountArgs>(
+      args?: Subset<T, PaymentModelCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], RzorpayPaymentCountAggregateOutputType>
+          : GetScalarType<T['select'], PaymentModelCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a RzorpayPayment.
+     * Allows you to perform aggregations operations on a PaymentModel.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {RzorpayPaymentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {PaymentModelAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -18331,13 +18331,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends RzorpayPaymentAggregateArgs>(args: Subset<T, RzorpayPaymentAggregateArgs>): Prisma.PrismaPromise<GetRzorpayPaymentAggregateType<T>>
+    aggregate<T extends PaymentModelAggregateArgs>(args: Subset<T, PaymentModelAggregateArgs>): Prisma.PrismaPromise<GetPaymentModelAggregateType<T>>
 
     /**
-     * Group by RzorpayPayment.
+     * Group by PaymentModel.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {RzorpayPaymentGroupByArgs} args - Group by arguments.
+     * @param {PaymentModelGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -18352,14 +18352,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends RzorpayPaymentGroupByArgs,
+      T extends PaymentModelGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: RzorpayPaymentGroupByArgs['orderBy'] }
-        : { orderBy?: RzorpayPaymentGroupByArgs['orderBy'] },
+        ? { orderBy: PaymentModelGroupByArgs['orderBy'] }
+        : { orderBy?: PaymentModelGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -18408,20 +18408,20 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, RzorpayPaymentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRzorpayPaymentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, PaymentModelGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPaymentModelGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the RzorpayPayment model
+   * Fields of the PaymentModel model
    */
-  readonly fields: RzorpayPaymentFieldRefs;
+  readonly fields: PaymentModelFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for RzorpayPayment.
+   * The delegate class that acts as a "Promise-like" for PaymentModel.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__RzorpayPaymentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__PaymentModelClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -18449,383 +18449,383 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the RzorpayPayment model
+   * Fields of the PaymentModel model
    */
-  interface RzorpayPaymentFieldRefs {
-    readonly id: FieldRef<"RzorpayPayment", 'String'>
-    readonly amount: FieldRef<"RzorpayPayment", 'Float'>
-    readonly paid: FieldRef<"RzorpayPayment", 'Boolean'>
-    readonly customerEmail: FieldRef<"RzorpayPayment", 'String'>
-    readonly customerName: FieldRef<"RzorpayPayment", 'String'>
-    readonly customerId: FieldRef<"RzorpayPayment", 'String'>
-    readonly customerPhone: FieldRef<"RzorpayPayment", 'String'>
-    readonly paymentMethod: FieldRef<"RzorpayPayment", 'String'>
-    readonly razorpayPaymentId: FieldRef<"RzorpayPayment", 'String'>
-    readonly paymentDate: FieldRef<"RzorpayPayment", 'DateTime'>
-    readonly createdAt: FieldRef<"RzorpayPayment", 'DateTime'>
+  interface PaymentModelFieldRefs {
+    readonly id: FieldRef<"PaymentModel", 'String'>
+    readonly amount: FieldRef<"PaymentModel", 'Float'>
+    readonly paid: FieldRef<"PaymentModel", 'Boolean'>
+    readonly customerEmail: FieldRef<"PaymentModel", 'String'>
+    readonly customerName: FieldRef<"PaymentModel", 'String'>
+    readonly customerId: FieldRef<"PaymentModel", 'String'>
+    readonly customerPhone: FieldRef<"PaymentModel", 'String'>
+    readonly paymentMethod: FieldRef<"PaymentModel", 'String'>
+    readonly razorpayPaymentId: FieldRef<"PaymentModel", 'String'>
+    readonly paymentDate: FieldRef<"PaymentModel", 'DateTime'>
+    readonly createdAt: FieldRef<"PaymentModel", 'DateTime'>
   }
     
 
   // Custom InputTypes
   /**
-   * RzorpayPayment findUnique
+   * PaymentModel findUnique
    */
-  export type RzorpayPaymentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PaymentModelFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the RzorpayPayment
+     * Select specific fields to fetch from the PaymentModel
      */
-    select?: RzorpayPaymentSelect<ExtArgs> | null
+    select?: PaymentModelSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the RzorpayPayment
+     * Omit specific fields from the PaymentModel
      */
-    omit?: RzorpayPaymentOmit<ExtArgs> | null
+    omit?: PaymentModelOmit<ExtArgs> | null
     /**
-     * Filter, which RzorpayPayment to fetch.
+     * Filter, which PaymentModel to fetch.
      */
-    where: RzorpayPaymentWhereUniqueInput
+    where: PaymentModelWhereUniqueInput
   }
 
   /**
-   * RzorpayPayment findUniqueOrThrow
+   * PaymentModel findUniqueOrThrow
    */
-  export type RzorpayPaymentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PaymentModelFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the RzorpayPayment
+     * Select specific fields to fetch from the PaymentModel
      */
-    select?: RzorpayPaymentSelect<ExtArgs> | null
+    select?: PaymentModelSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the RzorpayPayment
+     * Omit specific fields from the PaymentModel
      */
-    omit?: RzorpayPaymentOmit<ExtArgs> | null
+    omit?: PaymentModelOmit<ExtArgs> | null
     /**
-     * Filter, which RzorpayPayment to fetch.
+     * Filter, which PaymentModel to fetch.
      */
-    where: RzorpayPaymentWhereUniqueInput
+    where: PaymentModelWhereUniqueInput
   }
 
   /**
-   * RzorpayPayment findFirst
+   * PaymentModel findFirst
    */
-  export type RzorpayPaymentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PaymentModelFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the RzorpayPayment
+     * Select specific fields to fetch from the PaymentModel
      */
-    select?: RzorpayPaymentSelect<ExtArgs> | null
+    select?: PaymentModelSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the RzorpayPayment
+     * Omit specific fields from the PaymentModel
      */
-    omit?: RzorpayPaymentOmit<ExtArgs> | null
+    omit?: PaymentModelOmit<ExtArgs> | null
     /**
-     * Filter, which RzorpayPayment to fetch.
+     * Filter, which PaymentModel to fetch.
      */
-    where?: RzorpayPaymentWhereInput
+    where?: PaymentModelWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of RzorpayPayments to fetch.
+     * Determine the order of PaymentModels to fetch.
      */
-    orderBy?: RzorpayPaymentOrderByWithRelationInput | RzorpayPaymentOrderByWithRelationInput[]
+    orderBy?: PaymentModelOrderByWithRelationInput | PaymentModelOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for RzorpayPayments.
+     * Sets the position for searching for PaymentModels.
      */
-    cursor?: RzorpayPaymentWhereUniqueInput
+    cursor?: PaymentModelWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` RzorpayPayments from the position of the cursor.
+     * Take `±n` PaymentModels from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` RzorpayPayments.
+     * Skip the first `n` PaymentModels.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of RzorpayPayments.
+     * Filter by unique combinations of PaymentModels.
      */
-    distinct?: RzorpayPaymentScalarFieldEnum | RzorpayPaymentScalarFieldEnum[]
+    distinct?: PaymentModelScalarFieldEnum | PaymentModelScalarFieldEnum[]
   }
 
   /**
-   * RzorpayPayment findFirstOrThrow
+   * PaymentModel findFirstOrThrow
    */
-  export type RzorpayPaymentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PaymentModelFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the RzorpayPayment
+     * Select specific fields to fetch from the PaymentModel
      */
-    select?: RzorpayPaymentSelect<ExtArgs> | null
+    select?: PaymentModelSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the RzorpayPayment
+     * Omit specific fields from the PaymentModel
      */
-    omit?: RzorpayPaymentOmit<ExtArgs> | null
+    omit?: PaymentModelOmit<ExtArgs> | null
     /**
-     * Filter, which RzorpayPayment to fetch.
+     * Filter, which PaymentModel to fetch.
      */
-    where?: RzorpayPaymentWhereInput
+    where?: PaymentModelWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of RzorpayPayments to fetch.
+     * Determine the order of PaymentModels to fetch.
      */
-    orderBy?: RzorpayPaymentOrderByWithRelationInput | RzorpayPaymentOrderByWithRelationInput[]
+    orderBy?: PaymentModelOrderByWithRelationInput | PaymentModelOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for RzorpayPayments.
+     * Sets the position for searching for PaymentModels.
      */
-    cursor?: RzorpayPaymentWhereUniqueInput
+    cursor?: PaymentModelWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` RzorpayPayments from the position of the cursor.
+     * Take `±n` PaymentModels from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` RzorpayPayments.
+     * Skip the first `n` PaymentModels.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of RzorpayPayments.
+     * Filter by unique combinations of PaymentModels.
      */
-    distinct?: RzorpayPaymentScalarFieldEnum | RzorpayPaymentScalarFieldEnum[]
+    distinct?: PaymentModelScalarFieldEnum | PaymentModelScalarFieldEnum[]
   }
 
   /**
-   * RzorpayPayment findMany
+   * PaymentModel findMany
    */
-  export type RzorpayPaymentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PaymentModelFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the RzorpayPayment
+     * Select specific fields to fetch from the PaymentModel
      */
-    select?: RzorpayPaymentSelect<ExtArgs> | null
+    select?: PaymentModelSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the RzorpayPayment
+     * Omit specific fields from the PaymentModel
      */
-    omit?: RzorpayPaymentOmit<ExtArgs> | null
+    omit?: PaymentModelOmit<ExtArgs> | null
     /**
-     * Filter, which RzorpayPayments to fetch.
+     * Filter, which PaymentModels to fetch.
      */
-    where?: RzorpayPaymentWhereInput
+    where?: PaymentModelWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of RzorpayPayments to fetch.
+     * Determine the order of PaymentModels to fetch.
      */
-    orderBy?: RzorpayPaymentOrderByWithRelationInput | RzorpayPaymentOrderByWithRelationInput[]
+    orderBy?: PaymentModelOrderByWithRelationInput | PaymentModelOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing RzorpayPayments.
+     * Sets the position for listing PaymentModels.
      */
-    cursor?: RzorpayPaymentWhereUniqueInput
+    cursor?: PaymentModelWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` RzorpayPayments from the position of the cursor.
+     * Take `±n` PaymentModels from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` RzorpayPayments.
+     * Skip the first `n` PaymentModels.
      */
     skip?: number
-    distinct?: RzorpayPaymentScalarFieldEnum | RzorpayPaymentScalarFieldEnum[]
+    distinct?: PaymentModelScalarFieldEnum | PaymentModelScalarFieldEnum[]
   }
 
   /**
-   * RzorpayPayment create
+   * PaymentModel create
    */
-  export type RzorpayPaymentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PaymentModelCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the RzorpayPayment
+     * Select specific fields to fetch from the PaymentModel
      */
-    select?: RzorpayPaymentSelect<ExtArgs> | null
+    select?: PaymentModelSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the RzorpayPayment
+     * Omit specific fields from the PaymentModel
      */
-    omit?: RzorpayPaymentOmit<ExtArgs> | null
+    omit?: PaymentModelOmit<ExtArgs> | null
     /**
-     * The data needed to create a RzorpayPayment.
+     * The data needed to create a PaymentModel.
      */
-    data: XOR<RzorpayPaymentCreateInput, RzorpayPaymentUncheckedCreateInput>
+    data: XOR<PaymentModelCreateInput, PaymentModelUncheckedCreateInput>
   }
 
   /**
-   * RzorpayPayment createMany
+   * PaymentModel createMany
    */
-  export type RzorpayPaymentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PaymentModelCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many RzorpayPayments.
+     * The data used to create many PaymentModels.
      */
-    data: RzorpayPaymentCreateManyInput | RzorpayPaymentCreateManyInput[]
+    data: PaymentModelCreateManyInput | PaymentModelCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * RzorpayPayment createManyAndReturn
+   * PaymentModel createManyAndReturn
    */
-  export type RzorpayPaymentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PaymentModelCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the RzorpayPayment
+     * Select specific fields to fetch from the PaymentModel
      */
-    select?: RzorpayPaymentSelectCreateManyAndReturn<ExtArgs> | null
+    select?: PaymentModelSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the RzorpayPayment
+     * Omit specific fields from the PaymentModel
      */
-    omit?: RzorpayPaymentOmit<ExtArgs> | null
+    omit?: PaymentModelOmit<ExtArgs> | null
     /**
-     * The data used to create many RzorpayPayments.
+     * The data used to create many PaymentModels.
      */
-    data: RzorpayPaymentCreateManyInput | RzorpayPaymentCreateManyInput[]
+    data: PaymentModelCreateManyInput | PaymentModelCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * RzorpayPayment update
+   * PaymentModel update
    */
-  export type RzorpayPaymentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PaymentModelUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the RzorpayPayment
+     * Select specific fields to fetch from the PaymentModel
      */
-    select?: RzorpayPaymentSelect<ExtArgs> | null
+    select?: PaymentModelSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the RzorpayPayment
+     * Omit specific fields from the PaymentModel
      */
-    omit?: RzorpayPaymentOmit<ExtArgs> | null
+    omit?: PaymentModelOmit<ExtArgs> | null
     /**
-     * The data needed to update a RzorpayPayment.
+     * The data needed to update a PaymentModel.
      */
-    data: XOR<RzorpayPaymentUpdateInput, RzorpayPaymentUncheckedUpdateInput>
+    data: XOR<PaymentModelUpdateInput, PaymentModelUncheckedUpdateInput>
     /**
-     * Choose, which RzorpayPayment to update.
+     * Choose, which PaymentModel to update.
      */
-    where: RzorpayPaymentWhereUniqueInput
+    where: PaymentModelWhereUniqueInput
   }
 
   /**
-   * RzorpayPayment updateMany
+   * PaymentModel updateMany
    */
-  export type RzorpayPaymentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PaymentModelUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update RzorpayPayments.
+     * The data used to update PaymentModels.
      */
-    data: XOR<RzorpayPaymentUpdateManyMutationInput, RzorpayPaymentUncheckedUpdateManyInput>
+    data: XOR<PaymentModelUpdateManyMutationInput, PaymentModelUncheckedUpdateManyInput>
     /**
-     * Filter which RzorpayPayments to update
+     * Filter which PaymentModels to update
      */
-    where?: RzorpayPaymentWhereInput
+    where?: PaymentModelWhereInput
     /**
-     * Limit how many RzorpayPayments to update.
+     * Limit how many PaymentModels to update.
      */
     limit?: number
   }
 
   /**
-   * RzorpayPayment updateManyAndReturn
+   * PaymentModel updateManyAndReturn
    */
-  export type RzorpayPaymentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PaymentModelUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the RzorpayPayment
+     * Select specific fields to fetch from the PaymentModel
      */
-    select?: RzorpayPaymentSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: PaymentModelSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the RzorpayPayment
+     * Omit specific fields from the PaymentModel
      */
-    omit?: RzorpayPaymentOmit<ExtArgs> | null
+    omit?: PaymentModelOmit<ExtArgs> | null
     /**
-     * The data used to update RzorpayPayments.
+     * The data used to update PaymentModels.
      */
-    data: XOR<RzorpayPaymentUpdateManyMutationInput, RzorpayPaymentUncheckedUpdateManyInput>
+    data: XOR<PaymentModelUpdateManyMutationInput, PaymentModelUncheckedUpdateManyInput>
     /**
-     * Filter which RzorpayPayments to update
+     * Filter which PaymentModels to update
      */
-    where?: RzorpayPaymentWhereInput
+    where?: PaymentModelWhereInput
     /**
-     * Limit how many RzorpayPayments to update.
+     * Limit how many PaymentModels to update.
      */
     limit?: number
   }
 
   /**
-   * RzorpayPayment upsert
+   * PaymentModel upsert
    */
-  export type RzorpayPaymentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PaymentModelUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the RzorpayPayment
+     * Select specific fields to fetch from the PaymentModel
      */
-    select?: RzorpayPaymentSelect<ExtArgs> | null
+    select?: PaymentModelSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the RzorpayPayment
+     * Omit specific fields from the PaymentModel
      */
-    omit?: RzorpayPaymentOmit<ExtArgs> | null
+    omit?: PaymentModelOmit<ExtArgs> | null
     /**
-     * The filter to search for the RzorpayPayment to update in case it exists.
+     * The filter to search for the PaymentModel to update in case it exists.
      */
-    where: RzorpayPaymentWhereUniqueInput
+    where: PaymentModelWhereUniqueInput
     /**
-     * In case the RzorpayPayment found by the `where` argument doesn't exist, create a new RzorpayPayment with this data.
+     * In case the PaymentModel found by the `where` argument doesn't exist, create a new PaymentModel with this data.
      */
-    create: XOR<RzorpayPaymentCreateInput, RzorpayPaymentUncheckedCreateInput>
+    create: XOR<PaymentModelCreateInput, PaymentModelUncheckedCreateInput>
     /**
-     * In case the RzorpayPayment was found with the provided `where` argument, update it with this data.
+     * In case the PaymentModel was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<RzorpayPaymentUpdateInput, RzorpayPaymentUncheckedUpdateInput>
+    update: XOR<PaymentModelUpdateInput, PaymentModelUncheckedUpdateInput>
   }
 
   /**
-   * RzorpayPayment delete
+   * PaymentModel delete
    */
-  export type RzorpayPaymentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PaymentModelDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the RzorpayPayment
+     * Select specific fields to fetch from the PaymentModel
      */
-    select?: RzorpayPaymentSelect<ExtArgs> | null
+    select?: PaymentModelSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the RzorpayPayment
+     * Omit specific fields from the PaymentModel
      */
-    omit?: RzorpayPaymentOmit<ExtArgs> | null
+    omit?: PaymentModelOmit<ExtArgs> | null
     /**
-     * Filter which RzorpayPayment to delete.
+     * Filter which PaymentModel to delete.
      */
-    where: RzorpayPaymentWhereUniqueInput
+    where: PaymentModelWhereUniqueInput
   }
 
   /**
-   * RzorpayPayment deleteMany
+   * PaymentModel deleteMany
    */
-  export type RzorpayPaymentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PaymentModelDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which RzorpayPayments to delete
+     * Filter which PaymentModels to delete
      */
-    where?: RzorpayPaymentWhereInput
+    where?: PaymentModelWhereInput
     /**
-     * Limit how many RzorpayPayments to delete.
+     * Limit how many PaymentModels to delete.
      */
     limit?: number
   }
 
   /**
-   * RzorpayPayment without action
+   * PaymentModel without action
    */
-  export type RzorpayPaymentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PaymentModelDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the RzorpayPayment
+     * Select specific fields to fetch from the PaymentModel
      */
-    select?: RzorpayPaymentSelect<ExtArgs> | null
+    select?: PaymentModelSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the RzorpayPayment
+     * Omit specific fields from the PaymentModel
      */
-    omit?: RzorpayPaymentOmit<ExtArgs> | null
+    omit?: PaymentModelOmit<ExtArgs> | null
   }
 
 
@@ -19011,7 +19011,7 @@ export namespace Prisma {
   export type TestimonialsScalarFieldEnum = (typeof TestimonialsScalarFieldEnum)[keyof typeof TestimonialsScalarFieldEnum]
 
 
-  export const RzorpayPaymentScalarFieldEnum: {
+  export const PaymentModelScalarFieldEnum: {
     id: 'id',
     amount: 'amount',
     paid: 'paid',
@@ -19025,7 +19025,7 @@ export namespace Prisma {
     createdAt: 'createdAt'
   };
 
-  export type RzorpayPaymentScalarFieldEnum = (typeof RzorpayPaymentScalarFieldEnum)[keyof typeof RzorpayPaymentScalarFieldEnum]
+  export type PaymentModelScalarFieldEnum = (typeof PaymentModelScalarFieldEnum)[keyof typeof PaymentModelScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -20006,24 +20006,24 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Testimonials"> | Date | string
   }
 
-  export type RzorpayPaymentWhereInput = {
-    AND?: RzorpayPaymentWhereInput | RzorpayPaymentWhereInput[]
-    OR?: RzorpayPaymentWhereInput[]
-    NOT?: RzorpayPaymentWhereInput | RzorpayPaymentWhereInput[]
-    id?: StringFilter<"RzorpayPayment"> | string
-    amount?: FloatFilter<"RzorpayPayment"> | number
-    paid?: BoolFilter<"RzorpayPayment"> | boolean
-    customerEmail?: StringFilter<"RzorpayPayment"> | string
-    customerName?: StringFilter<"RzorpayPayment"> | string
-    customerId?: StringFilter<"RzorpayPayment"> | string
-    customerPhone?: StringFilter<"RzorpayPayment"> | string
-    paymentMethod?: StringFilter<"RzorpayPayment"> | string
-    razorpayPaymentId?: StringNullableFilter<"RzorpayPayment"> | string | null
-    paymentDate?: DateTimeFilter<"RzorpayPayment"> | Date | string
-    createdAt?: DateTimeFilter<"RzorpayPayment"> | Date | string
+  export type PaymentModelWhereInput = {
+    AND?: PaymentModelWhereInput | PaymentModelWhereInput[]
+    OR?: PaymentModelWhereInput[]
+    NOT?: PaymentModelWhereInput | PaymentModelWhereInput[]
+    id?: StringFilter<"PaymentModel"> | string
+    amount?: FloatFilter<"PaymentModel"> | number
+    paid?: BoolFilter<"PaymentModel"> | boolean
+    customerEmail?: StringFilter<"PaymentModel"> | string
+    customerName?: StringFilter<"PaymentModel"> | string
+    customerId?: StringFilter<"PaymentModel"> | string
+    customerPhone?: StringFilter<"PaymentModel"> | string
+    paymentMethod?: StringFilter<"PaymentModel"> | string
+    razorpayPaymentId?: StringNullableFilter<"PaymentModel"> | string | null
+    paymentDate?: DateTimeFilter<"PaymentModel"> | Date | string
+    createdAt?: DateTimeFilter<"PaymentModel"> | Date | string
   }
 
-  export type RzorpayPaymentOrderByWithRelationInput = {
+  export type PaymentModelOrderByWithRelationInput = {
     id?: SortOrder
     amount?: SortOrder
     paid?: SortOrder
@@ -20037,24 +20037,24 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
-  export type RzorpayPaymentWhereUniqueInput = Prisma.AtLeast<{
+  export type PaymentModelWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    AND?: RzorpayPaymentWhereInput | RzorpayPaymentWhereInput[]
-    OR?: RzorpayPaymentWhereInput[]
-    NOT?: RzorpayPaymentWhereInput | RzorpayPaymentWhereInput[]
-    amount?: FloatFilter<"RzorpayPayment"> | number
-    paid?: BoolFilter<"RzorpayPayment"> | boolean
-    customerEmail?: StringFilter<"RzorpayPayment"> | string
-    customerName?: StringFilter<"RzorpayPayment"> | string
-    customerId?: StringFilter<"RzorpayPayment"> | string
-    customerPhone?: StringFilter<"RzorpayPayment"> | string
-    paymentMethod?: StringFilter<"RzorpayPayment"> | string
-    razorpayPaymentId?: StringNullableFilter<"RzorpayPayment"> | string | null
-    paymentDate?: DateTimeFilter<"RzorpayPayment"> | Date | string
-    createdAt?: DateTimeFilter<"RzorpayPayment"> | Date | string
+    AND?: PaymentModelWhereInput | PaymentModelWhereInput[]
+    OR?: PaymentModelWhereInput[]
+    NOT?: PaymentModelWhereInput | PaymentModelWhereInput[]
+    amount?: FloatFilter<"PaymentModel"> | number
+    paid?: BoolFilter<"PaymentModel"> | boolean
+    customerEmail?: StringFilter<"PaymentModel"> | string
+    customerName?: StringFilter<"PaymentModel"> | string
+    customerId?: StringFilter<"PaymentModel"> | string
+    customerPhone?: StringFilter<"PaymentModel"> | string
+    paymentMethod?: StringFilter<"PaymentModel"> | string
+    razorpayPaymentId?: StringNullableFilter<"PaymentModel"> | string | null
+    paymentDate?: DateTimeFilter<"PaymentModel"> | Date | string
+    createdAt?: DateTimeFilter<"PaymentModel"> | Date | string
   }, "id">
 
-  export type RzorpayPaymentOrderByWithAggregationInput = {
+  export type PaymentModelOrderByWithAggregationInput = {
     id?: SortOrder
     amount?: SortOrder
     paid?: SortOrder
@@ -20066,28 +20066,28 @@ export namespace Prisma {
     razorpayPaymentId?: SortOrderInput | SortOrder
     paymentDate?: SortOrder
     createdAt?: SortOrder
-    _count?: RzorpayPaymentCountOrderByAggregateInput
-    _avg?: RzorpayPaymentAvgOrderByAggregateInput
-    _max?: RzorpayPaymentMaxOrderByAggregateInput
-    _min?: RzorpayPaymentMinOrderByAggregateInput
-    _sum?: RzorpayPaymentSumOrderByAggregateInput
+    _count?: PaymentModelCountOrderByAggregateInput
+    _avg?: PaymentModelAvgOrderByAggregateInput
+    _max?: PaymentModelMaxOrderByAggregateInput
+    _min?: PaymentModelMinOrderByAggregateInput
+    _sum?: PaymentModelSumOrderByAggregateInput
   }
 
-  export type RzorpayPaymentScalarWhereWithAggregatesInput = {
-    AND?: RzorpayPaymentScalarWhereWithAggregatesInput | RzorpayPaymentScalarWhereWithAggregatesInput[]
-    OR?: RzorpayPaymentScalarWhereWithAggregatesInput[]
-    NOT?: RzorpayPaymentScalarWhereWithAggregatesInput | RzorpayPaymentScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"RzorpayPayment"> | string
-    amount?: FloatWithAggregatesFilter<"RzorpayPayment"> | number
-    paid?: BoolWithAggregatesFilter<"RzorpayPayment"> | boolean
-    customerEmail?: StringWithAggregatesFilter<"RzorpayPayment"> | string
-    customerName?: StringWithAggregatesFilter<"RzorpayPayment"> | string
-    customerId?: StringWithAggregatesFilter<"RzorpayPayment"> | string
-    customerPhone?: StringWithAggregatesFilter<"RzorpayPayment"> | string
-    paymentMethod?: StringWithAggregatesFilter<"RzorpayPayment"> | string
-    razorpayPaymentId?: StringNullableWithAggregatesFilter<"RzorpayPayment"> | string | null
-    paymentDate?: DateTimeWithAggregatesFilter<"RzorpayPayment"> | Date | string
-    createdAt?: DateTimeWithAggregatesFilter<"RzorpayPayment"> | Date | string
+  export type PaymentModelScalarWhereWithAggregatesInput = {
+    AND?: PaymentModelScalarWhereWithAggregatesInput | PaymentModelScalarWhereWithAggregatesInput[]
+    OR?: PaymentModelScalarWhereWithAggregatesInput[]
+    NOT?: PaymentModelScalarWhereWithAggregatesInput | PaymentModelScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PaymentModel"> | string
+    amount?: FloatWithAggregatesFilter<"PaymentModel"> | number
+    paid?: BoolWithAggregatesFilter<"PaymentModel"> | boolean
+    customerEmail?: StringWithAggregatesFilter<"PaymentModel"> | string
+    customerName?: StringWithAggregatesFilter<"PaymentModel"> | string
+    customerId?: StringWithAggregatesFilter<"PaymentModel"> | string
+    customerPhone?: StringWithAggregatesFilter<"PaymentModel"> | string
+    paymentMethod?: StringWithAggregatesFilter<"PaymentModel"> | string
+    razorpayPaymentId?: StringNullableWithAggregatesFilter<"PaymentModel"> | string | null
+    paymentDate?: DateTimeWithAggregatesFilter<"PaymentModel"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"PaymentModel"> | Date | string
   }
 
   export type PackageCreateInput = {
@@ -21007,7 +21007,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type RzorpayPaymentCreateInput = {
+  export type PaymentModelCreateInput = {
     id?: string
     amount: number
     paid?: boolean
@@ -21021,7 +21021,7 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
-  export type RzorpayPaymentUncheckedCreateInput = {
+  export type PaymentModelUncheckedCreateInput = {
     id?: string
     amount: number
     paid?: boolean
@@ -21035,7 +21035,7 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
-  export type RzorpayPaymentUpdateInput = {
+  export type PaymentModelUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
     paid?: BoolFieldUpdateOperationsInput | boolean
@@ -21049,7 +21049,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type RzorpayPaymentUncheckedUpdateInput = {
+  export type PaymentModelUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
     paid?: BoolFieldUpdateOperationsInput | boolean
@@ -21063,7 +21063,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type RzorpayPaymentCreateManyInput = {
+  export type PaymentModelCreateManyInput = {
     id?: string
     amount: number
     paid?: boolean
@@ -21077,7 +21077,7 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
-  export type RzorpayPaymentUpdateManyMutationInput = {
+  export type PaymentModelUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
     paid?: BoolFieldUpdateOperationsInput | boolean
@@ -21091,7 +21091,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type RzorpayPaymentUncheckedUpdateManyInput = {
+  export type PaymentModelUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
     paid?: BoolFieldUpdateOperationsInput | boolean
@@ -21841,7 +21841,7 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type RzorpayPaymentCountOrderByAggregateInput = {
+  export type PaymentModelCountOrderByAggregateInput = {
     id?: SortOrder
     amount?: SortOrder
     paid?: SortOrder
@@ -21855,11 +21855,11 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
-  export type RzorpayPaymentAvgOrderByAggregateInput = {
+  export type PaymentModelAvgOrderByAggregateInput = {
     amount?: SortOrder
   }
 
-  export type RzorpayPaymentMaxOrderByAggregateInput = {
+  export type PaymentModelMaxOrderByAggregateInput = {
     id?: SortOrder
     amount?: SortOrder
     paid?: SortOrder
@@ -21873,7 +21873,7 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
-  export type RzorpayPaymentMinOrderByAggregateInput = {
+  export type PaymentModelMinOrderByAggregateInput = {
     id?: SortOrder
     amount?: SortOrder
     paid?: SortOrder
@@ -21887,7 +21887,7 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
-  export type RzorpayPaymentSumOrderByAggregateInput = {
+  export type PaymentModelSumOrderByAggregateInput = {
     amount?: SortOrder
   }
 

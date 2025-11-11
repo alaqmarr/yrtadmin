@@ -246,7 +246,7 @@ exports.Prisma.TestimonialsScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.RzorpayPaymentScalarFieldEnum = {
+exports.Prisma.PaymentModelScalarFieldEnum = {
   id: 'id',
   amount: 'amount',
   paid: 'paid',
@@ -291,7 +291,7 @@ exports.Prisma.ModelName = {
   Places: 'Places',
   DestinationFAQ: 'DestinationFAQ',
   Testimonials: 'Testimonials',
-  RzorpayPayment: 'RzorpayPayment'
+  PaymentModel: 'PaymentModel'
 };
 
 /**
