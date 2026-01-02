@@ -131,6 +131,7 @@ exports.Prisma.PackageScalarFieldEnum = {
   type: 'type',
   location: 'location',
   destinationId: 'destinationId',
+  about: 'about',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -270,6 +271,17 @@ exports.Prisma.AppConfigScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.TestimonialScalarFieldEnum = {
+  id: 'id',
+  image: 'image',
+  rating: 'rating',
+  description: 'description',
+  author: 'author',
+  role: 'role',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -302,7 +314,8 @@ exports.Prisma.ModelName = {
   DestinationFAQ: 'DestinationFAQ',
   Testimonials: 'Testimonials',
   PaymentModel: 'PaymentModel',
-  AppConfig: 'AppConfig'
+  AppConfig: 'AppConfig',
+  Testimonial: 'Testimonial'
 };
 
 /**

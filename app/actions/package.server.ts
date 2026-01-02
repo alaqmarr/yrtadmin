@@ -21,6 +21,7 @@ type CreatePackageInput = {
   type: string;
   location: string;
   destinationId?: string;
+  about?: string;
   image: string;
   inclusions: { item: string }[];
   exclusions: { item: string }[];
@@ -38,6 +39,7 @@ export async function createPackageAction(data: CreatePackageInput) {
     data: {
       id,
       name: data.name,
+      about: data.about,
       days: data.days,
       nights: data.nights,
       price: new Prisma.Decimal(data.price),
@@ -79,6 +81,7 @@ export async function updatePackageAction(data: UpdatePackageInput) {
     where: { id: data.id },
     data: {
       name: data.name,
+      about: data.about,
       days: data.days,
       nights: data.nights,
       price: new Prisma.Decimal(data.price),

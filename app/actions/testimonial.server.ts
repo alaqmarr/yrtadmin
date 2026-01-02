@@ -1,43 +1,71 @@
 "use server";
 
 import { prisma } from "@/lib/db";
+import { revalidatePath } from "next/cache";
+import { generateUniqueSlug } from "@/lib/slugUtils";
 
-export async function createTestimonialAction(payload: {
-  customerName: string;
-  feedback: string;
-  rating: number;
+export type TestimonialInput = {
   image?: string;
-}) {
-  return await prisma.testimonials.create({
+  rating: number;
+  description: string;
+  author: string;
+  role: string;
+};
+
+export async function getTestimonialsAction() {
+  return await prisma.testimonial.findMany({
+    orderBy: { createdAt: "desc" },
+  });
+}
+
+export async function getTestimonialAction(id: string) {
+  return await prisma.testimonial.findUnique({
+    where: { id },
+  });
+}
+
+export async function createTestimonialAction(data: TestimonialInput) {
+  const id = await generateUniqueSlug("testimonial", data.author);
+
+  await prisma.testimonial.create({
     data: {
-      customerName: payload.customerName,
-      feedback: payload.feedback,
-      rating: payload.rating,
-      image: payload.image,
+      id,
+      image: data.image,
+      rating: data.rating,
+      description: data.description,
+      author: data.author,
+      role: data.role,
     },
   });
+
+  revalidatePath("/testimonials");
+  return { success: true, id };
 }
 
 export async function updateTestimonialAction(
   id: string,
-  payload: {
-    customerName?: string;
-    feedback?: string;
-    rating?: number;
-    image?: string | null;
-  }
+  data: TestimonialInput
 ) {
-  return await prisma.testimonials.update({
+  await prisma.testimonial.update({
     where: { id },
     data: {
-      customerName: payload.customerName,
-      feedback: payload.feedback,
-      rating: payload.rating,
-      image: payload.image ?? undefined,
+      image: data.image,
+      rating: data.rating,
+      description: data.description,
+      author: data.author,
+      role: data.role,
     },
   });
+
+  revalidatePath("/testimonials");
+  revalidatePath(`/testimonials/${id}/edit`);
+  return { success: true };
 }
 
 export async function deleteTestimonialAction(id: string) {
-  return await prisma.testimonials.delete({ where: { id } });
+  await prisma.testimonial.delete({
+    where: { id },
+  });
+  revalidatePath("/testimonials");
+  return { success: true };
 }

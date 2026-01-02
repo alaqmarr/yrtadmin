@@ -33,6 +33,7 @@ export default function NewPackagePage() {
   const [uploading, setUploading] = useState(false);
 
   const [name, setName] = useState("");
+  const [about, setAbout] = useState(""); // New field
   const [days, setDays] = useState<number | "">("");
   const [nights, setNights] = useState<number | "">("");
   const [price, setPrice] = useState<number | "">("");
@@ -97,6 +98,7 @@ export default function NewPackagePage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim()) return toast.error("Package name is required");
+    if (!about.trim()) return toast.error("About package is required");
     if (!imageUrl) return toast.error("Please upload a package image");
 
     setLoading(true);
@@ -104,6 +106,7 @@ export default function NewPackagePage() {
     try {
       await createPackageAction({
         name,
+        about,
         days: Number(days),
         nights: Number(nights),
         price: Number(price),
@@ -163,13 +166,21 @@ export default function NewPackagePage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid gap-2">
-                <Label>Package Name</Label>
+                <Label>Package Name <span className="text-red-500">*</span></Label>
                 <Input
                   value={name} onChange={(e) => setName(e.target.value)}
                   placeholder="e.g. Magical Paris Getaway"
                   className="text-lg font-medium"
                 />
               </div>
+
+              <div className="grid gap-2">
+                <Label>About Package <span className="text-red-500">*</span></Label>
+                <div className="min-h-[150px] border rounded-md">
+                  <RichTextEditor value={about} onChange={setAbout} />
+                </div>
+              </div>
+
               <div className="grid grid-cols-2 gap-4">
                 <div className="grid gap-2">
                   <Label>Destination</Label>

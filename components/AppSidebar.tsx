@@ -11,14 +11,18 @@ import {
     Menu,
     Box,
     Ticket,
+    Map as MapIcon, // Added Map as MapIcon
+    MessageSquareQuote, // Added MessageSquareQuote
 } from "lucide-react";
 import { useState } from "react";
+import { cn } from "@/lib/utils"; // Added cn import
 
 const NAV_ITEMS = [
     { label: "Dashboard", href: "/", icon: LayoutDashboard },
     { label: "Packages", href: "/packages", icon: Box },
     { label: "Blogs", href: "/blogs", icon: FileText },
-    { label: "Destinations", href: "/destinations", icon: Ticket },
+    { label: "Destinations", href: "/destinations", icon: MapIcon }, // Changed icon to MapIcon and kept 'label'
+    { label: "Testimonials", href: "/testimonials", icon: MessageSquareQuote }, // Added Testimonials link
     { label: "Settings", href: "/settings", icon: Settings },
 ];
 
@@ -72,8 +76,8 @@ export default function AppSidebar() {
                                 href={item.href}
                                 title={!isOpen ? item.label : undefined}
                                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all group ${isActive
-                                        ? "bg-primary text-primary-foreground shadow-md"
-                                        : "text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+                                    ? "bg-primary text-primary-foreground shadow-md"
+                                    : "text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                                     }`}
                             >
                                 <item.icon
@@ -131,8 +135,8 @@ export default function AppSidebar() {
                                 href={item.href}
                                 onClick={() => setMobileOpen(false)}
                                 className={`flex items-center gap-3 px-3 py-3 rounded-lg transition-all ${isActive
-                                        ? "bg-primary text-primary-foreground shadow-md"
-                                        : "text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+                                    ? "bg-primary text-primary-foreground shadow-md"
+                                    : "text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                                     }`}
                             >
                                 <item.icon className="w-5 h-5" />

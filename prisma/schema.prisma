@@ -23,6 +23,7 @@ model Package {
   location    String?
   destination Destinations? @relation(fields: [destinationId], references: [id])
   destinationId String?
+  about       String?         @db.Text // Rich text description of the package
   inclusions  IncludedItems[]
   exclusions  ExcludedItems[]
   itineraries DayItinerary[]
@@ -211,7 +212,18 @@ model AppConfig {
   id           String   @id @default(cuid())
   siteName     String   @default("YRT Admin")
   contactEmail String   @default("admin@example.com")
-  contactPhone String   @default("")
+  contactPhone String   @default("+91 1234567890")
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+}
+
+model Testimonial {
+  id          String   @id
+  image       String?
+  rating      Int      @default(5)
+  description String   @db.Text
+  author      String // client.name
+  role        String // client.role (location)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
