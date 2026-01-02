@@ -82,7 +82,7 @@ export default async function TestimonialsPage() {
             <div className="absolute top-4 right-4 flex gap-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300 transform md:-translate-y-2 md:group-hover:translate-y-0 z-20">
               <Button size="icon" variant="ghost" className="h-8 w-8 rounded-full bg-background/80 backdrop-blur border border-border/50 hover:bg-background" asChild>
                 <Link href={`/testimonials/${t.id}/edit`}>
-                  <MessageCircle className="w-4 h-4" />
+                  <Pencil className="w-4 h-4" />
                 </Link>
               </Button>
               <DeleteButton id={t.id} onDelete={deleteTestimonialAction} itemType="testimonial" className="h-8 w-8 rounded-full bg-background/80 backdrop-blur border border-border/50 hover:bg-destructive hover:text-white" />
@@ -91,24 +91,26 @@ export default async function TestimonialsPage() {
         ))}
       </div>
 
-      {testimonials.length === 0 && (
-        <div className="flex flex-col items-center justify-center py-32 text-center space-y-4 border-2 border-dashed border-border/50 rounded-3xl bg-muted/5">
-          <div className="p-4 bg-muted/20 rounded-full">
-            <MessageSquare className="w-10 h-10 text-muted-foreground/50" />
+      {
+        testimonials.length === 0 && (
+          <div className="flex flex-col items-center justify-center py-32 text-center space-y-4 border-2 border-dashed border-border/50 rounded-3xl bg-muted/5">
+            <div className="p-4 bg-muted/20 rounded-full">
+              <MessageSquare className="w-10 h-10 text-muted-foreground/50" />
+            </div>
+            <div className="space-y-1">
+              <h3 className="text-xl font-bold">No testimonials yet</h3>
+              <p className="text-muted-foreground max-w-sm mx-auto">
+                Start collecting feedback from your community.
+              </p>
+            </div>
+            <Link href="/testimonials/new">
+              <Button>
+                Add Testimonial
+              </Button>
+            </Link>
           </div>
-          <div className="space-y-1">
-            <h3 className="text-xl font-bold">No testimonials yet</h3>
-            <p className="text-muted-foreground max-w-sm mx-auto">
-              Start collecting feedback from your community.
-            </p>
-          </div>
-          <Link href="/testimonials/new">
-            <Button>
-              Add Testimonial
-            </Button>
-          </Link>
-        </div>
-      )}
-    </div>
+        )
+      }
+    </div >
   );
 }
