@@ -132,13 +132,38 @@ export async function getPackageAction(id: string) {
   return pkg;
 }
 
-export async function deletePackageAction(id: string) {
-  // Delete related data first (though cascade might handle it, manual is safer for known relations)
-  await prisma.includedItems.deleteMany({ where: { packageId: id } });
-  await prisma.excludedItems.deleteMany({ where: { packageId: id } });
-  await prisma.dayItinerary.deleteMany({ where: { packageId: id } });
+export async function deletePackageAction(id: string, force: boolean = false) {
+  try {
+    // 1. Check for Bookings if not forced
+    if (!force) {
+      const bookings = await prisma.bookings.findMany({
+        where: { packageId: id },
+        select: { customerName: true, id: true },
+      });
 
-  await prisma.package.delete({ where: { id } });
-  revalidatePath("/packages");
-  return { success: true };
+      if (bookings.length > 0) {
+        return {
+          success: false,
+          error: "DependencyError",
+          dependencies: bookings.map(
+            (b) => `Booking: ${b.customerName} (${b.id})`
+          ),
+        };
+      }
+    }
+
+    // 2. Proceed with delete
+    // Note: Schema has Cascade on Bookings, Inclusions, Itineraries
+    // So simple delete is enough, but we can do transaction for safety if Schema changes
+    // But explicit validation above handles the "safety check" requirement.
+
+    // We can just call delete, Prisma Cascade handles children
+    await prisma.package.delete({ where: { id } });
+
+    revalidatePath("/packages");
+    return { success: true };
+  } catch (error) {
+    console.error("Delete Package Error:", error);
+    return { success: false, error: "Failed to delete package" };
+  }
 }

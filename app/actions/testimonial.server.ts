@@ -62,10 +62,16 @@ export async function updateTestimonialAction(
   return { success: true };
 }
 
-export async function deleteTestimonialAction(id: string) {
-  await prisma.testimonial.delete({
-    where: { id },
-  });
-  revalidatePath("/testimonials");
-  return { success: true };
+export async function deleteTestimonialAction(
+  id: string,
+  force: boolean = false
+) {
+  try {
+    await prisma.testimonial.delete({ where: { id } });
+    revalidatePath("/testimonials");
+    return { success: true };
+  } catch (error) {
+    console.error("Delete Testimonial Error:", error);
+    return { success: false, error: "Failed to delete testimonial" };
+  }
 }

@@ -51,15 +51,17 @@ export default async function BlogsPage() {
                     <FileText className="w-12 h-12 text-muted-foreground/30" />
                   </div>
                 )}
-                {blog.categories.length > 0 && (
-                  <div className="absolute top-3 left-3 flex flex-wrap gap-1">
-                    {blog.categories.slice(0, 2).map((cat) => (
-                      <Badge key={cat.id} variant="secondary" className="bg-background/80 backdrop-blur text-xs font-medium border-none">
-                        {cat.name}
-                      </Badge>
-                    ))}
-                  </div>
-                )}
+                <div className="absolute top-3 left-3 flex flex-wrap gap-1">
+                  {blog.categories.slice(0, 2).map((cat) => (
+                    <Badge key={cat.id} variant="secondary" className="bg-background/80 backdrop-blur text-xs font-medium border-none">
+                      {cat.name}
+                    </Badge>
+                  ))}
+                </div>
+
+                <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300" onClick={(e) => e.preventDefault()}>
+                  <DeleteButton id={blog.id} onDelete={deleteBlogAction} itemType="blog" className="bg-white/80 hover:bg-destructive hover:text-white backdrop-blur-sm h-8 w-8 rounded-full" />
+                </div>
               </div>
 
               <CardContent className="p-5 flex flex-col h-[calc(100%-aspect-[16/10])] ">

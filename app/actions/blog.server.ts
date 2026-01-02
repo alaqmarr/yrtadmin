@@ -2,6 +2,7 @@
 
 import { prisma } from "@/lib/db";
 import { parseText } from "@/lib/text-functions";
+import { revalidatePath } from "next/cache";
 
 export async function createBlogAction(payload: {
   title: string;
@@ -108,6 +109,13 @@ export async function updateBlogAction(
   });
 }
 
-export async function deleteBlogAction(id: string) {
-  return prisma.blogs.delete({ where: { id } });
+export async function deleteBlogAction(id: string, force: boolean = false) {
+  try {
+    await prisma.blogs.delete({ where: { id } });
+    revalidatePath("/blogs");
+    return { success: true };
+  } catch (error) {
+    console.error("Delete Blog Error:", error);
+    return { success: false, error: "Failed to delete blog" };
+  }
 }

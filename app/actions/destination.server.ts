@@ -108,8 +108,52 @@ export async function updateDestinationAction(
   return { success: true };
 }
 
-export async function deleteDestinationAction(id: string) {
-  await prisma.destinations.delete({ where: { id } });
-  revalidatePath("/destinations");
-  return { success: true };
+export async function deleteDestinationAction(
+  id: string,
+  force: boolean = false
+) {
+  try {
+    if (force) {
+      // Force delete: Delete dependencies first, then the destination
+      await prisma.$transaction(async (tx) => {
+        // Delete related packages (which cascade to itineraries, etc.)
+        await tx.package.deleteMany({ where: { destinationId: id } });
+        // Delete related Places & FAQs (if not cascading in Schema, safe to do explicit)
+        await tx.places.deleteMany({ where: { destinationId: id } });
+        await tx.destinationFAQ.deleteMany({ where: { destinationId: id } });
+
+        // Finally delete destination
+        await tx.destinations.delete({ where: { id } });
+      });
+
+      revalidatePath("/destinations");
+      return { success: true };
+    }
+
+    // Normal delete attempt
+    await prisma.destinations.delete({ where: { id } });
+    revalidatePath("/destinations");
+    return { success: true };
+  } catch (error: any) {
+    // Check for Foreign Key Constraint Violation (Prisma P2003)
+    if (error.code === "P2003") {
+      // Find what is blocking deletion
+      // We mainly care about Packages as they are the primary blocking entity
+      const packages = await prisma.package.findMany({
+        where: { destinationId: id },
+        select: { name: true },
+      });
+
+      if (packages.length > 0) {
+        return {
+          success: false,
+          error: "DependencyError",
+          dependencies: packages.map((p) => `Package: ${p.name}`),
+        };
+      }
+    }
+
+    console.error("Delete Destination Error:", error);
+    return { success: false, error: "Failed to delete destination" };
+  }
 }
