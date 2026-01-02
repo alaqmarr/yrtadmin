@@ -43,7 +43,7 @@ export async function createPackageAction(data: CreatePackageInput) {
       price: new Prisma.Decimal(data.price),
       type: data.type,
       location: data.location,
-      destinationId: data.destinationId,
+      destinationId: data.destinationId || null,
       image: data.image,
       inclusions: {
         create: data.inclusions.map((inc) => ({ item: inc.item })),
@@ -84,7 +84,7 @@ export async function updatePackageAction(data: UpdatePackageInput) {
       price: new Prisma.Decimal(data.price),
       type: data.type,
       location: data.location,
-      destinationId: data.destinationId,
+      destinationId: data.destinationId || null,
       image: data.image,
       inclusions: {
         create: data.inclusions.map((inc) => ({ item: inc.item })),
