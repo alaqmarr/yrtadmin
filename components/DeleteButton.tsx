@@ -28,6 +28,7 @@ export function DeleteButton({ id, onDelete, itemType = "item", className, iconO
     const [isDeleting, setIsDeleting] = useState(false);
     const [dependencies, setDependencies] = useState<string[]>([]);
     const [showDependencyAlert, setShowDependencyAlert] = useState(false);
+    const [showConfirmAlert, setShowConfirmAlert] = useState(false);
 
     const handleDelete = async (force: boolean = false) => {
         setIsDeleting(true);
@@ -36,8 +37,10 @@ export function DeleteButton({ id, onDelete, itemType = "item", className, iconO
             if (result.success) {
                 toast.success(`${itemType} deleted successfully`);
                 setShowDependencyAlert(false);
+                setShowConfirmAlert(false);
             } else if (result.error === "DependencyError" && result.dependencies) {
                 setDependencies(result.dependencies);
+                setShowConfirmAlert(false); // Close confirm, open depend
                 setShowDependencyAlert(true);
             } else {
                 toast.error(result.error || "Failed to delete item");
@@ -73,7 +76,10 @@ export function DeleteButton({ id, onDelete, itemType = "item", className, iconO
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cancel</AlertDialogCancel>
                         <AlertDialogAction
-                            onClick={() => handleDelete(true)}
+                            onClick={(e) => {
+                                e.preventDefault(); // maintain open state for async
+                                handleDelete(true);
+                            }}
                             className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                         >
                             {isDeleting ? "Deleting All..." : "Delete All & Proceed"}
@@ -82,23 +88,23 @@ export function DeleteButton({ id, onDelete, itemType = "item", className, iconO
                 </AlertDialogContent>
             </AlertDialog>
 
-            <AlertDialog>
-                <AlertDialogTrigger asChild>
-                    <Button
-                        variant="ghost"
-                        size="icon"
-                        className={`text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors ${className}`}
-                        disabled={isDeleting}
-                        onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                        }}
-                    >
-                        {isDeleting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
-                        {!iconOnly && <span className="ml-2">Delete</span>}
-                    </Button>
-                </AlertDialogTrigger>
-                <AlertDialogContent>
+            <Button
+                variant="ghost"
+                size="icon"
+                className={`text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors ${className}`}
+                disabled={isDeleting}
+                onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setShowConfirmAlert(true);
+                }}
+            >
+                {isDeleting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
+                {!iconOnly && <span className="ml-2">Delete</span>}
+            </Button>
+
+            <AlertDialog open={showConfirmAlert} onOpenChange={setShowConfirmAlert}>
+                <AlertDialogContent onClick={(e) => e.stopPropagation() /* Prevent clicking dialog closing parent link */}>
                     <AlertDialogHeader>
                         <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                         <AlertDialogDescription>
@@ -107,7 +113,13 @@ export function DeleteButton({ id, onDelete, itemType = "item", className, iconO
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        <AlertDialogAction onClick={() => handleDelete(false)} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+                        <AlertDialogAction
+                            onClick={(e) => {
+                                e.preventDefault();
+                                handleDelete(false);
+                            }}
+                            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                        >
                             {isDeleting ? "Deleting..." : "Delete"}
                         </AlertDialogAction>
                     </AlertDialogFooter>
