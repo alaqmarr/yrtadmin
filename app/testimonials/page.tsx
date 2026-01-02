@@ -1,9 +1,8 @@
 import { prisma } from "@/lib/db";
 import Link from "next/link";
-import { Plus, MessageSquare, Star, Quote } from "lucide-react";
+import { Plus, MessageSquare, Star, Quote, Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { DeleteButton } from "@/components/DeleteButton"; // Reuse existing
+import { DeleteButton } from "@/components/DeleteButton";
 import { deleteTestimonialAction } from "@/app/actions/testimonial.server";
 
 export const dynamic = "force-dynamic";
@@ -14,84 +13,98 @@ export default async function TestimonialsPage() {
   });
 
   return (
-    <div className="space-y-6 md:space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 p-2 md:p-0">
-      <div className="flex flex-col sm:flex-row justify-between items-end pb-6 border-b border-border/40 gap-4">
-        <div>
-          <h1 className="text-4xl font-extrabold tracking-tight">Testimonials</h1>
-          <p className="text-muted-foreground mt-2 text-lg">Manage client reviews and feedback.</p>
+    <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-20">
+      {/* Header */}
+      <div className="flex flex-col md:flex-row justify-between items-end gap-6 border-b border-border/40 pb-6">
+        <div className="space-y-2">
+          <h1 className="text-4xl md:text-5xl font-black tracking-tighter bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+            Testimonials
+          </h1>
+          <p className="text-muted-foreground text-lg max-w-lg leading-relaxed">
+            What people are saying. Manage feedback and reviews.
+          </p>
         </div>
 
-        <Button asChild size="lg" className="rounded-full px-8">
-          <Link href="/testimonials/new">
-            <Plus className="w-5 h-5 mr-2" />
-            Add Testimonial
-          </Link>
-        </Button>
+        <Link href="/testimonials/new">
+          <Button size="lg" className="rounded-full shadow-xl shadow-primary/20 hover:shadow-primary/30 transition-all h-11 px-6">
+            <MessageSquare className="w-5 h-5 mr-2" />
+            <span className="font-semibold">Add Review</span>
+          </Button>
+        </Link>
       </div>
 
+      {/* Modern Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {testimonials.map((t, i) => (
           <div
             key={t.id}
-            className="group relative flex flex-col h-full bg-card border border-border/50 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300"
-            style={{ animationDelay: `${i * 100}ms` }}
+            className="group relative flex flex-col h-full bg-card rounded-3xl p-6 md:p-8 border border-border/50 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+            style={{ animationDelay: `${i * 50}ms` }}
           >
-            <div className="p-6 flex-1 flex flex-col gap-4">
-              <div className="flex justify-between items-start">
-                <Quote className="w-8 h-8 text-primary/20 rotate-180" />
-                <div className="flex gap-0.5">
-                  {[...Array(5)].map((_, idx) => (
-                    <Star key={idx} className={`w-4 h-4 ${idx < t.rating ? "fill-yellow-500 text-yellow-500" : "text-muted-foreground/30"}`} />
-                  ))}
-                </div>
-              </div>
+            {/* Giant Quote Watermark */}
+            <Quote className="absolute top-6 right-6 w-24 h-24 text-primary/5 rotate-180 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-12" />
 
-              <p className="text-muted-foreground italic leading-relaxed line-clamp-4 flex-1">
+            {/* Stars */}
+            <div className="relative z-10 flex gap-0.5 mb-6">
+              {[...Array(5)].map((_, idx) => (
+                <Star
+                  key={idx}
+                  className={`w-4 h-4 ${idx < t.rating ? "fill-orange-400 text-orange-400 drop-shadow-sm" : "fill-muted text-muted"}`}
+                />
+              ))}
+            </div>
+
+            {/* Content */}
+            <div className="relative z-10 flex-1 mb-8">
+              <p className="text-lg md:text-xl font-medium leading-relaxed text-foreground/90 italic font-serif">
                 "{t.description}"
               </p>
+            </div>
 
-              <div>
-                <div className="flex items-center gap-3 mt-4 pt-4 border-t border-border/40">
-                  <div className="w-10 h-10 rounded-full bg-muted overflow-hidden shrink-0">
-                    {t.image ? (
-                      <img src={t.image} alt={t.author} className="w-full h-full object-cover" />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center bg-primary/10 text-primary font-bold">
-                        {t.author[0]}
-                      </div>
-                    )}
+            {/* Author Block */}
+            <div className="relative z-10 flex items-center gap-4 mt-auto pt-6 border-t border-border/40">
+              <div className="w-12 h-12 rounded-full ring-2 ring-background ring-offset-2 ring-offset-border overflow-hidden shrink-0 shadow-md">
+                {t.image ? (
+                  <img src={t.image} alt={t.author} className="w-full h-full object-cover" />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary to-primary/60 text-primary-foreground font-bold text-lg">
+                    {t.author[0]}
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <h4 className="font-bold truncate text-foreground">{t.author}</h4>
-                    <p className="text-xs text-muted-foreground truncate">{t.role}</p>
-                  </div>
-                </div>
+                )}
+              </div>
+              <div className="flex-1 min-w-0">
+                <h4 className="font-bold text-base truncate">{t.author}</h4>
+                <p className="text-sm text-muted-foreground truncate font-medium">{t.role}</p>
               </div>
             </div>
 
-            <div className="absolute top-4 right-4 flex gap-2">
-              <Button size="icon" variant="secondary" className="h-8 w-8 rounded-full shadow-sm" asChild>
+            {/* Actions (Floating) */}
+            <div className="absolute top-4 right-4 flex gap-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300 transform md:-translate-y-2 md:group-hover:translate-y-0 z-20">
+              <Button size="icon" variant="ghost" className="h-8 w-8 rounded-full bg-background/80 backdrop-blur border border-border/50 hover:bg-background" asChild>
                 <Link href={`/testimonials/${t.id}/edit`}>
-                  <MessageSquare className="w-3 h-3" />
+                  <MessageCircle className="w-4 h-4" />
                 </Link>
               </Button>
-              <DeleteButton id={t.id} onDelete={deleteTestimonialAction} itemType="testimonial" className="h-8 w-8 rounded-full bg-white hover:bg-destructive hover:text-white" />
+              <DeleteButton id={t.id} onDelete={deleteTestimonialAction} itemType="testimonial" className="h-8 w-8 rounded-full bg-background/80 backdrop-blur border border-border/50 hover:bg-destructive hover:text-white" />
             </div>
           </div>
         ))}
       </div>
 
       {testimonials.length === 0 && (
-        <div className="text-center py-32 border-2 border-dashed border-border/50 rounded-3xl bg-muted/10">
-          <div className="bg-muted p-4 rounded-full w-fit mx-auto mb-4">
-            <MessageSquare className="w-8 h-8 text-muted-foreground" />
+        <div className="flex flex-col items-center justify-center py-32 text-center space-y-4 border-2 border-dashed border-border/50 rounded-3xl bg-muted/5">
+          <div className="p-4 bg-muted/20 rounded-full">
+            <MessageSquare className="w-10 h-10 text-muted-foreground/50" />
           </div>
-          <h3 className="text-xl font-bold mb-2">No testimonials yet</h3>
-          <p className="text-muted-foreground mb-8 max-w-md mx-auto">Start collecting feedback from your happy travelers.</p>
+          <div className="space-y-1">
+            <h3 className="text-xl font-bold">No testimonials yet</h3>
+            <p className="text-muted-foreground max-w-sm mx-auto">
+              Start collecting feedback from your community.
+            </p>
+          </div>
           <Link href="/testimonials/new">
-            <Button size="lg">
-              <Plus className="w-4 h-4 mr-2" />
-              Add First Testimonial
+            <Button>
+              Add Testimonial
             </Button>
           </Link>
         </div>
