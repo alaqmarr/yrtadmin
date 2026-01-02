@@ -10,18 +10,18 @@ export default function TopHeader() {
 
     return (
         <header className="h-16 border-b bg-background/50 backdrop-blur-sm sticky top-0 z-10 px-6 flex items-center justify-between transition-all">
-            {/* Breadcrumbs */}
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Link href="/" className="hover:text-foreground transition-colors">
+            {/* Breadcrumbs - Hide on very small screens */}
+            <div className="flex items-center gap-2 text-sm text-muted-foreground overflow-hidden whitespace-nowrap mask-linear-fade">
+                <Link href="/" className="hover:text-foreground transition-colors shrink-0">
                     Home
                 </Link>
                 {pathSegments.map((segment, index) => (
-                    <div key={segment} className="flex items-center gap-2">
-                        <span>/</span>
+                    <div key={segment} className="flex items-center gap-2 overflow-hidden">
+                        <span className="shrink-0">/</span>
                         <span
-                            className={`capitalize ${index === pathSegments.length - 1
-                                    ? "text-foreground font-medium"
-                                    : "hover:text-foreground transition-colors"
+                            className={`capitalize truncate max-w-[100px] md:max-w-none ${index === pathSegments.length - 1
+                                ? "text-foreground font-medium"
+                                : "hover:text-foreground transition-colors"
                                 }`}
                         >
                             {segment.replace(/-/g, " ")}

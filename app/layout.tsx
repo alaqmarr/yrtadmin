@@ -6,6 +6,7 @@ import { Toaster } from "react-hot-toast";
 import AppSidebar from "@/components/AppSidebar";
 import TopHeader from "@/components/TopHeader";
 
+export const preferredRegion = "sin1";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -27,6 +28,12 @@ export const metadata: Metadata = {
   description: "Made with love for YRT",
 };
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -40,8 +47,8 @@ export default function RootLayout({
           <AppSidebar />
           <div className="flex flex-col flex-1 overflow-hidden">
             <TopHeader />
-            <main className="flex-1 overflow-x-hidden overflow-y-auto bg-muted/30 p-4 md:p-6 transition-all duration-300">
-              <div className="mx-auto max-w-7xl animate-in fade-in zoom-in-95 duration-500">
+            <main className="flex-1 overflow-x-hidden overflow-y-auto bg-muted/30 p-2 md:p-6 transition-all duration-300 w-full">
+              <div className="mx-auto max-w-7xl w-full animate-in fade-in zoom-in-95 duration-500">
                 {children}
               </div>
             </main>
@@ -52,5 +59,4 @@ export default function RootLayout({
   );
 }
 
-export const preferredRegion = "sin1";
 

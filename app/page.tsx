@@ -40,10 +40,10 @@ export default async function AdminDashboard() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-border/40">
         <div className="space-y-1">
-          <h1 className="text-4xl font-extrabold tracking-tight text-foreground">
+          <h1 className="text-2xl md:text-4xl font-extrabold tracking-tight text-foreground line-clamp-1">
             Dashboard
           </h1>
-          <p className="text-muted-foreground font-medium text-lg">
+          <p className="text-muted-foreground font-medium text-sm md:text-lg">
             Overview of <span className="text-foreground">{siteName}</span>.
           </p>
         </div>
@@ -276,8 +276,8 @@ function StatCard({ title, value, icon: Icon, trend, trendUp, description, color
         )}
       </div>
       <div>
-        <h3 className="text-3xl font-extrabold tracking-tight text-foreground mb-1 group-hover:scale-105 transition-transform origin-left">{value}</h3>
-        <p className="font-medium text-foreground/80">{title}</p>
+        <h3 className="text-2xl md:text-3xl font-extrabold tracking-tight text-foreground mb-1 group-hover:scale-105 transition-transform origin-left">{value}</h3>
+        <p className="font-medium text-foreground/80 text-sm md:text-base">{title}</p>
         <p className="text-xs text-muted-foreground mt-1">{description}</p>
       </div>
     </div>

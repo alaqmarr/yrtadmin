@@ -73,25 +73,25 @@ export default function BlogForm({ id, initialData }: BlogFormProps) {
     return (
         <div className="max-w-7xl mx-auto space-y-6 animate-in fade-in duration-500">
             {/* Header */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border/40 pb-6">
                 <div className="flex items-center gap-4">
-                    <Button variant="outline" size="icon" asChild className="h-10 w-10 rounded-full border-border/60">
+                    <Button variant="outline" size="icon" asChild className="h-10 w-10 shrink-0 rounded-full border-border/60">
                         <Link href="/blogs">
                             <ArrowLeft className="w-4 h-4" />
                         </Link>
                     </Button>
                     <div>
-                        <h1 className="text-3xl font-bold tracking-tight text-foreground">
+                        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
                             {isEditMode ? "Edit Blog Post" : "Compose New Blog"}
                         </h1>
-                        <p className="text-muted-foreground">
+                        <p className="text-sm sm:text-base text-muted-foreground">
                             {isEditMode ? "Update your article content and settings." : "Share your thoughts and travel stories."}
                         </p>
                     </div>
                 </div>
-                <div className="flex items-center gap-3">
-                    <Button variant="ghost" onClick={() => router.back()}>Cancel</Button>
-                    <Button onClick={handleSubmit} disabled={saving} size="lg" className="rounded-full px-8 shadow-lg shadow-primary/20">
+                <div className="flex items-center gap-3 w-full sm:w-auto">
+                    <Button variant="ghost" onClick={() => router.back()} className="flex-1 sm:flex-none">Cancel</Button>
+                    <Button onClick={handleSubmit} disabled={saving} size="lg" className="rounded-full px-8 shadow-lg shadow-primary/20 flex-1 sm:flex-none">
                         {saving && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
                         {isEditMode ? "Save Changes" : "Publish Post"}
                     </Button>

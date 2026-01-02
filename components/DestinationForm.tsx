@@ -123,23 +123,23 @@ export default function DestinationForm({ id, initialData }: Props) {
     return (
         <form onSubmit={handleSave} className="space-y-8 animate-in fade-in duration-500">
             {/* Header */}
-            <div className="flex flex-col sm:flex-row justify-between items-start gap-4 pb-4 border-b border-border/40">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-4 border-b border-border/40">
                 <div className="flex items-center gap-4">
-                    <Button variant="outline" size="icon" asChild className="rounded-full">
+                    <Button variant="outline" size="icon" asChild className="rounded-full shrink-0">
                         <Link href="/destinations">
                             <ArrowLeft className="w-4 h-4" />
                         </Link>
                     </Button>
                     <div>
-                        <h1 className="text-3xl font-extrabold tracking-tight">
+                        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
                             {isEdit ? "Edit Destination" : "New Destination"}
                         </h1>
-                        <p className="text-muted-foreground">
+                        <p className="text-sm sm:text-base text-muted-foreground">
                             {isEdit ? `Managing content for ${name}` : "Create a new travel destination"}
                         </p>
                     </div>
                 </div>
-                <Button type="submit" size="lg" disabled={loading} className="rounded-full min-w-[140px]">
+                <Button type="submit" size="lg" disabled={loading} className="rounded-full w-full sm:w-auto min-w-[140px]">
                     {loading ? "Saving..." : <><Save className="w-4 h-4 mr-2" /> Save Content</>}
                 </Button>
             </div>
