@@ -130,9 +130,7 @@ export default async function ViewPackagePage({ params }: { params: Promise<{ id
                       <h3 className="text-xl font-bold text-foreground">
                         Day {day.dayNumber}: {day.title || `Day ${day.dayNumber} Highlights`}
                       </h3>
-                      <p className="text-muted-foreground leading-relaxed">
-                        {day.description}
-                      </p>
+                      <p className="text-muted-foreground leading-relaxed" dangerouslySetInnerHTML={{ __html: day.description }} />
 
                       {day.features.length > 0 && (
                         <div className="mt-3 flex flex-wrap gap-2">
