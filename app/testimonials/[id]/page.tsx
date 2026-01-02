@@ -68,7 +68,7 @@ export default async function TestimonialViewPage({ params }: { params: Promise<
                         ))}
                     </div>
 
-                    <p className="text-2xl md:text-3xl font-medium leading-relaxed italic text-foreground/90 font-serif">
+                    <p className="text-2xl md:text-3xl font-medium leading-relaxed italic text-foreground/90 font-serif whitespace-pre-wrap">
                         "{t.description}"
                     </p>
 

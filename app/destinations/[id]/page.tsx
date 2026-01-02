@@ -96,91 +96,105 @@ export default async function ViewDestinationPage({ params }: { params: Promise<
                 </div>
             </div>
 
-            <div className="max-w-7xl mx-auto px-6 md:px-12 mt-12 space-y-20">
-                {/* Stats / Places Grid */}
-                <section>
-                    <div className="flex items-center justify-between mb-8">
-                        <h2 className="text-3xl font-black tracking-tight flex items-center gap-3">
-                            <Tent className="w-8 h-8 text-primary" />
-                            Places to Visit
+            {/* About Section */}
+            {(dest.title || dest.description) && (
+                <section className="max-w-4xl mx-auto text-center space-y-6">
+                    {dest.title && (
+                        <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">
+                            {dest.title}
                         </h2>
-                        <Badge variant="secondary" className="px-3 py-1 text-base">
-                            {dest.places.length} Locations
-                        </Badge>
-                    </div>
-
-                    {dest.places.length > 0 ? (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {dest.places.map((place) => (
-                                <div key={place.id} className="group bg-card border border-border/50 rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300">
-                                    <div className="aspect-video bg-muted relative overflow-hidden">
-                                        {place.image ? (
-                                            <img src={place.image} alt={place.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                                        ) : (
-                                            <div className="w-full h-full flex items-center justify-center">
-                                                <Mountain className="w-10 h-10 text-muted-foreground/30" />
-                                            </div>
-                                        )}
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                                        <div className="absolute bottom-4 left-4 right-4">
-                                            <h3 className="text-lg font-bold text-white leading-tight">{place.name}</h3>
-                                        </div>
-                                    </div>
-                                    <div className="p-4">
-                                        <p className="text-muted-foreground text-sm line-clamp-2 leading-relaxed">
-                                            {place.description || "No description available."}
-                                        </p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    ) : (
-                        <div className="bg-muted/10 border-2 border-dashed border-border/50 rounded-3xl p-12 text-center">
-                            <div className="bg-muted/20 w-fit mx-auto p-4 rounded-full mb-4">
-                                <Tent className="w-8 h-8 text-muted-foreground/50" />
-                            </div>
-                            <h3 className="text-lg font-bold">No places added yet</h3>
-                            <p className="text-muted-foreground mb-6">Start adding attractions to this destination.</p>
-                            <Button asChild variant="outline">
-                                <Link href={`/destinations/${dest.id}/edit`}>Manager Places</Link>
-                            </Button>
+                    )}
+                    {dest.description && (
+                        <div className="prose prose-lg dark:prose-invert mx-auto text-muted-foreground leading-relaxed whitespace-pre-wrap">
+                            {dest.description}
                         </div>
                     )}
                 </section>
+            )}
 
-                {/* Linked Packages */}
-                {dest.packages && dest.packages.length > 0 && (
-                    <section>
-                        <h2 className="text-3xl font-black tracking-tight flex items-center gap-3 mb-8">
-                            <PackageIcon className="w-8 h-8 text-primary" />
-                            Available Packages
-                        </h2>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                            {dest.packages.map((pkg) => (
-                                <Link key={pkg.id} href={`/packages/${pkg.id}`} className="group block">
-                                    <div className="bg-card border border-border/50 rounded-2xl overflow-hidden hover:shadow-lg transition-all">
-                                        <div className="aspect-[4/3] bg-muted relative">
-                                            {pkg.image && <img src={pkg.image} className="w-full h-full object-cover" />}
-                                            <div className="absolute top-2 right-2">
-                                                <Badge className="backdrop-blur-md bg-black/50 text-white border-none">
-                                                    {pkg.days}D/{pkg.nights}N
-                                                </Badge>
-                                            </div>
+            {/* Stats / Places Grid */}
+            <section>
+                <div className="flex items-center justify-between mb-8">
+                    <h2 className="text-3xl font-black tracking-tight flex items-center gap-3">
+                        <Tent className="w-8 h-8 text-primary" />
+                        Places to Visit
+                    </h2>
+                    <Badge variant="secondary" className="px-3 py-1 text-base">
+                        {dest.places.length} Locations
+                    </Badge>
+                </div>
+
+                {dest.places.length > 0 ? (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {dest.places.map((place) => (
+                            <div key={place.id} className="group bg-card border border-border/50 rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300">
+                                <div className="aspect-video bg-muted relative overflow-hidden">
+                                    {place.image ? (
+                                        <img src={place.image} alt={place.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                                    ) : (
+                                        <div className="w-full h-full flex items-center justify-center">
+                                            <Mountain className="w-10 h-10 text-muted-foreground/30" />
                                         </div>
-                                        <div className="p-4">
-                                            <h3 className="font-bold truncate group-hover:text-primary transition-colors">{pkg.name}</h3>
-                                            <div className="flex justify-between items-center mt-2">
-                                                <span className="text-sm text-muted-foreground">From</span>
-                                                <span className="font-bold text-primary">₹{Number(pkg.price).toLocaleString()}</span>
-                                            </div>
+                                    )}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                                    <div className="absolute bottom-4 left-4 right-4">
+                                        <h3 className="text-lg font-bold text-white leading-tight">{place.name}</h3>
+                                    </div>
+                                </div>
+                                <div className="p-4">
+                                    <p className="text-muted-foreground text-sm line-clamp-2 leading-relaxed">
+                                        {place.description || "No description available."}
+                                    </p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <div className="bg-muted/10 border-2 border-dashed border-border/50 rounded-3xl p-12 text-center">
+                        <div className="bg-muted/20 w-fit mx-auto p-4 rounded-full mb-4">
+                            <Tent className="w-8 h-8 text-muted-foreground/50" />
+                        </div>
+                        <h3 className="text-lg font-bold">No places added yet</h3>
+                        <p className="text-muted-foreground mb-6">Start adding attractions to this destination.</p>
+                        <Button asChild variant="outline">
+                            <Link href={`/destinations/${dest.id}/edit`}>Manager Places</Link>
+                        </Button>
+                    </div>
+                )}
+            </section>
+
+            {/* Linked Packages */}
+            {dest.packages && dest.packages.length > 0 && (
+                <section>
+                    <h2 className="text-3xl font-black tracking-tight flex items-center gap-3 mb-8">
+                        <PackageIcon className="w-8 h-8 text-primary" />
+                        Available Packages
+                    </h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {dest.packages.map((pkg) => (
+                            <Link key={pkg.id} href={`/packages/${pkg.id}`} className="group block">
+                                <div className="bg-card border border-border/50 rounded-2xl overflow-hidden hover:shadow-lg transition-all">
+                                    <div className="aspect-[4/3] bg-muted relative">
+                                        {pkg.image && <img src={pkg.image} className="w-full h-full object-cover" />}
+                                        <div className="absolute top-2 right-2">
+                                            <Badge className="backdrop-blur-md bg-black/50 text-white border-none">
+                                                {pkg.days}D/{pkg.nights}N
+                                            </Badge>
                                         </div>
                                     </div>
-                                </Link>
-                            ))}
-                        </div>
-                    </section>
-                )}
-            </div>
+                                    <div className="p-4">
+                                        <h3 className="font-bold truncate group-hover:text-primary transition-colors">{pkg.name}</h3>
+                                        <div className="flex justify-between items-center mt-2">
+                                            <span className="text-sm text-muted-foreground">From</span>
+                                            <span className="font-bold text-primary">₹{Number(pkg.price).toLocaleString()}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+                </section>
+            )}
         </div>
     );
 }
