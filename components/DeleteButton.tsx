@@ -89,6 +89,10 @@ export function DeleteButton({ id, onDelete, itemType = "item", className, iconO
                         size="icon"
                         className={`text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors ${className}`}
                         disabled={isDeleting}
+                        onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                        }}
                     >
                         {isDeleting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
                         {!iconOnly && <span className="ml-2">Delete</span>}

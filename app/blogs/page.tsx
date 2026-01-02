@@ -59,7 +59,7 @@ export default async function BlogsPage() {
                   ))}
                 </div>
 
-                <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300" onClick={(e) => e.preventDefault()}>
+                <div className="absolute top-3 right-3">
                   <DeleteButton id={blog.id} onDelete={deleteBlogAction} itemType="blog" className="bg-white/80 hover:bg-destructive hover:text-white backdrop-blur-sm h-8 w-8 rounded-full" />
                 </div>
               </div>

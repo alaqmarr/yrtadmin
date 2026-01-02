@@ -103,7 +103,7 @@ export default async function PackagesPage({
                                 <span className="truncate">{pkg.location || "Unknown Location"}</span>
                             </div>
 
-                            <div className="pt-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-2 group-hover:translate-y-0">
+                            <div className="pt-2 flex gap-2">
                                 <Button variant="secondary" size="sm" className="w-full h-8 rounded-full" asChild>
                                     <Link href={`/packages/${pkg.id}/edit`}>Edit Package</Link>
                                 </Button>

@@ -69,7 +69,7 @@ export default async function TestimonialsPage() {
               </div>
             </div>
 
-            <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
+            <div className="absolute top-4 right-4 flex gap-2">
               <Button size="icon" variant="secondary" className="h-8 w-8 rounded-full shadow-sm" asChild>
                 <Link href={`/testimonials/${t.id}/edit`}>
                   <MessageSquare className="w-3 h-3" />

@@ -63,10 +63,10 @@ export default async function DestinationsPage() {
                                     <h3 className="text-2xl font-bold text-white leading-tight">
                                         {dest.name}
                                     </h3>
-                                    <div className="absolute top-4 right-4 z-20" onClick={(e) => e.preventDefault()}>
+                                    <div className="absolute top-4 right-4 z-20">
                                         <DeleteButton id={dest.id} onDelete={deleteDestinationAction} itemType="destination" className="bg-black/20 hover:bg-red-500/80 text-white hover:text-white backdrop-blur-md rounded-full" />
                                     </div>
-                                    <div className="flex items-center justify-between pt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 border-t border-white/20 mt-4">
+                                    <div className="flex items-center justify-between pt-2 border-t border-white/20 mt-4">
                                         <span className="text-white/80 text-xs font-medium flex items-center gap-1.5">
                                             <MapPin className="w-3 h-3" /> {dest._count.places} Places
                                         </span>
