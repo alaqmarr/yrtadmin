@@ -2,8 +2,16 @@
 
 import React, { useState } from "react";
 import DropzoneClient from "@/components/DropzoneClient";
+import RichTextEditor from "@/components/RichTextEditor";
+import { DestinationSelect } from "@/components/DestinationSelect"; // Import
 import toast from "react-hot-toast";
 import { createPackageAction } from "@/app/actions/package.server";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
+import { Plus, X, Trash2 } from "lucide-react";
 
 type Inclusion = { id: string; item: string };
 type Exclusion = { id: string; item: string };
@@ -29,7 +37,8 @@ export default function NewPackagePage() {
   const [nights, setNights] = useState<number | "">("");
   const [price, setPrice] = useState<number | "">("");
   const [typeValue, setTypeValue] = useState("");
-  const [location, setLocation] = useState("");
+  const [destinationId, setDestinationId] = useState("");
+  const [location, setLocation] = useState(""); // Keeping as fallback for specific details
 
   const [inclusions, setInclusions] = useState<Inclusion[]>([{ id: uid(), item: "" }]);
   const [exclusions, setExclusions] = useState<Exclusion[]>([{ id: uid(), item: "" }]);
@@ -53,7 +62,7 @@ export default function NewPackagePage() {
   const addItinerary = () =>
     setItineraries([
       ...itineraries,
-      { id: uid(), dayNumber: itineraries.length + 1,title: "", description: "", features: [{ id: uid(), item: "" }] },
+      { id: uid(), dayNumber: itineraries.length + 1, title: "", description: "", features: [{ id: uid(), item: "" }] },
     ]);
   const removeItinerary = (id: string) => setItineraries(itineraries.filter((it) => it.id !== id));
   const updateItinerary = (id: string, key: keyof DayItinerary, value: any) =>
@@ -78,9 +87,9 @@ export default function NewPackagePage() {
       itineraries.map((it) =>
         it.id === itineraryId
           ? {
-              ...it,
-              features: it.features.map((f) => (f.id === featureId ? { ...f, item: value } : f)),
-            }
+            ...it,
+            features: it.features.map((f) => (f.id === featureId ? { ...f, item: value } : f)),
+          }
           : it
       )
     );
@@ -100,6 +109,7 @@ export default function NewPackagePage() {
         price: Number(price),
         type: typeValue,
         location,
+        destinationId,
         image: imageUrl,
         inclusions: inclusions.filter((i) => i.item.trim()),
         exclusions: exclusions.filter((e) => e.item.trim()),
@@ -128,6 +138,7 @@ export default function NewPackagePage() {
     setPrice("");
     setTypeValue("");
     setLocation("");
+    setDestinationId("");
     setImageUrl("");
     setInclusions([{ id: uid(), item: "" }]);
     setExclusions([{ id: uid(), item: "" }]);
@@ -135,231 +146,221 @@ export default function NewPackagePage() {
   };
 
   return (
-    <div className="p-8 max-w-5xl mx-auto">
-      <h1 className="text-2xl font-semibold mb-6">Create New Package</h1>
+    <div className="p-8 max-w-6xl mx-auto animate-in fade-in duration-500">
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-3xl font-bold tracking-tight">New Package</h1>
+        <Button onClick={handleSubmit} disabled={loading} size="lg" className="rounded-full px-8">
+          {loading ? "Creating..." : "Create Package"}
+        </Button>
+      </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        {/* BASIC INFO */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <input
-            placeholder="Package Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-            className="border p-2 rounded"
-          />
-          <input
-            type="number"
-            placeholder="Days"
-            value={days}
-            onChange={(e) => setDays(e.target.value === "" ? "" : Number(e.target.value))}
-            className="border p-2 rounded"
-          />
-          <input
-            type="number"
-            placeholder="Nights"
-            value={nights}
-            onChange={(e) => setNights(e.target.value === "" ? "" : Number(e.target.value))}
-            className="border p-2 rounded"
-          />
-          <input
-            type="number"
-            placeholder="Price"
-            value={price}
-            onChange={(e) => setPrice(e.target.value === "" ? "" : Number(e.target.value))}
-            className="border p-2 rounded"
-          />
-          <input
-            placeholder="Type (e.g. Adventure)"
-            value={typeValue}
-            onChange={(e) => setTypeValue(e.target.value)}
-            className="border p-2 rounded"
-          />
-          <input
-            placeholder="Location"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            className="border p-2 rounded"
-          />
-        </div>
-
-        {/* IMAGE UPLOAD */}
-        <div>
-          <label className="block text-sm font-medium mb-2">Upload Image</label>
-          <DropzoneClient
-            multiple={false}
-            onUploadComplete={(urls) => {
-              if (urls.length) {
-                setImageUrl(urls[0]);
-                setUploading(false);
-              }
-            }}
-          />
-          {uploading && <p className="text-sm text-gray-500 mt-1">Uploading...</p>}
-          {imageUrl && (
-            <div className="mt-3 relative w-fit">
-              <img src={imageUrl} alt="Preview" className="w-64 h-40 rounded object-cover border" />
-              <button
-                type="button"
-                onClick={() => setImageUrl("")}
-                className="absolute top-1 right-1 bg-white border text-xs px-2 py-0.5 rounded"
-              >
-                Remove
-              </button>
-            </div>
-          )}
-        </div>
-
-        {/* INCLUSIONS */}
-        <section>
-          <div className="flex justify-between items-center mb-2">
-            <h3 className="text-sm font-medium">Inclusions</h3>
-            <button type="button" onClick={addInclusion} className="text-blue-600 text-sm">
-              + Add
-            </button>
-          </div>
-          <div className="space-y-2">
-            {inclusions.map((inc) => (
-              <div key={inc.id} className="flex gap-2">
-                <input
-                  value={inc.item}
-                  onChange={(e) => updateInclusion(inc.id, e.target.value)}
-                  placeholder="Included item"
-                  className="border p-2 rounded flex-1 text-sm"
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* LEFT COLUMN: Main Info */}
+        <div className="lg:col-span-2 space-y-8">
+          <Card className="border-none shadow-sm bg-white/50 backdrop-blur-sm">
+            <CardHeader>
+              <CardTitle>Package Details</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid gap-2">
+                <Label>Package Name</Label>
+                <Input
+                  value={name} onChange={(e) => setName(e.target.value)}
+                  placeholder="e.g. Magical Paris Getaway"
+                  className="text-lg font-medium"
                 />
-                {inclusions.length > 1 && (
-                  <button
-                    type="button"
-                    onClick={() => removeInclusion(inc.id)}
-                    className="text-red-600 text-sm px-2"
-                  >
-                    Remove
-                  </button>
-                )}
               </div>
-            ))}
-          </div>
-        </section>
-
-        {/* EXCLUSIONS */}
-        <section>
-          <div className="flex justify-between items-center mb-2">
-            <h3 className="text-sm font-medium">Exclusions</h3>
-            <button type="button" onClick={addExclusion} className="text-blue-600 text-sm">
-              + Add
-            </button>
-          </div>
-          <div className="space-y-2">
-            {exclusions.map((exc) => (
-              <div key={exc.id} className="flex gap-2">
-                <input
-                  value={exc.item}
-                  onChange={(e) => updateExclusion(exc.id, e.target.value)}
-                  placeholder="Excluded item"
-                  className="border p-2 rounded flex-1 text-sm"
-                />
-                {exclusions.length > 1 && (
-                  <button
-                    type="button"
-                    onClick={() => removeExclusion(exc.id)}
-                    className="text-red-600 text-sm px-2"
-                  >
-                    Remove
-                  </button>
-                )}
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* ITINERARIES */}
-        <section>
-          <div className="flex justify-between items-center mb-2">
-            <h3 className="text-sm font-medium">Day Itineraries</h3>
-            <button type="button" onClick={addItinerary} className="text-blue-600 text-sm">
-              + Add Day
-            </button>
-          </div>
-
-          <div className="space-y-4">
-            {itineraries.map((it) => (
-              <div key={it.id} className="border rounded-md p-4 bg-gray-50">
-                <div className="flex justify-between items-center mb-2">
-                  <h4 className="font-medium text-sm">Day {it.dayNumber}</h4>
-                  {itineraries.length > 1 && (
-                    <button
-                      type="button"
-                      onClick={() => removeItinerary(it.id)}
-                      className="text-red-600 text-sm"
-                    >
-                      Remove
-                    </button>
-                  )}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="grid gap-2">
+                  <Label>Destination</Label>
+                  <DestinationSelect value={destinationId} onChange={setDestinationId} />
                 </div>
-                <input
-                  value={it.title}
-                  onChange={(e) => updateItinerary(it.id, "title", e.target.value)}
-                  placeholder="Day title"
-                  className="border p-2 rounded flex-1 text-sm"
-                />
+                <div className="grid gap-2">
+                  <Label>Specific Location (Optional)</Label>
+                  <Input value={location} onChange={(e) => setLocation(e.target.value)} placeholder="e.g. Eiffel Tower Area" />
+                </div>
+              </div>
+              <div className="grid grid-cols-3 gap-4">
+                <div className="grid gap-2">
+                  <Label>Days</Label>
+                  <Input type="number" value={days} onChange={e => setDays(Number(e.target.value))} />
+                </div>
+                <div className="grid gap-2">
+                  <Label>Nights</Label>
+                  <Input type="number" value={nights} onChange={e => setNights(Number(e.target.value))} />
+                </div>
+                <div className="grid gap-2">
+                  <Label>Price</Label>
+                  <Input type="number" value={price} onChange={e => setPrice(Number(e.target.value))} prefix="₹" />
+                </div>
+              </div>
+              <div className="grid gap-2">
+                <Label>Type</Label>
+                <Input value={typeValue} onChange={(e) => setTypeValue(e.target.value)} placeholder="e.g. Honeymoon, Adventure" />
+              </div>
+            </CardContent>
+          </Card>
 
-                <textarea
-                  value={it.description}
-                  onChange={(e) => updateItinerary(it.id, "description", e.target.value)}
-                  placeholder="Day description"
-                  rows={3}
-                  className="w-full border p-2 rounded text-sm"
-                />
-
-                {/* FEATURES */}
-                <div className="mt-3">
-                  <div className="flex justify-between items-center mb-1">
-                    <span className="text-sm font-medium">Features</span>
-                    <button
-                      type="button"
-                      onClick={() => addFeature(it.id)}
-                      className="text-blue-600 text-sm"
-                    >
-                      + Add Feature
-                    </button>
+          <Card className="border-none shadow-sm">
+            <CardHeader>
+              <CardTitle>Day Itinerary</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {itineraries.map((it, index) => (
+                <div key={it.id} className="relative pl-6 border-l-2 border-primary/20 pb-8 last:pb-0">
+                  <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-primary" />
+                  <div className="flex justify-between items-start mb-4">
+                    <h3 className="text-lg font-semibold text-primary">Day {it.dayNumber}</h3>
+                    {itineraries.length > 1 && (
+                      <Button variant="ghost" size="icon" onClick={() => removeItinerary(it.id)} className="text-muted-foreground hover:text-destructive">
+                        <Trash2 className="w-4 h-4" />
+                      </Button>
+                    )}
                   </div>
-                  <div className="space-y-2">
-                    {it.features.map((f) => (
-                      <div key={f.id} className="flex gap-2">
-                        <input
-                          value={f.item}
-                          onChange={(e) => updateFeature(it.id, f.id, e.target.value)}
-                          placeholder="Feature"
-                          className="border p-2 rounded flex-1 text-sm"
-                        />
-                        {it.features.length > 1 && (
-                          <button
-                            type="button"
-                            onClick={() => removeFeature(it.id, f.id)}
-                            className="text-red-600 text-sm px-2"
-                          >
-                            Remove
-                          </button>
-                        )}
+
+                  <div className="space-y-4">
+                    <Input
+                      value={it.title}
+                      onChange={(e) => updateItinerary(it.id, "title", e.target.value)}
+                      placeholder="Day Title (e.g. Arrival in Paris)"
+                      className="font-medium"
+                    />
+                    <div className="min-h-[150px]">
+                      <RichTextEditor
+                        value={it.description}
+                        onChange={(val) => updateItinerary(it.id, "description", val)}
+                      />
+                    </div>
+
+                    <div className="bg-muted/30 p-4 rounded-lg">
+                      <Label className="mb-2 block text-xs uppercase tracking-wider text-muted-foreground">Highlights</Label>
+                      <div className="space-y-2">
+                        {it.features.map((f) => (
+                          <div key={f.id} className="flex gap-2">
+                            <div className="w-1.5 h-1.5 rounded-full bg-primary/50 mt-2 shrink-0" />
+                            <Input
+                              value={f.item}
+                              onChange={e => updateFeature(it.id, f.id, e.target.value)}
+                              className="h-8 text-sm bg-transparent border-transparent hover:border-input focus:border-input transition-colors"
+                              placeholder="Add a highlight..."
+                              onKeyDown={(e) => {
+                                if (e.key === "Enter" && e.shiftKey) {
+                                  e.preventDefault();
+                                  addFeature(it.id);
+                                }
+                              }}
+                            />
+                            <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => removeFeature(it.id, f.id)}>
+                              <X className="w-3 h-3" />
+                            </Button>
+                          </div>
+                        ))}
+                        <Button variant="link" size="sm" onClick={() => addFeature(it.id)} className="px-0 text-muted-foreground">
+                          + Add Highlight
+                        </Button>
                       </div>
-                    ))}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <div>
-          <button
-            type="submit"
-            disabled={loading}
-            className="px-4 py-2 bg-slate-800 text-white rounded disabled:opacity-50"
-          >
-            {loading ? "Creating..." : "Create Package"}
-          </button>
+              ))}
+              <Button variant="outline" onClick={addItinerary} className="w-full mt-4 border-dashed">
+                + Add Day {itineraries.length + 1}
+              </Button>
+            </CardContent>
+          </Card>
         </div>
-      </form>
+
+        {/* RIGHT COLUMN: Media & Extras */}
+        <div className="space-y-8">
+          <Card className="border-none shadow-sm overflow-hidden">
+            <CardHeader>
+              <CardTitle>Cover Image</CardTitle>
+            </CardHeader>
+            <div className="px-6 pb-6">
+              <DropzoneClient
+                multiple={false}
+                onUploadComplete={(urls) => {
+                  if (urls.length) {
+                    setImageUrl(urls[0]);
+                    setUploading(false);
+                  }
+                }}
+              />
+              {imageUrl && (
+                <div className="mt-4 relative rounded-xl overflow-hidden aspect-video group">
+                  <img src={imageUrl} alt="Preview" className="w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <Button variant="destructive" size="sm" onClick={() => setImageUrl("")}>Remove</Button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </Card>
+
+          <Card className="border-none shadow-sm">
+            <CardHeader>
+              <CardTitle>Inclusions</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2">
+              {inclusions.map((inc) => (
+                <div key={inc.id} className="flex items-center gap-2">
+                  <CheckIcon className="w-4 h-4 text-green-500 shrink-0" />
+                  <Input
+                    value={inc.item}
+                    onChange={e => updateInclusion(inc.id, e.target.value)}
+                    className="h-9"
+                    placeholder="Included item..."
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && e.shiftKey) { e.preventDefault(); addInclusion(); }
+                    }}
+                  />
+                  <Button variant="ghost" size="icon" className="h-9 w-9 shrink-0" onClick={() => removeInclusion(inc.id)}>
+                    <X className="w-4 h-4 text-muted-foreground" />
+                  </Button>
+                </div>
+              ))}
+              <Button variant="ghost" size="sm" onClick={addInclusion} className="w-full text-muted-foreground">
+                + Add Inclusion
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="border-none shadow-sm">
+            <CardHeader>
+              <CardTitle>Exclusions</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2">
+              {exclusions.map((exc) => (
+                <div key={exc.id} className="flex items-center gap-2">
+                  <XIcon className="w-4 h-4 text-red-500 shrink-0" />
+                  <Input
+                    value={exc.item}
+                    onChange={e => updateExclusion(exc.id, e.target.value)}
+                    className="h-9"
+                    placeholder="Excluded item..."
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && e.shiftKey) { e.preventDefault(); addExclusion(); }
+                    }}
+                  />
+                  <Button variant="ghost" size="icon" className="h-9 w-9 shrink-0" onClick={() => removeExclusion(exc.id)}>
+                    <X className="w-4 h-4 text-muted-foreground" />
+                  </Button>
+                </div>
+              ))}
+              <Button variant="ghost" size="sm" onClick={addExclusion} className="w-full text-muted-foreground">
+                + Add Exclusion
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
     </div>
   );
+}
+
+function CheckIcon(props: any) {
+  return <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+}
+function XIcon(props: any) {
+  return <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18" /><path d="m6 6 18 18" /></svg>
 }

@@ -1,75 +1,24 @@
-"use client";
+import { prisma } from "@/lib/db";
+import BlogForm from "@/components/BlogForm";
 
-import { useEffect, useState } from "react";
-import BlogEditor from "@/components/BlogEditor";
-import { updateBlogAction } from "@/app/actions/blog.server";
-import toast from "react-hot-toast";
-import { useParams } from "next/navigation";
+interface Props { params: Promise<{ id: string }> }
 
-export default function BlogEditPage() {
-    const {id} = useParams();
-  const [loading, setLoading] = useState(true);
-  const [blog, setBlog] = useState<any>(null);
+export default async function BlogEditPage({ params }: Props) {
+  const { id } = await params;
 
-  useEffect(() => {
-    fetch(`/api/blogs/${id}`)
-      .then((r) => r.json())
-      .then((d) => {
-        setBlog(d);
-        setLoading(false);
-      });
-  }, [id]);
+  // Fetch initial data on the server
+  const blog = await prisma.blogs.findUnique({
+    where: { id },
+    include: { categories: true, images: true },
+  });
 
-  if (loading) return <div className="p-8">Loading...</div>;
-
-  const [title, setTitle] = useState(blog.title);
-  const [author, setAuthor] = useState(blog.author);
-  const [html, setHtml] = useState(blog.html);
-  const [thumbnail, setThumbnail] = useState(blog.thumbnail ?? "");
-  const [categories, setCategories] = useState(
-    blog.categories.map((c: any) => c.name).join(", ")
-  );
-
-  const submit = async () => {
-    await updateBlogAction(blog.id, {
-      title,
-      author,
-      html,
-      thumbnail,
-      categories: categories.split(",").map((c: string) => c.trim()),
-    });
-
-    toast.success("Updated");
-  };
+  if (!blog) {
+    return <div className="p-10 text-center">Blog not found</div>;
+  }
 
   return (
-    <div className="max-w-5xl mx-auto p-8 space-y-4">
-      <input
-        className="border p-2 rounded w-full"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
-
-      <input
-        className="border p-2 rounded w-full"
-        value={author}
-        onChange={(e) => setAuthor(e.target.value)}
-      />
-
-      <input
-        className="border p-2 rounded w-full"
-        value={categories}
-        onChange={(e) => setCategories(e.target.value)}
-      />
-
-      <BlogEditor value={html} onChange={setHtml} />
-
-      <button
-        onClick={submit}
-        className="px-4 py-2 bg-sky-700 text-white rounded"
-      >
-        Save Changes
-      </button>
+    <div className="p-8">
+      <BlogForm id={id} initialData={blog} />
     </div>
   );
 }

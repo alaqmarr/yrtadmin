@@ -2,149 +2,140 @@
 
 import { prisma } from "@/lib/db";
 import { Prisma } from "@/app/prisma/client";
+import { revalidatePath } from "next/cache";
+import { generateUniqueSlug } from "@/lib/slugUtils";
 
-type Inclusion = { item: string };
-type Exclusion = { item: string };
-type Feature = { item: string };
-type Itinerary = {
+// Types
+type DayItineraryInput = {
   dayNumber: number;
   title: string;
   description: string;
-  features: Feature[];
+  features: { item: string }[];
 };
 
-export async function createPackageAction(payload: {
+type CreatePackageInput = {
   name: string;
   days: number;
   nights: number;
   price: number;
-  type?: string;
-  location?: string;
-  image?: string;
-  inclusions?: Inclusion[];
-  exclusions?: Exclusion[];
-  itineraries?: Itinerary[];
-}) {
-  return await prisma.$transaction(
-    async (tx) => {
-      const pkg = await tx.package.create({
-        data: {
-          name: payload.name,
-          days: payload.days,
-          nights: payload.nights,
-          image: payload.image,
-          price: new Prisma.Decimal(payload.price ?? 0),
-          type: payload.type,
-          location: payload.location,
-          inclusions: {
-            create: payload.inclusions?.map((i) => ({ item: i.item })) ?? [],
-          },
-          exclusions: {
-            create: payload.exclusions?.map((e) => ({ item: e.item })) ?? [],
-          },
-          itineraries: {
-            create:
-              payload.itineraries?.map((day) => ({
-                dayNumber: day.dayNumber,
-                description: day.description,
-                title: day.title,
-                features: {
-                  create: day.features.map((f) => ({ item: f.item })),
-                },
-              })) ?? [],
-          },
-        },
-        include: {
-          inclusions: true,
-          exclusions: true,
-          itineraries: { include: { features: true } },
-        },
-      });
+  type: string;
+  location: string;
+  destinationId?: string;
+  image: string;
+  inclusions: { item: string }[];
+  exclusions: { item: string }[];
+  itineraries: DayItineraryInput[];
+};
 
-      return pkg;
+type UpdatePackageInput = CreatePackageInput & {
+  id: string;
+};
+
+export async function createPackageAction(data: CreatePackageInput) {
+  const id = await generateUniqueSlug("package", data.name);
+
+  await prisma.package.create({
+    data: {
+      id,
+      name: data.name,
+      days: data.days,
+      nights: data.nights,
+      price: new Prisma.Decimal(data.price),
+      type: data.type,
+      location: data.location,
+      destinationId: data.destinationId,
+      image: data.image,
+      inclusions: {
+        create: data.inclusions.map((inc) => ({ item: inc.item })),
+      },
+      exclusions: {
+        create: data.exclusions.map((exc) => ({ item: exc.item })),
+      },
+      itineraries: {
+        create: data.itineraries.map((it) => ({
+          dayNumber: it.dayNumber,
+          title: it.title,
+          description: it.description,
+          features: {
+            create: it.features.map((f) => ({ item: f.item })),
+          },
+        })),
+      },
     },
-    {
-      maxWait: 10000, // default is 2000ms
-      timeout: 30000, // default is 5000ms
-    }
-  );
+  });
+
+  revalidatePath("/packages");
+  return { success: true, id };
 }
 
-export async function updatePackageAction(
-  id: string,
-  payload: Partial<{
-    name: string;
-    days: number;
-    nights: number;
-    price: number;
-    type: string;
-    location: string;
-    image: string;
-    inclusions: Inclusion[];
-    exclusions: Exclusion[];
-    itineraries: Itinerary[];
-  }>
-) {
-  return await prisma.$transaction(
-    async (tx) => {
-      // 1️⃣ Remove all dependent child records in proper order
-      await tx.featuredItems.deleteMany({
-        where: { dayItinerary: { packageId: id } },
-      });
-      await tx.dayItinerary.deleteMany({
-        where: { packageId: id },
-      });
-      await tx.includedItems.deleteMany({
-        where: { packageId: id },
-      });
-      await tx.excludedItems.deleteMany({
-        where: { packageId: id },
-      });
+export async function updatePackageAction(data: UpdatePackageInput) {
+  // 1. Delete existing relations
+  await prisma.includedItems.deleteMany({ where: { packageId: data.id } });
+  await prisma.excludedItems.deleteMany({ where: { packageId: data.id } });
+  await prisma.dayItinerary.deleteMany({ where: { packageId: data.id } });
 
-      // 2️⃣ Recreate the package children cleanly
-      const updated = await tx.package.update({
-        where: { id },
-        data: {
-          name: payload.name,
-          days: payload.days,
-          nights: payload.nights,
-          image: payload.image,
-          price:
-            payload.price !== undefined
-              ? new Prisma.Decimal(payload.price)
-              : undefined,
-          type: payload.type,
-          location: payload.location,
-          inclusions: {
-            create: payload.inclusions?.map((i) => ({ item: i.item })) ?? [],
+  // 2. Update Package and recreate children
+  await prisma.package.update({
+    where: { id: data.id },
+    data: {
+      name: data.name,
+      days: data.days,
+      nights: data.nights,
+      price: new Prisma.Decimal(data.price),
+      type: data.type,
+      location: data.location,
+      destinationId: data.destinationId,
+      image: data.image,
+      inclusions: {
+        create: data.inclusions.map((inc) => ({ item: inc.item })),
+      },
+      exclusions: {
+        create: data.exclusions.map((exc) => ({ item: exc.item })),
+      },
+      itineraries: {
+        create: data.itineraries.map((it) => ({
+          dayNumber: it.dayNumber,
+          title: it.title,
+          description: it.description,
+          features: {
+            create: it.features.map((f) => ({ item: f.item })),
           },
-          exclusions: {
-            create: payload.exclusions?.map((e) => ({ item: e.item })) ?? [],
-          },
-          itineraries: {
-            create:
-              payload.itineraries?.map((day) => ({
-                dayNumber: day.dayNumber,
-                description: day.description,
-                title: day.title,
-                features: {
-                  create: day.features.map((f) => ({ item: f.item })),
-                },
-              })) ?? [],
-          },
-        },
-        include: {
-          inclusions: true,
-          exclusions: true,
-          itineraries: { include: { features: true } },
-        },
-      });
-
-      return updated;
+        })),
+      },
     },
-    {
-      maxWait: 10000, // default is 2000ms
-      timeout: 30000, // default is 5000ms
-    }
-  );
+  });
+
+  revalidatePath("/packages");
+  revalidatePath(`/packages/${data.id}`); // Using ID (slug)
+  revalidatePath(`/packages/${data.id}/edit`);
+  return { success: true };
+}
+
+export async function getPackageAction(id: string) {
+  const pkg = await prisma.package.findUnique({
+    where: { id },
+    include: {
+      inclusions: true,
+      exclusions: true,
+      itineraries: {
+        orderBy: { dayNumber: "asc" },
+        include: {
+          features: true,
+        },
+      },
+      destination: true,
+    },
+  });
+  return pkg;
+}
+
+export async function deletePackageAction(id: string) {
+  // Delete related data first (though cascade might handle it, manual is safer for known relations)
+  await prisma.includedItems.deleteMany({ where: { packageId: id } });
+  await prisma.excludedItems.deleteMany({ where: { packageId: id } });
+  await prisma.dayItinerary.deleteMany({ where: { packageId: id } });
+
+  await prisma.package.delete({ where: { id } });
+  revalidatePath("/packages");
+  return { success: true };
 }

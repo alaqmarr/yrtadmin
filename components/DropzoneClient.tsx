@@ -49,10 +49,14 @@ export default function DropzoneClient({
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, accept, multiple });
 
   return (
-    <div className="border-dashed border-2 rounded-lg p-3">
-      <div {...getRootProps()} className="cursor-pointer py-6 text-center">
+    <div className="border-dashed border-2 border-border rounded-xl p-4 bg-muted/20 hover:bg-muted/40 transition-colors">
+      <div {...getRootProps()} className="cursor-pointer py-8 text-center text-muted-foreground">
         <input {...getInputProps()} />
-        <p>{isDragActive ? "Drop the images here..." : "Drag & drop images, or click to select"}</p>
+        <p className="text-sm font-medium">
+          {isDragActive
+            ? "Drop the images here..."
+            : "Drag & drop images, or click to select"}
+        </p>
       </div>
 
       <div className="mt-3 grid grid-cols-3 gap-2">

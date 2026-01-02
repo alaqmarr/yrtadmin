@@ -21,6 +21,8 @@ model Package {
   price       Decimal         @db.Decimal(12, 2)
   type        String?
   location    String?
+  destination Destinations? @relation(fields: [destinationId], references: [id])
+  destinationId String?
   inclusions  IncludedItems[]
   exclusions  ExcludedItems[]
   itineraries DayItinerary[]
@@ -143,6 +145,7 @@ model Destinations {
   tag             String?
   title           String?          @default("No title available.")
   description     String           @default("No description available.")
+  packages        Package[]
   places          Places[]
   image           String?
   country         String
@@ -188,19 +191,27 @@ model Testimonials {
   updatedAt    DateTime @updatedAt
 }
 
-
 model PaymentModel {
   id                String   @id @default(cuid())
   amount            Float
   paid              Boolean  @default(false)
   customerEmail     String
   customerName      String
-  customerId       String
+  customerId        String
   customerPhone     String
   paymentMethod     String?
   razorpayPaymentId String?
   paymentDate       DateTime @default(now())
-  createdAt DateTime @default(now())
+  createdAt         DateTime @default(now())
 
   @@index([customerId])
+}
+
+model AppConfig {
+  id           String   @id @default(cuid())
+  siteName     String   @default("YRT Admin")
+  contactEmail String   @default("admin@example.com")
+  contactPhone String   @default("")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }

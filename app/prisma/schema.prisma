@@ -12,21 +12,23 @@ datasource db {
 }
 
 model Package {
-  id          String          @id @default(cuid())
-  name        String
-  days        Int
-  nights      Int
-  description String          @default("No description available.")
-  image       String? // optional image
-  price       Decimal         @db.Decimal(12, 2)
-  type        String?
-  location    String?
-  inclusions  IncludedItems[]
-  exclusions  ExcludedItems[]
-  itineraries DayItinerary[]
-  bookings    Bookings[]
-  createdAt   DateTime        @default(now())
-  updatedAt   DateTime        @updatedAt
+  id            String          @id @default(cuid())
+  name          String
+  days          Int
+  nights        Int
+  description   String          @default("No description available.")
+  image         String? // optional image
+  price         Decimal         @db.Decimal(12, 2)
+  type          String?
+  location      String?
+  destination   Destinations?   @relation(fields: [destinationId], references: [id])
+  destinationId String?
+  inclusions    IncludedItems[]
+  exclusions    ExcludedItems[]
+  itineraries   DayItinerary[]
+  bookings      Bookings[]
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
 
   @@index([createdAt])
 }
@@ -143,6 +145,7 @@ model Destinations {
   tag             String?
   title           String?          @default("No title available.")
   description     String           @default("No description available.")
+  packages        Package[]
   places          Places[]
   image           String?
   country         String
@@ -202,4 +205,13 @@ model PaymentModel {
   createdAt         DateTime @default(now())
 
   @@index([customerId])
+}
+
+model AppConfig {
+  id           String   @id @default(cuid())
+  siteName     String   @default("YRT Admin")
+  contactEmail String   @default("admin@example.com")
+  contactPhone String   @default("")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }

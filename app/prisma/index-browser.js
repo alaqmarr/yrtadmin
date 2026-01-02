@@ -130,6 +130,7 @@ exports.Prisma.PackageScalarFieldEnum = {
   price: 'price',
   type: 'type',
   location: 'location',
+  destinationId: 'destinationId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -260,6 +261,15 @@ exports.Prisma.PaymentModelScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.AppConfigScalarFieldEnum = {
+  id: 'id',
+  siteName: 'siteName',
+  contactEmail: 'contactEmail',
+  contactPhone: 'contactPhone',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -291,7 +301,8 @@ exports.Prisma.ModelName = {
   Places: 'Places',
   DestinationFAQ: 'DestinationFAQ',
   Testimonials: 'Testimonials',
-  PaymentModel: 'PaymentModel'
+  PaymentModel: 'PaymentModel',
+  AppConfig: 'AppConfig'
 };
 
 /**

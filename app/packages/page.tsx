@@ -1,167 +1,132 @@
-// app/packages/page.tsx
-import React from "react";
-import Link from "next/link";
 import { prisma } from "@/lib/db";
-import DeleteButton from "./components/DeleteButton";
+import Link from "next/link";
+import { PlusCircle, Search, MapPin, Calendar, CreditCard, ArrowRight, Package as PackageIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { DeleteButton } from "@/components/DeleteButton";
+import { deletePackageAction } from "@/app/actions/package.server";
 
 export const dynamic = "force-dynamic";
 
-type PackageWithRelations = {
-    id: string;
-    name: string;
-    days: number;
-    nights: number;
-    price: number;
-    type: string | null;
-    location: string | null;
-    image?: string | null;
-    inclusions: { id: string; item: string }[];
-    exclusions: { id: string; item: string }[];
-    itineraries: {
-        id: string;
-        dayNumber: number;
-        description: string | null;
-        features: { id: string; item: string }[];
-    }[];
-    createdAt: string;
-    updatedAt: string;
-};
+export default async function PackagesPage({
+    searchParams,
+}: {
+    searchParams: { q?: string };
+}) {
+    const query = searchParams?.q || "";
 
-export default async function PackagesPage() {
     const packages = await prisma.package.findMany({
+        where: {
+            OR: [
+                { name: { contains: query, mode: "insensitive" } },
+                { location: { contains: query, mode: "insensitive" } },
+            ],
+        },
         include: {
             inclusions: true,
-            exclusions: true,
-            itineraries: { include: { features: true } },
+            itineraries: true,
         },
         orderBy: { createdAt: "desc" },
-    })
+    });
 
-    if (packages.length === 0) {
-        return (
-            <div className="p-8 text-center text-gray-500">
-                No packages found.
-                <Link href="/packages/new" className="text-sky-600 underline ml-1">
-                    Create the first package
+    return (
+        <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                    <h1 className="text-3xl font-bold tracking-tight">Packages</h1>
+                    <p className="text-muted-foreground">Manage your travel packages and itineraries.</p>
+                </div>
+
+                <Link href="/packages/new">
+                    <Button className="rounded-full shadow-lg shadow-primary/20">
+                        <PlusCircle className="w-4 h-4 mr-2" />
+                        Create Package
+                    </Button>
                 </Link>
             </div>
-        );
-    }
-    return (
-        <div className="p-8 max-w-6xl mx-auto">
-            <div className="flex items-center justify-between mb-8">
-                <h1 className="text-2xl font-semibold">Packages</h1>
-                <Link href="/packages/new" className="px-4 py-2 rounded bg-sky-600 text-white text-sm">
-                    + New Package
-                </Link>
+
+            {/* Search Bar */}
+            <div className="flex items-center gap-2 max-w-sm">
+                <div className="relative flex-1">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                    <Input
+                        placeholder="Search packages..."
+                        className="pl-9 bg-white border-none shadow-sm"
+                    // Start simple for now, can add client side search later or use form submission
+                    />
+                </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {packages.map((pkg) => (
-                    <article key={pkg.id} className="border rounded-2xl overflow-hidden shadow-sm bg-white">
-                        <div className="w-full h-48 bg-gray-100 flex items-center justify-center overflow-hidden">
+                {packages.map((pkg, i) => (
+                    <Card
+                        key={pkg.id}
+                        className="group relative overflow-hidden border-none shadow-none bg-transparent hover:bg-transparent"
+                        style={{ animationDelay: `${i * 100}ms` }}
+                    >
+                        <div className="aspect-[4/3] rounded-2xl bg-muted relative overflow-hidden mb-4">
+                            <Link href={`/packages/${pkg.id}`} className="absolute inset-0 z-10">
+                                <span className="sr-only">View {pkg.name}</span>
+                            </Link>
                             {pkg.image ? (
-                                // simple img; replace with next/image if you want optimization
-                                // keep plain <img> to avoid import complexity in this snippet
-                                <img src={pkg.image} alt={pkg.name} className="w-full h-full object-cover" />
+                                <img
+                                    src={pkg.image}
+                                    alt={pkg.name}
+                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                                />
                             ) : (
-                                <div className="text-sm text-slate-500">No image</div>
+                                <div className="w-full h-full flex items-center justify-center text-muted-foreground bg-muted/50">
+                                    <PackageIcon className="w-10 h-10 opacity-20" />
+                                </div>
                             )}
-                        </div>
-
-                        <div className="p-4">
-                            <div className="flex items-start justify-between gap-4">
-                                <div>
-                                    <h2 className="text-lg font-medium">{pkg.name}</h2>
-                                    <p className="text-sm text-slate-600 mt-1">
-                                        {pkg.type ?? "General"} · {pkg.location ?? "Unknown"}
-                                    </p>
-                                </div>
-
-                                <div className="text-right">
-                                    <div className="text-lg font-semibold">₹{pkg.price.toLocaleString()}</div>
-                                    <div className="text-xs text-slate-500">
-                                        {pkg.days}D · {pkg.nights}N
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="mt-3 text-sm text-slate-700">
-                                <strong className="text-sm">Inclusions:</strong>
-                                <ul className="list-disc ml-5 mt-1">
-                                    {pkg.inclusions.length ? (
-                                        pkg.inclusions.slice(0, 3).map((i) => <li key={i.id}>{i.item}</li>)
-                                    ) : (
-                                        <li className="text-slate-500">None</li>
-                                    )}
-                                </ul>
-                            </div>
-
-                            <div className="mt-3 text-sm text-slate-700">
-                                <strong className="text-sm">Exclusions:</strong>
-                                <ul className="list-disc ml-5 mt-1">
-                                    {pkg.exclusions.length ? (
-                                        pkg.exclusions.slice(0, 3).map((e) => <li key={e.id}>{e.item}</li>)
-                                    ) : (
-                                        <li className="text-slate-500">None</li>
-                                    )}
-                                </ul>
-                            </div>
-
-                            <div className="mt-3 text-sm text-slate-700">
-                                <strong className="text-sm">Itineraries:</strong>
-                                <div className="mt-2 space-y-2 max-h-36 overflow-auto pr-2">
-                                    {pkg.itineraries.length ? (
-                                        pkg.itineraries.map((it) => (
-                                            <div key={it.id} className="text-xs border rounded p-2 bg-gray-50">
-                                                <div className="flex items-center justify-between">
-                                                    <div className="font-medium">Day {it.dayNumber}</div>
-                                                </div>
-                                                <p className="text-xs mt-1 text-slate-600">
-                                                    {it.description?.slice(0, 120) ?? "—"}
-                                                </p>
-                                                {it.features.length ? (
-                                                    <div className="mt-2 text-xs text-slate-600">
-                                                        <strong className="text-xs">Features:</strong>{" "}
-                                                        {it.features.map((f) => f.item).slice(0, 5).join(", ")}
-                                                    </div>
-                                                ) : null}
-                                            </div>
-                                        ))
-                                    ) : (
-                                        <div className="text-xs text-slate-500">No itinerary</div>
-                                    )}
-                                </div>
-                            </div>
-
-                            <div className="mt-4 flex items-center gap-3">
-                                <Link
-                                    href={`/packages/${pkg.id}`}
-                                    className="px-3 py-1 rounded bg-white border text-sm"
-                                >
-                                    View
-                                </Link>
-
-                                <Link
-                                    href={`/packages/${pkg.id}/edit`}
-                                    className="px-3 py-1 rounded bg-yellow-100 border text-sm"
-                                >
-                                    Edit
-                                </Link>
-
-                                <DeleteButton id={pkg.id} />
+                            <div className="absolute top-4 right-4 z-20">
+                                <Badge variant="secondary" className="backdrop-blur-md bg-white/80 text-foreground shadow-sm">
+                                    {pkg.days}D / {pkg.nights}N
+                                </Badge>
                             </div>
                         </div>
-                    </article>
+
+                        <div className="space-y-1">
+                            <div className="flex justify-between items-start">
+                                <h3 className="text-lg font-bold leading-tight group-hover:text-primary transition-colors">
+                                    {pkg.name}
+                                </h3>
+                                <p className="font-semibold text-primary shrink-0">
+                                    ₹{Number(pkg.price).toLocaleString('en-IN')}
+                                </p>
+                            </div>
+
+                            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                <MapPin className="w-3.5 h-3.5" />
+                                <span className="truncate">{pkg.location || "Unknown Location"}</span>
+                            </div>
+
+                            <div className="pt-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-2 group-hover:translate-y-0">
+                                <Button variant="secondary" size="sm" className="w-full h-8 rounded-full" asChild>
+                                    <Link href={`/packages/${pkg.id}/edit`}>Edit Package</Link>
+                                </Button>
+                                <DeleteButton id={pkg.id} onDelete={deletePackageAction} itemType="package" className="h-8 w-8 rounded-full bg-white/80 hover:bg-destructive hover:text-white" />
+                            </div>
+                        </div>
+                    </Card>
                 ))}
             </div>
+
+            {packages.length === 0 && (
+                <div className="text-center py-20 border-2 border-dashed rounded-3xl bg-muted/30">
+                    <PackageIcon className="w-12 h-12 mx-auto text-muted-foreground/50 mb-4" />
+                    <h3 className="text-lg font-semibold">No packages found</h3>
+                    <p className="text-muted-foreground mb-6">Create your first travel package to get started.</p>
+                    <Link href="/packages/new">
+                        <Button>
+                            <PlusCircle className="w-4 h-4 mr-2" />
+                            Create Package
+                        </Button>
+                    </Link>
+                </div>
+            )}
         </div>
     );
 }
-
-/**
- * Client-side delete button component.
- * Calls DELETE /api/packages/[id] and reloads on success.
- *
- * Keeps this small & focused to avoid adding global client bundle size.
- */
