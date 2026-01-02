@@ -5,7 +5,7 @@ import { prisma } from "@/lib/db";
 export async function GET() {
   try {
     const destinations = await prisma.destinations.findMany({
-      include: { faqs: true, places: true },
+      include: { faqs: true, places: true, packages: true },
       orderBy: { createdAt: "desc" },
     });
     return NextResponse.json(destinations);
@@ -44,7 +44,10 @@ export async function POST(req: Request) {
         languagesSpoken,
         currency,
         faqs: {
-          create: (faqs || []).map((f: any) => ({ question: f.question, answer: f.answer })),
+          create: (faqs || []).map((f: any) => ({
+            question: f.question,
+            answer: f.answer,
+          })),
         },
       },
       include: { faqs: true },
