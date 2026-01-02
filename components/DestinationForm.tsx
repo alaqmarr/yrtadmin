@@ -21,7 +21,7 @@ interface FAQ {
 interface Place {
     name: string;
     description: string;
-    image?: string;
+    image?: string | null;
 }
 
 interface Props {
@@ -90,13 +90,16 @@ export default function DestinationForm({ id, initialData }: Props) {
             tag,
             title,
             description,
-            image,
+            image: image || undefined,
             country,
             visa,
             currency,
             languagesSpoken: languages,
             faqs: faqs.filter(f => f.question.trim()), // Filter empty
-            places: places.filter(p => p.name.trim()),
+            places: places.filter(p => p.name.trim()).map(p => ({
+                ...p,
+                image: p.image || undefined
+            })),
         };
 
         try {
