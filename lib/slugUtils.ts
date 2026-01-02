@@ -11,7 +11,7 @@ export function slugify(text: string): string {
 }
 
 export async function generateUniqueSlug(
-  model: "package" | "destinations",
+  model: "package" | "destinations" | "testimonial",
   name: string
 ): Promise<string> {
   let slug = slugify(name);
