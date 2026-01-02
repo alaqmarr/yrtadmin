@@ -104,10 +104,10 @@ export default async function PackagesPage({
                             </div>
 
                             <div className="pt-2 flex gap-2">
-                                <Button variant="secondary" size="sm" className="w-full h-8 rounded-full" asChild>
+                                <Button variant="secondary" size="sm" className="flex-1 h-8 rounded-full" asChild>
                                     <Link href={`/packages/${pkg.id}/edit`}>Edit Package</Link>
                                 </Button>
-                                <DeleteButton id={pkg.id} onDelete={deletePackageAction} itemType="package" className="h-8 w-8 rounded-full bg-white/80 hover:bg-destructive hover:text-white" />
+                                <DeleteButton id={pkg.id} onDelete={deletePackageAction} itemType="package" className="h-8 w-8 rounded-full border border-input bg-transparent hover:bg-destructive hover:text-white" />
                             </div>
                         </div>
                     </Card>
